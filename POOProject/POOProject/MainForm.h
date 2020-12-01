@@ -10,6 +10,7 @@ namespace POOProject {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace MySql::Data::MySqlClient;
 
 	/// <summary>
 	/// Description résumée de MainForm
@@ -238,7 +239,7 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 			this->buttonPersonnel->Name = L"buttonPersonnel";
 			this->buttonPersonnel->Size = System::Drawing::Size(119, 30);
 			this->buttonPersonnel->TabIndex = 0;
-			this->buttonPersonnel->Text = L"Peronnel";
+			this->buttonPersonnel->Text = L"Personnel";
 			this->buttonPersonnel->UseVisualStyleBackColor = true;
 			this->buttonPersonnel->Click += gcnew System::EventHandler(this, &MainForm::buttonPersonnel_Click);
 			// 
@@ -356,9 +357,9 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 				static_cast<System::Byte>(0)));
 			this->label5->Location = System::Drawing::Point(-1, 89);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(36, 19);
+			this->label5->Size = System::Drawing::Size(63, 19);
 			this->label5->TabIndex = 15;
-			this->label5->Text = L"Nom";
+			this->label5->Text = L"Prénom";
 			// 
 			// textBoxPersonnelPrenom
 			// 
@@ -381,6 +382,7 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 			this->buttonPersonnelRechercher->TabIndex = 13;
 			this->buttonPersonnelRechercher->Text = L"Rechercher";
 			this->buttonPersonnelRechercher->UseVisualStyleBackColor = true;
+			this->buttonPersonnelRechercher->Click += gcnew System::EventHandler(this, &MainForm::buttonPersonnelRechercher_Click);
 			// 
 			// buttonPersonnelSupprimer
 			// 
@@ -449,9 +451,9 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 				static_cast<System::Byte>(0)));
 			this->label2->Location = System::Drawing::Point(-1, 49);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(63, 19);
+			this->label2->Size = System::Drawing::Size(36, 19);
 			this->label2->TabIndex = 1;
-			this->label2->Text = L"Prénom";
+			this->label2->Text = L"Nom";
 			// 
 			// label3
 			// 
@@ -837,6 +839,100 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 		panelClients->Visible = false;
 		panelCommandes->Visible = false;
 		panelStock->Visible = false;
+
+		try {
+
+			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+			MySqlConnection^ con = gcnew MySqlConnection(constr);
+			MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ADRESSE as Adresse, DATE as 'Date Embauche', ID_SUPERIEUR as 'ID Supérieur' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+			DataTable^ dt = gcnew DataTable();
+			sda->Fill(dt);
+			bindingSource1->DataSource = dt;
+			dataGridView1->DataSource = bindingSource1;
+		}
+
+
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
+	}
+
+// -------------------------------------------------   bouton Rechercher  -----------------------------------------------------------------
+
+	private: System::Void buttonPersonnelRechercher_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		try {
+
+			int PersonnelID = Int32::Parse(textboxPersonnelID->Text);
+			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+			MySqlConnection^ con = gcnew MySqlConnection(constr);
+			MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ADRESSE as Adresse, DATE as 'Date Embauche', ID_SUPERIEUR as 'ID Supérieur' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.ID_PERSONNEL='" + PersonnelID + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+			DataTable^ dt = gcnew DataTable();
+			sda->Fill(dt);
+			bindingSource1->DataSource = dt;
+			dataGridView1->DataSource = bindingSource1;
+		}
+
+
+		catch (Exception^ ex)
+		{
+			if (textboxPersonnelNom->Text == "" && textBoxPersonnelPrenom->Text == "") {
+
+				MessageBox::Show("Entrez un ID ou le Nom et/ou le Prénom");
+			}
+			else if (textboxPersonnelNom->Text == ""){
+
+				try
+				{
+					String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+					MySqlConnection^ con = gcnew MySqlConnection(constr);
+					MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ADRESSE as Adresse, DATE as 'Date Embauche', ID_SUPERIEUR as 'ID Supérieur' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERPRENOM='" + textBoxPersonnelPrenom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+					DataTable^ dt = gcnew DataTable();
+					sda->Fill(dt);
+					bindingSource1->DataSource = dt;
+					dataGridView1->DataSource = bindingSource1;
+				}
+				catch (Exception^ ex)
+				{
+					MessageBox::Show(ex->Message);
+				}
+			}
+			else if (textBoxPersonnelPrenom->Text == "") {
+
+				try
+				{
+					String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+					MySqlConnection^ con = gcnew MySqlConnection(constr);
+					MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ADRESSE as Adresse, DATE as 'Date Embauche', ID_SUPERIEUR as 'ID Supérieur' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERNOM='" + textboxPersonnelNom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+					DataTable^ dt = gcnew DataTable();
+					sda->Fill(dt);
+					bindingSource1->DataSource = dt;
+					dataGridView1->DataSource = bindingSource1;
+				}
+				catch (Exception^ ex)
+				{
+					MessageBox::Show(ex->Message);
+				}
+			}
+			else {
+
+				try
+				{
+					String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+					MySqlConnection^ con = gcnew MySqlConnection(constr);
+					MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ADRESSE as Adresse, DATE as 'Date Embauche', ID_SUPERIEUR as 'ID Supérieur' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERNOM='" + textboxPersonnelNom->Text + "' AND PERSONNEL.PERPRENOM='" + textBoxPersonnelPrenom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+					DataTable^ dt = gcnew DataTable();
+					sda->Fill(dt);
+					bindingSource1->DataSource = dt;
+					dataGridView1->DataSource = bindingSource1;
+				}
+				catch (Exception^ ex)
+				{
+					MessageBox::Show(ex->Message);
+				}
+			}
+		}
 	}
 
 // -------------------------------------------------    bouton Ajouter    -----------------------------------------------------------------
