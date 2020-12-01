@@ -140,9 +140,9 @@ namespace POOProject {
 				static_cast<System::Byte>(0)));
 			this->label3->Location = System::Drawing::Point(12, 89);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(87, 20);
+			this->label3->Size = System::Drawing::Size(111, 20);
 			this->label3->TabIndex = 4;
-			this->label3->Text = L"Supérieur";
+			this->label3->Text = L"ID Supérieur";
 			// 
 			// label4
 			// 
