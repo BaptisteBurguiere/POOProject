@@ -1,4 +1,4 @@
-#include "MyForm.h"
+#include "ConnectionForm.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -8,6 +8,6 @@ void Main(array<String^>^ args) {
     Application::EnableVisualStyles();
     Application::SetCompatibleTextRenderingDefault(false);
     //WinformCDemo is your project name
-    POOProject::MyForm form;
+    POOProject::ConnectionForm form;
     Application::Run(% form);
 }
