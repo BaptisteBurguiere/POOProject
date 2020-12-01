@@ -126,6 +126,8 @@
     <ClCompile Include="BoutonsASMR.cpp" />
     <ClCompile Include="ConnectionForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="PersonnelAjouterForm.cpp" />
+    <ClCompile Include="PersonnelModifierForm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoutonsASMR.h" />
@@ -135,6 +137,12 @@
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="PersonnelAjouterForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="PersonnelModifierForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ConnectionForm.resx">
@@ -142,6 +150,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PersonnelAjouterForm.resx">
+      <DependentUpon>PersonnelAjouterForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PersonnelModifierForm.resx">
+      <DependentUpon>PersonnelModifierForm.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

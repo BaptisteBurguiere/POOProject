@@ -1,4 +1,6 @@
 #pragma once
+#include "PersonnelAjouterForm.h"
+#include "PersonnelModifierForm.h"
 
 namespace POOProject {
 
@@ -49,11 +51,13 @@ namespace POOProject {
 	private: System::Windows::Forms::Label^ label3;
 
 	private: System::Windows::Forms::Label^ label2;
-
-
-
-	private: System::Windows::Forms::TextBox^ textboxPersonnelPrenom;
 	private: System::Windows::Forms::TextBox^ textboxPersonnelNom;
+
+
+
+
+	private: System::Windows::Forms::TextBox^ textboxPersonnelID;
+
 
 
 	private: System::Windows::Forms::Button^ buttonPersonnelSupprimer;
@@ -133,6 +137,10 @@ namespace POOProject {
 	private: System::Windows::Forms::BindingSource^ bindingSource1;
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::TextBox^ textBox1;
+private: System::Windows::Forms::Label^ label5;
+private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
+
+
 	private: System::ComponentModel::IContainer^ components;
 
 
@@ -173,13 +181,16 @@ namespace POOProject {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->labelCategories = (gcnew System::Windows::Forms::Label());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->bindingSource1 = (gcnew System::Windows::Forms::BindingSource(this->components));
 			this->panelPersonnel = (gcnew System::Windows::Forms::Panel());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->textBoxPersonnelPrenom = (gcnew System::Windows::Forms::TextBox());
 			this->buttonPersonnelRechercher = (gcnew System::Windows::Forms::Button());
 			this->buttonPersonnelSupprimer = (gcnew System::Windows::Forms::Button());
 			this->buttonPersonnelModifier = (gcnew System::Windows::Forms::Button());
 			this->buttonPersonnelAjouter = (gcnew System::Windows::Forms::Button());
-			this->textboxPersonnelPrenom = (gcnew System::Windows::Forms::TextBox());
 			this->textboxPersonnelNom = (gcnew System::Windows::Forms::TextBox());
+			this->textboxPersonnelID = (gcnew System::Windows::Forms::TextBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->panelClients = (gcnew System::Windows::Forms::Panel());
@@ -201,21 +212,20 @@ namespace POOProject {
 			this->textBoxCommandesRef = (gcnew System::Windows::Forms::TextBox());
 			this->label20 = (gcnew System::Windows::Forms::Label());
 			this->panelStock = (gcnew System::Windows::Forms::Panel());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->buttonStockRechercher = (gcnew System::Windows::Forms::Button());
 			this->buttonStockSupprimer = (gcnew System::Windows::Forms::Button());
 			this->buttonStockModifier = (gcnew System::Windows::Forms::Button());
 			this->buttonStockAjouter = (gcnew System::Windows::Forms::Button());
 			this->textBoxStockRef = (gcnew System::Windows::Forms::TextBox());
 			this->label37 = (gcnew System::Windows::Forms::Label());
-			this->bindingSource1 = (gcnew System::Windows::Forms::BindingSource(this->components));
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->label4 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bindingSource1))->BeginInit();
 			this->panelPersonnel->SuspendLayout();
 			this->panelClients->SuspendLayout();
 			this->panelCommandes->SuspendLayout();
 			this->panelStock->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bindingSource1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// buttonPersonnel
@@ -311,27 +321,53 @@ namespace POOProject {
 			// 
 			// dataGridView1
 			// 
+			this->dataGridView1->AllowUserToAddRows = false;
+			this->dataGridView1->AllowUserToDeleteRows = false;
+			this->dataGridView1->AllowUserToOrderColumns = true;
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Location = System::Drawing::Point(282, 64);
+			this->dataGridView1->Location = System::Drawing::Point(288, 66);
 			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->Size = System::Drawing::Size(815, 653);
+			this->dataGridView1->ReadOnly = true;
+			this->dataGridView1->Size = System::Drawing::Size(815, 266);
 			this->dataGridView1->TabIndex = 10;
 			// 
 			// panelPersonnel
 			// 
+			this->panelPersonnel->Controls->Add(this->label5);
+			this->panelPersonnel->Controls->Add(this->textBoxPersonnelPrenom);
 			this->panelPersonnel->Controls->Add(this->buttonPersonnelRechercher);
 			this->panelPersonnel->Controls->Add(this->buttonPersonnelSupprimer);
 			this->panelPersonnel->Controls->Add(this->buttonPersonnelModifier);
 			this->panelPersonnel->Controls->Add(this->buttonPersonnelAjouter);
-			this->panelPersonnel->Controls->Add(this->textboxPersonnelPrenom);
 			this->panelPersonnel->Controls->Add(this->textboxPersonnelNom);
+			this->panelPersonnel->Controls->Add(this->textboxPersonnelID);
 			this->panelPersonnel->Controls->Add(this->label2);
 			this->panelPersonnel->Controls->Add(this->label3);
 			this->panelPersonnel->Location = System::Drawing::Point(15, 110);
 			this->panelPersonnel->Name = L"panelPersonnel";
-			this->panelPersonnel->Size = System::Drawing::Size(263, 187);
+			this->panelPersonnel->Size = System::Drawing::Size(263, 222);
 			this->panelPersonnel->TabIndex = 11;
 			this->panelPersonnel->Visible = false;
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Font = (gcnew System::Drawing::Font(L"Consolas", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label5->Location = System::Drawing::Point(-1, 89);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(36, 19);
+			this->label5->TabIndex = 15;
+			this->label5->Text = L"Nom";
+			// 
+			// textBoxPersonnelPrenom
+			// 
+			this->textBoxPersonnelPrenom->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->textBoxPersonnelPrenom->Location = System::Drawing::Point(81, 87);
+			this->textBoxPersonnelPrenom->Name = L"textBoxPersonnelPrenom";
+			this->textBoxPersonnelPrenom->Size = System::Drawing::Size(179, 25);
+			this->textBoxPersonnelPrenom->TabIndex = 14;
 			// 
 			// buttonPersonnelRechercher
 			// 
@@ -339,7 +375,7 @@ namespace POOProject {
 			this->buttonPersonnelRechercher->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonPersonnelRechercher->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonPersonnelRechercher->Location = System::Drawing::Point(164, 87);
+			this->buttonPersonnelRechercher->Location = System::Drawing::Point(164, 130);
 			this->buttonPersonnelRechercher->Name = L"buttonPersonnelRechercher";
 			this->buttonPersonnelRechercher->Size = System::Drawing::Size(96, 27);
 			this->buttonPersonnelRechercher->TabIndex = 13;
@@ -352,12 +388,13 @@ namespace POOProject {
 			this->buttonPersonnelSupprimer->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonPersonnelSupprimer->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonPersonnelSupprimer->Location = System::Drawing::Point(168, 152);
+			this->buttonPersonnelSupprimer->Location = System::Drawing::Point(171, 187);
 			this->buttonPersonnelSupprimer->Name = L"buttonPersonnelSupprimer";
 			this->buttonPersonnelSupprimer->Size = System::Drawing::Size(89, 27);
 			this->buttonPersonnelSupprimer->TabIndex = 12;
 			this->buttonPersonnelSupprimer->Text = L"Supprimer";
 			this->buttonPersonnelSupprimer->UseVisualStyleBackColor = true;
+			this->buttonPersonnelSupprimer->Click += gcnew System::EventHandler(this, &MainForm::buttonPersonnelSupprimer_Click);
 			// 
 			// buttonPersonnelModifier
 			// 
@@ -365,12 +402,13 @@ namespace POOProject {
 			this->buttonPersonnelModifier->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonPersonnelModifier->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonPersonnelModifier->Location = System::Drawing::Point(81, 152);
+			this->buttonPersonnelModifier->Location = System::Drawing::Point(84, 187);
 			this->buttonPersonnelModifier->Name = L"buttonPersonnelModifier";
 			this->buttonPersonnelModifier->Size = System::Drawing::Size(81, 27);
 			this->buttonPersonnelModifier->TabIndex = 11;
 			this->buttonPersonnelModifier->Text = L"Modifier";
 			this->buttonPersonnelModifier->UseVisualStyleBackColor = true;
+			this->buttonPersonnelModifier->Click += gcnew System::EventHandler(this, &MainForm::buttonPersonnelModifier_Click);
 			// 
 			// buttonPersonnelAjouter
 			// 
@@ -378,30 +416,31 @@ namespace POOProject {
 			this->buttonPersonnelAjouter->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonPersonnelAjouter->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonPersonnelAjouter->Location = System::Drawing::Point(3, 152);
+			this->buttonPersonnelAjouter->Location = System::Drawing::Point(6, 187);
 			this->buttonPersonnelAjouter->Name = L"buttonPersonnelAjouter";
 			this->buttonPersonnelAjouter->Size = System::Drawing::Size(72, 27);
 			this->buttonPersonnelAjouter->TabIndex = 10;
 			this->buttonPersonnelAjouter->Text = L"Ajouter";
 			this->buttonPersonnelAjouter->UseVisualStyleBackColor = true;
-			// 
-			// textboxPersonnelPrenom
-			// 
-			this->textboxPersonnelPrenom->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->textboxPersonnelPrenom->Location = System::Drawing::Point(81, 47);
-			this->textboxPersonnelPrenom->Name = L"textboxPersonnelPrenom";
-			this->textboxPersonnelPrenom->Size = System::Drawing::Size(179, 25);
-			this->textboxPersonnelPrenom->TabIndex = 6;
+			this->buttonPersonnelAjouter->Click += gcnew System::EventHandler(this, &MainForm::buttonPersonnelAjouter_Click);
 			// 
 			// textboxPersonnelNom
 			// 
 			this->textboxPersonnelNom->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textboxPersonnelNom->Location = System::Drawing::Point(81, 9);
+			this->textboxPersonnelNom->Location = System::Drawing::Point(81, 47);
 			this->textboxPersonnelNom->Name = L"textboxPersonnelNom";
 			this->textboxPersonnelNom->Size = System::Drawing::Size(179, 25);
-			this->textboxPersonnelNom->TabIndex = 5;
+			this->textboxPersonnelNom->TabIndex = 6;
+			// 
+			// textboxPersonnelID
+			// 
+			this->textboxPersonnelID->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->textboxPersonnelID->Location = System::Drawing::Point(81, 9);
+			this->textboxPersonnelID->Name = L"textboxPersonnelID";
+			this->textboxPersonnelID->Size = System::Drawing::Size(179, 25);
+			this->textboxPersonnelID->TabIndex = 5;
 			// 
 			// label2
 			// 
@@ -421,9 +460,9 @@ namespace POOProject {
 				static_cast<System::Byte>(0)));
 			this->label3->Location = System::Drawing::Point(-1, 11);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(36, 19);
+			this->label3->Size = System::Drawing::Size(27, 19);
 			this->label3->TabIndex = 0;
-			this->label3->Text = L"Nom";
+			this->label3->Text = L"ID";
 			// 
 			// panelClients
 			// 
@@ -657,6 +696,26 @@ namespace POOProject {
 			this->panelStock->TabIndex = 27;
 			this->panelStock->Visible = false;
 			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Font = (gcnew System::Drawing::Font(L"Consolas", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label4->Location = System::Drawing::Point(-1, 55);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(36, 19);
+			this->label4->TabIndex = 19;
+			this->label4->Text = L"Nom";
+			// 
+			// textBox1
+			// 
+			this->textBox1->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->textBox1->Location = System::Drawing::Point(95, 49);
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->Size = System::Drawing::Size(165, 25);
+			this->textBox1->TabIndex = 18;
+			// 
 			// buttonStockRechercher
 			// 
 			this->buttonStockRechercher->FlatAppearance->BorderSize = 0;
@@ -729,31 +788,11 @@ namespace POOProject {
 			this->label37->TabIndex = 0;
 			this->label37->Text = L"Référence";
 			// 
-			// textBox1
-			// 
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->textBox1->Location = System::Drawing::Point(95, 49);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(165, 25);
-			this->textBox1->TabIndex = 18;
-			// 
-			// label4
-			// 
-			this->label4->AutoSize = true;
-			this->label4->Font = (gcnew System::Drawing::Font(L"Consolas", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label4->Location = System::Drawing::Point(-1, 55);
-			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(36, 19);
-			this->label4->TabIndex = 19;
-			this->label4->Text = L"Nom";
-			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1109, 733);
+			this->ClientSize = System::Drawing::Size(1109, 341);
 			this->Controls->Add(this->panelStock);
 			this->Controls->Add(this->panelCommandes);
 			this->Controls->Add(this->panelClients);
@@ -769,6 +808,7 @@ namespace POOProject {
 			this->Name = L"MainForm";
 			this->Text = L"MainForm";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bindingSource1))->EndInit();
 			this->panelPersonnel->ResumeLayout(false);
 			this->panelPersonnel->PerformLayout();
 			this->panelClients->ResumeLayout(false);
@@ -777,14 +817,19 @@ namespace POOProject {
 			this->panelCommandes->PerformLayout();
 			this->panelStock->ResumeLayout(false);
 			this->panelStock->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bindingSource1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
 
-		// PERSONNEL
+// ========================================================================================================================================
+// =================================================      PERSONNEL      ==================================================================
+// ========================================================================================================================================
+
+
+// -------------------------------------------------   bouton Principal   -----------------------------------------------------------------
+
 	private: System::Void buttonPersonnel_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		labelCategories->Text = "Personnel";
@@ -794,7 +839,62 @@ namespace POOProject {
 		panelStock->Visible = false;
 	}
 
-		   // CLIENTS
+// -------------------------------------------------    bouton Ajouter    -----------------------------------------------------------------
+
+	private: System::Void buttonPersonnelAjouter_Click(System:: Object ^ sender, System::EventArgs^ e) {
+
+		PersonnelAjouterForm^ pa = gcnew PersonnelAjouterForm();
+		pa->ShowDialog();
+	}
+
+// -------------------------------------------------   bouton Modifier    -----------------------------------------------------------------
+
+	private: System::Void buttonPersonnelModifier_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		try
+		{
+			int PersonnelID = Int32::Parse(textboxPersonnelID->Text);
+			PersonnelModifierForm^ pm = gcnew PersonnelModifierForm(textboxPersonnelNom->Text, textBoxPersonnelPrenom->Text);
+			pm->ShowDialog();
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show("Entrez l'ID du personnel à modifier", "Erreur");
+		}
+	}
+
+// -------------------------------------------------   bouton Supprimer   -----------------------------------------------------------------
+
+	private: System::Void buttonPersonnelSupprimer_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		try
+		{
+			int PersonnelID = Int32::Parse(textboxPersonnelID->Text);
+			MessageBoxButtons buttons = MessageBoxButtons::OKCancel;
+			String^ message = "Voulez vous vraiment supprimer ce personnel ?";
+			String^ title = "Confirmation";
+
+			if (MessageBox::Show(message, title, buttons) == System::Windows::Forms::DialogResult::OK) {
+
+				MessageBox::Show("Personnel supprimé");
+			}
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show("Entrez l'ID du personnel à supprimer", "Erreur");
+		}
+	}
+
+
+
+
+// ==========================================================================================================================================
+// ================================================       CLIENTS       =====================================================================
+// ==========================================================================================================================================
+
+
+// ------------------------------------------------   bouton Principal   --------------------------------------------------------------------
+
 	private: System::Void buttonClients_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		labelCategories->Text = "Clients";
@@ -804,7 +904,16 @@ namespace POOProject {
 		panelStock->Visible = false;
 	}
 
-		   // COMMANDES
+
+
+
+// ==========================================================================================================================================
+// ================================================      COMMANDES     ======================================================================
+// ==========================================================================================================================================
+
+
+// -----------------------------------------------   bouton Principal   ---------------------------------------------------------------------
+
 	private: System::Void buttonCommandes_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		labelCategories->Text = "Commandes";
@@ -814,7 +923,16 @@ namespace POOProject {
 		panelStock->Visible = false;
 	}
 
-		   // STOCK
+
+
+
+// ==========================================================================================================================================
+// ================================================       STOCK       =======================================================================
+// ==========================================================================================================================================
+
+
+// -----------------------------------------------   bouton Principal   ---------------------------------------------------------------------
+
 	private: System::Void buttonStock_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		labelCategories->Text = "Stock";
@@ -824,5 +942,5 @@ namespace POOProject {
 		panelStock->Visible = true;
 	}
 
-	};
+};
 }
