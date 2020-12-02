@@ -123,14 +123,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BoutonsASMR.cpp" />
+    <ClCompile Include="ClassCat.cpp" />
     <ClCompile Include="ConnectionForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="PersonnelAjouterForm.cpp" />
     <ClCompile Include="PersonnelModifierForm.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BoutonsASMR.h" />
+    <ClInclude Include="ClassCat.h" />
     <ClInclude Include="ConnectionForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>

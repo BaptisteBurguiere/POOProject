@@ -248,7 +248,45 @@ private: System::Void buttonAjouter_Click(System::Object^ sender, System::EventA
 	}
 	else {
 
-		MessageBox::Show("Personnel ajouté.");
+		try
+		{
+			String^ constr = "Server=127.0.0.1;Uid=root;Pwd=;Database=workshop5";
+			MySqlConnection^ con = gcnew MySqlConnection(constr);
+			MySqlCommand^ cmd = gcnew MySqlCommand("INSERT INTO DATE SELECT ID_DATE='', DATE='" + date + "' FROM DATE WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + date + "')", con);
+			MySqlDataReader^ dr;
+			con->Open();
+			dr = cmd->ExecuteReader();
+
+			try
+			{
+				String^ constr = "Server=127.0.0.1;Uid=root;Pwd=;Database=workshop5";
+				MySqlConnection^ con = gcnew MySqlConnection(constr);
+				MySqlCommand^ cmd = gcnew MySqlCommand("INSERT INTO ADRESSE SELECT ID_ADRESSE='', ADRESSE='" + adresse + "' FROM ADRESSE WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + date + "')", con);
+				MySqlDataReader^ dr;
+				con->Open();
+				dr = cmd->ExecuteReader();
+
+				try
+				{
+
+
+
+					MessageBox::Show("Personnel ajouté.");
+				}
+				catch (Exception^ ex)
+				{
+					MessageBox::Show(ex->Message);
+				}
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
 		this->Hide();
 	}
 }
