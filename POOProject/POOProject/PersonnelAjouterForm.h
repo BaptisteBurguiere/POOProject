@@ -1,13 +1,16 @@
 #pragma once
+#include "ClassCat.h"
 
 namespace POOProject {
 
+	using namespace ClassCat;
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace MySql::Data::MySqlClient;
 
 	/// <summary>
 	/// Description résumée de PersonnelAjouterForm
@@ -195,6 +198,7 @@ namespace POOProject {
 			this->textBoxAdresse->Name = L"textBoxAdresse";
 			this->textBoxAdresse->Size = System::Drawing::Size(316, 25);
 			this->textBoxAdresse->TabIndex = 10;
+			this->textBoxAdresse->Text = "numéroRue nomRue, ville, codePostal";
 			// 
 			// textBoxDate
 			// 
@@ -204,6 +208,7 @@ namespace POOProject {
 			this->textBoxDate->Name = L"textBoxDate";
 			this->textBoxDate->Size = System::Drawing::Size(316, 25);
 			this->textBoxDate->TabIndex = 11;
+			this->textBoxDate->Text = "AAAA-MM-JJ";
 			// 
 			// PersonnelAjouterForm
 			// 
@@ -248,45 +253,9 @@ private: System::Void buttonAjouter_Click(System::Object^ sender, System::EventA
 	}
 	else {
 
-		try
-		{
-			String^ constr = "Server=127.0.0.1;Uid=root;Pwd=;Database=workshop5";
-			MySqlConnection^ con = gcnew MySqlConnection(constr);
-			MySqlCommand^ cmd = gcnew MySqlCommand("INSERT INTO DATE SELECT ID_DATE='', DATE='" + date + "' FROM DATE WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + date + "')", con);
-			MySqlDataReader^ dr;
-			con->Open();
-			dr = cmd->ExecuteReader();
+		Personnel monPersonnel(nom, prenom, superieur, adresse, date);
+		monPersonnel.Ajouter();
 
-			try
-			{
-				String^ constr = "Server=127.0.0.1;Uid=root;Pwd=;Database=workshop5";
-				MySqlConnection^ con = gcnew MySqlConnection(constr);
-				MySqlCommand^ cmd = gcnew MySqlCommand("INSERT INTO ADRESSE SELECT ID_ADRESSE='', ADRESSE='" + adresse + "' FROM ADRESSE WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + date + "')", con);
-				MySqlDataReader^ dr;
-				con->Open();
-				dr = cmd->ExecuteReader();
-
-				try
-				{
-
-
-
-					MessageBox::Show("Personnel ajouté.");
-				}
-				catch (Exception^ ex)
-				{
-					MessageBox::Show(ex->Message);
-				}
-			}
-			catch (Exception^ ex)
-			{
-				MessageBox::Show(ex->Message);
-			}
-		}
-		catch (Exception^ ex)
-		{
-			MessageBox::Show(ex->Message);
-		}
 		this->Hide();
 	}
 }

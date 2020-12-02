@@ -1,155 +1,147 @@
 #pragma once
 
-#ifndef DEF_CLASSCAT
-#define DEF_CLASSCAT
+namespace ClassCat {
 
-#include<string>
+	using namespace System;
+	using namespace System::ComponentModel;
+	using namespace System::Collections;
+	using namespace System::Windows::Forms;
+	using namespace System::Data;
+	using namespace System::Drawing;
+	using namespace MySql::Data::MySqlClient;
 
-using namespace std;
+	ref class Categorie
+	{
+	public:
 
-class Categorie
-{
-public:
+		Categorie();
 
-	Categorie();
-	virtual void Ajouter();
-	virtual void Modifier();
-	virtual void Supprimer();
-	virtual void Rechercher();
+	protected:
 
-
-protected:
-
-	string b_adrBDD;
-
-};
+		String^ adrBDD;
+	};
 
 
 
 
-// ====================================================================================================================================
-// ======================================================       PERSONNEL      ========================================================
-// ====================================================================================================================================
+	// ====================================================================================================================================
+	// ======================================================       PERSONNEL      ========================================================
+	// ====================================================================================================================================
 
 
-class Personnel : public Categorie {
+	ref class Personnel : public Categorie {
 
-public:
+	public:
 
-	Personnel(int ID);
-	Personnel(int ID, string nom, string prenom);
-	Personnel(int ID, string nom, string prenom, string superieur, string adresse, string date);
-	void Ajouter();
-	void Modifier();
-	void Supprimer();
-	void Rechercher();
-
-
-protected:
-
-	int p_ID;
-	string p_nom;
-	string p_prenom;
-	string p_superieur;
-	string p_adresse;
-	string p_date;
-};
+		Personnel(int ID);
+		Personnel(String^ nom, String^ prenom);
+		Personnel(String^ nom, String^ prenom, String^ superieur, String^ adresse, String^ date);
+		void Ajouter();
+		void Modifier();
+		void Supprimer();
 
 
+	protected:
 
-
-// ====================================================================================================================================
-// =======================================================       CLIENTS      =========================================================
-// ====================================================================================================================================
-
-
-class Client : public Categorie {
-
-public:
-
-	Client(int num);
-	Client(int num, string nom, string prenom);
-	Client(int num, string nom, string prenom, string adrFact, string adrLiv, string dateNaissance, string date1achat);
-	void Ajouter();
-	void Modifier();
-	void Supprimer();
-	void Rechercher();
-
-protected:
-
-	int c_num;
-	string c_nom;
-	string c_prenom;
-	string c_adrFact;
-	string c_adrLiv;
-	string c_dateNaissance;
-	string c_date1achat;
-};
+		int p_ID;
+		String^ p_nom;
+		String^ p_prenom;
+		String^ p_superieur;
+		String^ p_adresse;
+		String^ p_date;
+	};
 
 
 
 
-// ====================================================================================================================================
-// =======================================================       COMMANDES      =======================================================
-// ====================================================================================================================================
+	// ====================================================================================================================================
+	// =======================================================       CLIENTS      =========================================================
+	// ====================================================================================================================================
 
 
-class Commande : public Categorie {
+	ref class Client : public Categorie {
 
-public:
+	public:
 
-	Commande(string ref);
-	Commande(string ref, string dateLiv, string dateEmi, string datePaie, string moyPaie, string dateReg, int refArt, int quantiteArt, int totalArt, float totalHT, float totalTVA, float totalTTC);
-	void Ajouter();
-	void Modifier();
-	void Supprimer();
-	void Rechercher();
+		Client(int num);
+		Client(int num, String^ nom, String^ prenom);
+		Client(int num, String^ nom, String^ prenom, String^ adrFact, String^ adrLiv, String^ dateNaissance, String^ date1achat);
+		void Ajouter();
+		void Modifier();
+		void Supprimer();
 
-protected:
+	protected:
 
-	string co_ref;
-	string co_dateLiv;
-	string co_dateEmi;
-	string co_datePaie;
-	string co_moyPaie;
-	string co_dateReg;
-	int co_refArt;
-	int co_quantiteArt;
-	int co_totalArt;
-	float co_totalHT;
-	float co_totalTVA;
-	float co_totalTTC;
-};
+		int c_num;
+		String^ c_nom;
+		String^ c_prenom;
+		String^ c_adrFact;
+		String^ c_adrLiv;
+		String^ c_dateNaissance;
+		String^ c_date1achat;
+	};
 
 
 
 
-// ====================================================================================================================================
-// =======================================================        STOCK       =========================================================
-// ====================================================================================================================================
+	// ====================================================================================================================================
+	// =======================================================       COMMANDES      =======================================================
+	// ====================================================================================================================================
 
 
-class Stock : public Categorie {
+	ref class Commande : public Categorie {
 
-public:
+	public:
 
-	Stock(string ref);
-	Stock(string desi, int tst);
-	Stock(string ref, string desi, float prixHT, float tauxTVA, int quantiteStock, int seuilReapro, string couleur);
-	void Ajouter();
-	void Modifier();
-	void Supprimer();
-	void Rechercher();
+		Commande(String^ ref);
+		Commande(String^ ref, String^ dateLiv, String^ dateEmi, String^ datePaie, String^ moyPaie, String^ dateReg, int refArt, int quantiteArt, int totalArt, float totalHT, float totalTVA, float totalTTC);
+		void Ajouter();
+		void Modifier();
+		void Supprimer();
 
-protected:
+	protected:
 
-	string s_ref;
-	string s_desi;
-	float s_prixHT;
-	float s_tauxTva;
-	int s_quantiteStock;
-	int s_seuilReapro;
-	string s_couleur;
-};
+		String^ co_ref;
+		String^ co_dateLiv;
+		String^ co_dateEmi;
+		String^ co_datePaie;
+		String^ co_moyPaie;
+		String^ co_dateReg;
+		int co_refArt;
+		int co_quantiteArt;
+		int co_totalArt;
+		float co_totalHT;
+		float co_totalTVA;
+		float co_totalTTC;
+	};
 
-#endif
+
+
+
+	// ====================================================================================================================================
+	// =======================================================        STOCK       =========================================================
+	// ====================================================================================================================================
+
+
+	ref class Stock : public Categorie {
+
+	public:
+
+		Stock(String^ ref);
+		Stock(String^ desi, int tst);
+		Stock(String^ ref, String^ desi, float prixHT, float tauxTVA, int quantiteStock, int seuilReapro, String^ couleur);
+		void Ajouter();
+		void Modifier();
+		void Supprimer();
+
+	protected:
+
+		String^ s_ref;
+		String^ s_desi;
+		float s_prixHT;
+		float s_tauxTva;
+		int s_quantiteStock;
+		int s_seuilReapro;
+		String^ s_couleur;
+	};
+}

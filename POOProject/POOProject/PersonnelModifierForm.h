@@ -1,7 +1,9 @@
 #pragma once
+#include "ClassCat.h"
 
 namespace POOProject {
 
+	using namespace ClassCat;
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -15,20 +17,41 @@ namespace POOProject {
 	public ref class PersonnelModifierForm : public System::Windows::Forms::Form
 	{
 	public:
-		PersonnelModifierForm(String^ nom, String^ prenom)
+		PersonnelModifierForm(int ID)
 		{
 			InitializeComponent();
-			this->nom = nom;
-			this->prenom = prenom;
+			try {
 
-			textBoxNom->Text = this->nom;
-			textBoxPrenom->Text = this->prenom;
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				MySqlConnection^ con = gcnew MySqlConnection(constr);
+
+				MySqlCommand^ cmd = gcnew MySqlCommand("SELECT PERNOM, PERPRENOM, ADRESSE, DATE, ID_SUPERIEUR FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.ID_PERSONNEL='" + ID + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+				MySqlDataReader^ dr;
+				con->Open();
+				dr = cmd->ExecuteReader();
+
+				while (dr->Read()) {
+
+					textBoxNom->Text = dr->GetString(0);
+					textBoxPrenom->Text = dr->GetString(1);
+					textBoxAdresse->Text = dr->GetString(2);
+					textBoxDate->Text = dr->GetString(3);
+					textBoxSuperieur->Text = dr->GetString(4);
+					
+				}
+
+				con->Close();
+			}
+
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
 		}
 
 	protected:
 
-		String^ nom;
-		String^ prenom;
+		int ID;
 
 	protected:
 		/// <summary>
@@ -98,6 +121,7 @@ namespace POOProject {
 			this->buttonAjouter->TabIndex = 0;
 			this->buttonAjouter->Text = L"Modifier";
 			this->buttonAjouter->UseVisualStyleBackColor = true;
+			this->buttonAjouter->Click += gcnew System::EventHandler(this, &PersonnelModifierForm::buttonAjouter_Click);
 			// 
 			// buttonAnnuler
 			// 
@@ -239,5 +263,26 @@ namespace POOProject {
 
 		this->Hide();
 	}
-	};
+
+	private: System::Void buttonAjouter_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		String^ nom = textBoxNom->Text;
+		String^ prenom = textBoxPrenom->Text;
+		String^ superieur = textBoxSuperieur->Text;
+		String^ adresse = textBoxAdresse->Text;
+		String^ date = textBoxDate->Text;
+
+		if (nom == "" || prenom == "" || superieur == "" || adresse == "" || date == "") {
+
+			MessageBox::Show("Remplissez tous les champs !", "Erreur");
+		}
+		else {
+
+			Personnel monPersonnel(nom, prenom, superieur, adresse, date);
+			monPersonnel.Modifier();
+
+			this->Hide();
+		}
+	}
+};
 }

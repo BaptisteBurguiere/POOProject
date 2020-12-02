@@ -1,296 +1,284 @@
 #include "ClassCat.h"
-#include "MainForm.h"
-#include<string>
 
-using namespace std;
+using namespace System;
+using namespace System::ComponentModel;
+using namespace System::Collections;
+using namespace System::Windows::Forms;
+using namespace System::Data;
+using namespace System::Drawing;
+using namespace MySql::Data::MySqlClient;
 
-Categorie::Categorie() {
+namespace ClassCat {
 
-	b_adrBDD = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
-}
+	Categorie::Categorie() {
 
-void Categorie::Ajouter() {
+		adrBDD = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+	}
 
-	// Méthode virtuelle pure
-}
 
-void Categorie::Modifier() {
 
-	// Méthode virtuelle pure
-}
 
-void Categorie::Supprimer() {
+	// ====================================================================================================================================
+	// ======================================================       PERSONNEL       =======================================================
+	// ====================================================================================================================================
 
-	// Méthode virtuelle pure
-}
 
-void Categorie::Rechercher() {
+	// -------------------------------------------------------    Constructeurs    --------------------------------------------------------
 
-	// Méthode virtuelle pure
-}
+	Personnel::Personnel(int ID) {
 
+		p_ID = ID;
+	}
 
+	Personnel::Personnel(String^ nom, String^ prenom) {
 
+		p_nom = nom;
+		p_prenom = prenom;
+	}
 
-// ====================================================================================================================================
-// ======================================================       PERSONNEL       =======================================================
-// ====================================================================================================================================
+	Personnel::Personnel(String^ nom, String^ prenom, String^ superieur, String^ adresse, String^ date) {
 
+		p_nom = nom;
+		p_prenom = prenom;
+		p_superieur = superieur;
+		p_adresse = adresse;
+		p_date = date;
+	}
 
-// -------------------------------------------------------    Constructeurs    --------------------------------------------------------
 
-Personnel::Personnel(int ID) {
+	// -------------------------------------------------------       Ajouter       --------------------------------------------------------
 
-	Categorie();
-	p_ID = ID;
-}
+	void Personnel::Ajouter() {
 
-Personnel::Personnel(int ID, string nom, string prenom) {
+		try
+		{
+			MySqlConnection^ con = gcnew MySqlConnection(adrBDD);
+			MySqlCommand^ cmd = gcnew MySqlCommand("INSERT INTO DATE(ID_DATE, DATE) SELECT '','" + p_date + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + p_date + "')", con);
+			MySqlDataReader^ dr;
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
 
-	Categorie();
-	p_ID = ID;
-	p_nom = nom;
-	p_prenom = prenom;
-}
+			try
+			{
+				MySqlConnection^ con = gcnew MySqlConnection(adrBDD);
+				MySqlCommand^ cmd = gcnew MySqlCommand("INSERT INTO ADRESSE(ID_ADRESSE, DATE) SELECT '','" + p_adresse + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + p_adresse + "')", con);
+				MySqlDataReader^ dr;
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
 
-Personnel::Personnel(int ID, string nom, string prenom, string superieur, string adresse, string date) {
+				try
+				{
 
-	Categorie();
-	p_ID = ID;
-	p_nom = nom;
-	p_prenom = prenom;
-	p_superieur = superieur;
-	p_adresse = adresse;
-	p_date = date;
-}
 
 
-// -------------------------------------------------------       Ajouter       --------------------------------------------------------
+					MessageBox::Show("Personnel ajouté.");
+				}
+				catch (Exception^ ex)
+				{
+					MessageBox::Show(ex->Message);
+				}
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
+	}
 
-void Personnel::Ajouter() {
 
-	// TODO
-}
+	// -------------------------------------------------------       Modifier       -------------------------------------------------------
 
+	void Personnel::Modifier() {
 
-// -------------------------------------------------------       Modifier       -------------------------------------------------------
+		//TODO
+	}
 
-void Personnel::Modifier() {
 
-	//TODO
-}
+	// -------------------------------------------------------      Supprimer     ---------------------------------------------------------
 
+	void Personnel::Supprimer() {
 
-// -------------------------------------------------------      Supprimer     ---------------------------------------------------------
+		//TODO
+	}
 
-void Personnel::Supprimer() {
 
-	//TODO
-}
 
 
-// -------------------------------------------------------     Rechercher     ---------------------------------------------------------
+	// ====================================================================================================================================
+	// ======================================================        CLIENT        ========================================================
+	// ====================================================================================================================================
 
-void Personnel::Rechercher() {
 
-	// TODO
-}
+	// -------------------------------------------------------    Constructeurs    --------------------------------------------------------
 
+	Client::Client(int num) {
 
+		Categorie();
+		c_num = num;
+	}
 
+	Client::Client(int num, String^ nom, String^ prenom) {
 
-// ====================================================================================================================================
-// ======================================================        CLIENT        ========================================================
-// ====================================================================================================================================
+		Categorie();
+		c_num = num;
+		c_nom = nom;
+		c_prenom = prenom;
+	}
 
+	Client::Client(int num, String^ nom, String^ prenom, String^ adrFact, String^ adrLiv, String^ dateNaissance, String^ date1achat) {
 
-// -------------------------------------------------------    Constructeurs    --------------------------------------------------------
+		Categorie();
+		c_num = num;
+		c_nom = nom;
+		c_prenom = prenom;
+		c_adrFact = adrFact;
+		c_adrLiv = adrLiv;
+		c_dateNaissance = dateNaissance;
+		c_date1achat = date1achat;
+	}
 
-Client::Client(int num) {
 
-	Categorie();
-	c_num = num;
-}
+	// -------------------------------------------------------       Ajouter       --------------------------------------------------------
 
-Client::Client(int num, string nom, string prenom) {
+	void Client::Ajouter() {
 
-	Categorie();
-	c_num = num;
-	c_nom = nom;
-	c_prenom = prenom;
-}
+		// TODO
+	}
 
-Client::Client(int num, string nom, string prenom, string adrFact, string adrLiv, string dateNaissance, string date1achat) {
 
-	Categorie();
-	c_num = num;
-	c_nom = nom;
-	c_prenom = prenom;
-	c_adrFact = adrFact;
-	c_adrLiv = adrLiv;
-	c_dateNaissance = dateNaissance;
-	c_date1achat = date1achat;
-}
+	// -------------------------------------------------------       Modifier       -------------------------------------------------------
 
+	void Client::Modifier() {
 
-// -------------------------------------------------------       Ajouter       --------------------------------------------------------
+		//TODO
+	}
 
-void Client::Ajouter() {
 
-	// TODO
-}
+	// -------------------------------------------------------      Supprimer     ---------------------------------------------------------
 
+	void Client::Supprimer() {
 
-// -------------------------------------------------------       Modifier       -------------------------------------------------------
+		//TODO
+	}
 
-void Client::Modifier() {
 
-	//TODO
-}
 
 
-// -------------------------------------------------------      Supprimer     ---------------------------------------------------------
+	// ====================================================================================================================================
+	// ======================================================        COMMANDE        ======================================================
+	// ====================================================================================================================================
 
-void Client::Supprimer() {
 
-	//TODO
-}
+	// -------------------------------------------------------    Constructeurs    --------------------------------------------------------
 
+	Commande::Commande(String^ ref) {
 
-// -------------------------------------------------------     Rechercher     ---------------------------------------------------------
+		Categorie();
+		co_ref = ref;
+	}
 
-void Client::Rechercher() {
+	Commande::Commande(String^ ref, String^ dateLiv, String^ dateEmi, String^ datePaie, String^ moyPaie, String^ dateReg, int refArt, int quantiteArt, int totalArt, float totalHT, float totalTVA, float totalTTC) {
 
-	// TODO
-}
+		Categorie();
+		co_ref = ref;
+		co_dateLiv = dateLiv;
+		co_dateEmi = dateEmi;
+		co_datePaie = datePaie;
+		co_moyPaie = moyPaie;
+		co_dateReg = dateReg;
+		co_refArt = refArt;
+		co_quantiteArt = quantiteArt;
+		co_totalArt = totalArt;
+		co_totalHT = totalHT;
+		co_totalTVA = totalTVA;
+		co_totalTTC = totalTTC;
+	}
 
 
+	// -------------------------------------------------------       Ajouter       --------------------------------------------------------
 
+	void Commande::Ajouter() {
 
-// ====================================================================================================================================
-// ======================================================        COMMANDE        ======================================================
-// ====================================================================================================================================
+		// TODO
+	}
 
 
-// -------------------------------------------------------    Constructeurs    --------------------------------------------------------
+	// -------------------------------------------------------       Modifier       -------------------------------------------------------
 
-Commande::Commande(string ref) {
+	void Commande::Modifier() {
 
-	Categorie();
-	co_ref = ref;
-}
+		//TODO
+	}
 
-Commande::Commande(string ref, string dateLiv, string dateEmi, string datePaie, string moyPaie, string dateReg, int refArt, int quantiteArt, int totalArt, float totalHT, float totalTVA, float totalTTC) {
 
-	Categorie();
-	co_ref = ref;
-	co_dateLiv = dateLiv;
-	co_dateEmi = dateEmi;
-	co_datePaie = datePaie;
-	co_moyPaie = moyPaie;
-	co_dateReg = dateReg;
-	co_refArt = refArt;
-	co_quantiteArt = quantiteArt;
-	co_totalArt = totalArt;
-	co_totalHT = totalHT;
-	co_totalTVA = totalTVA;
-	co_totalTTC = totalTTC;
-}
+	// -------------------------------------------------------      Supprimer     ---------------------------------------------------------
 
+	void Commande::Supprimer() {
 
-// -------------------------------------------------------       Ajouter       --------------------------------------------------------
+		//TODO
+	}
 
-void Commande::Ajouter() {
 
-	// TODO
-}
 
 
-// -------------------------------------------------------       Modifier       -------------------------------------------------------
+	// ====================================================================================================================================
+	// ======================================================         STOCK         =======================================================
+	// ====================================================================================================================================
 
-void Commande::Modifier() {
 
-	//TODO
-}
+	// -------------------------------------------------------    Constructeurs    --------------------------------------------------------
 
+	Stock::Stock(String^ ref) {
 
-// -------------------------------------------------------      Supprimer     ---------------------------------------------------------
+		Categorie();
+		s_ref = ref;
+	}
 
-void Commande::Supprimer() {
+	Stock::Stock(String^ desi, int tst) {
 
-	//TODO
-}
+		Categorie();
+		s_desi = desi;
+	}
 
+	Stock::Stock(String^ ref, String^ desi, float prixHT, float tauxTVA, int quantiteStock, int seuilReapro, String^ couleur) {
 
-// -------------------------------------------------------     Rechercher     ---------------------------------------------------------
+		Categorie();
+		s_ref = ref;
+		s_desi = desi;
+		s_prixHT = prixHT;
+		s_tauxTva = tauxTVA;
+		s_quantiteStock = quantiteStock;
+		s_seuilReapro = seuilReapro;
+		s_couleur = couleur;
+	}
 
-void Commande::Rechercher() {
 
-	// TODO
-}
+	// -------------------------------------------------------       Ajouter       --------------------------------------------------------
 
+	void Stock::Ajouter() {
 
+		// TODO
+	}
 
 
-// ====================================================================================================================================
-// ======================================================         STOCK         =======================================================
-// ====================================================================================================================================
+	// -------------------------------------------------------       Modifier       -------------------------------------------------------
 
+	void Stock::Modifier() {
 
-// -------------------------------------------------------    Constructeurs    --------------------------------------------------------
+		//TODO
+	}
 
-Stock::Stock(string ref) {
 
-	Categorie();
-	s_ref = ref;
-}
+	// -------------------------------------------------------      Supprimer     ---------------------------------------------------------
 
-Stock::Stock(string desi, int tst) {
+	void Stock::Supprimer() {
 
-	Categorie();
-	s_desi = desi;
-}
-
-Stock::Stock(string ref, string desi, float prixHT, float tauxTVA, int quantiteStock, int seuilReapro, string couleur) {
-
-	Categorie();
-	s_ref = ref;
-	s_desi = desi;
-	s_prixHT = prixHT;
-	s_tauxTva = tauxTVA;
-	s_quantiteStock = quantiteStock;
-	s_seuilReapro = seuilReapro;
-	s_couleur = couleur;
-}
-
-
-// -------------------------------------------------------       Ajouter       --------------------------------------------------------
-
-void Stock::Ajouter() {
-
-	// TODO
-}
-
-
-// -------------------------------------------------------       Modifier       -------------------------------------------------------
-
-void Stock::Modifier() {
-
-	//TODO
-}
-
-
-// -------------------------------------------------------      Supprimer     ---------------------------------------------------------
-
-void Stock::Supprimer() {
-
-	//TODO
-}
-
-
-// -------------------------------------------------------     Rechercher     ---------------------------------------------------------
-
-void Stock::Rechercher() {
-
-	// TODO
+		//TODO
+	}
 }

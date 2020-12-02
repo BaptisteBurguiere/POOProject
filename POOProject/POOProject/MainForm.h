@@ -867,7 +867,7 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 			int PersonnelID = Int32::Parse(textboxPersonnelID->Text);
 			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
 			MySqlConnection^ con = gcnew MySqlConnection(constr);
-			MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ADRESSE as Adresse, DATE as 'Date Embauche', ID_SUPERIEUR as 'ID Supérieur' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.ID_PERSONNEL='" + PersonnelID + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+			MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.ID_PERSONNEL='" + PersonnelID + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
 			DataTable^ dt = gcnew DataTable();
 			sda->Fill(dt);
 			bindingSource1->DataSource = dt;
@@ -887,7 +887,7 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 				{
 					String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
 					MySqlConnection^ con = gcnew MySqlConnection(constr);
-					MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ADRESSE as Adresse, DATE as 'Date Embauche', ID_SUPERIEUR as 'ID Supérieur' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERPRENOM='" + textBoxPersonnelPrenom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+					MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERPRENOM='" + textBoxPersonnelPrenom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
 					DataTable^ dt = gcnew DataTable();
 					sda->Fill(dt);
 					bindingSource1->DataSource = dt;
@@ -904,7 +904,7 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 				{
 					String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
 					MySqlConnection^ con = gcnew MySqlConnection(constr);
-					MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ADRESSE as Adresse, DATE as 'Date Embauche', ID_SUPERIEUR as 'ID Supérieur' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERNOM='" + textboxPersonnelNom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+					MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERNOM='" + textboxPersonnelNom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
 					DataTable^ dt = gcnew DataTable();
 					sda->Fill(dt);
 					bindingSource1->DataSource = dt;
@@ -921,7 +921,7 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 				{
 					String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
 					MySqlConnection^ con = gcnew MySqlConnection(constr);
-					MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ADRESSE as Adresse, DATE as 'Date Embauche', ID_SUPERIEUR as 'ID Supérieur' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERNOM='" + textboxPersonnelNom->Text + "' AND PERSONNEL.PERPRENOM='" + textBoxPersonnelPrenom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+					MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERNOM='" + textboxPersonnelNom->Text + "' AND PERSONNEL.PERPRENOM='" + textBoxPersonnelPrenom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
 					DataTable^ dt = gcnew DataTable();
 					sda->Fill(dt);
 					bindingSource1->DataSource = dt;
@@ -950,7 +950,7 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 		try
 		{
 			int PersonnelID = Int32::Parse(textboxPersonnelID->Text);
-			PersonnelModifierForm^ pm = gcnew PersonnelModifierForm(textboxPersonnelNom->Text, textBoxPersonnelPrenom->Text);
+			PersonnelModifierForm^ pm = gcnew PersonnelModifierForm(PersonnelID);
 			pm->ShowDialog();
 		}
 		catch (Exception^ ex)
