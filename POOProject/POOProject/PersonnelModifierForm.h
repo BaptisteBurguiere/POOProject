@@ -17,9 +17,11 @@ namespace POOProject {
 	public ref class PersonnelModifierForm : public System::Windows::Forms::Form
 	{
 	public:
-		PersonnelModifierForm(int ID)
+		PersonnelModifierForm(String^ ID)
 		{
 			InitializeComponent();
+
+			this->ID = ID;
 
 			try {
 
@@ -51,7 +53,7 @@ namespace POOProject {
 
 	protected:
 
-		int ID;
+		String^ ID;
 
 	protected:
 		/// <summary>
@@ -278,7 +280,7 @@ namespace POOProject {
 		}
 		else {
 
-			Personnel monPersonnel(ID, nom, prenom, superieur, adresse, date);
+			Personnel monPersonnel(this->ID, nom, prenom, superieur, adresse, date);
 			monPersonnel.Modifier();
 
 			this->Hide();

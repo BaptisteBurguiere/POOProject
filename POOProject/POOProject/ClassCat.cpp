@@ -27,7 +27,7 @@ namespace ClassCat {
 
 	// -------------------------------------------------------    Constructeurs    --------------------------------------------------------
 
-	Personnel::Personnel(int ID) {
+	Personnel::Personnel(String^ ID) {
 
 		p_ID = ID;
 	}
@@ -47,7 +47,7 @@ namespace ClassCat {
 		p_date = date;
 	}
 
-	Personnel::Personnel(int id, String^ nom, String^ prenom, String^ superieur, String^ adresse, String^ date) {
+	Personnel::Personnel(String^ id, String^ nom, String^ prenom, String^ superieur, String^ adresse, String^ date) {
 
 		p_ID = id;
 		p_nom = nom;
@@ -64,13 +64,19 @@ namespace ClassCat {
 
 		try
 		{
-			requete = "INSERT INTO DATE(ID_DATE, DATE) SELECT '','" + p_date + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + p_date + "')";
+			requete = "INSERT INTO DATE SELECT '','" + p_date + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + p_date + "')";
 			cmd = gcnew MySqlCommand(requete, con);
 			con->Open();
 			dr = cmd->ExecuteReader();
 			con->Close();
 
-			requete = "INSERT INTO ADRESSE(ID_ADRESSE, DATE) SELECT '','" + p_adresse + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + p_adresse + "')";
+			requete = "INSERT INTO ADRESSE SELECT '','" + p_adresse + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + p_adresse + "')";
+			cmd = gcnew MySqlCommand(requete, con);
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
+
+			requete = "INSERT INTO PERSONNEL SELECT '', PERSONNEL.ID_ADRESSE, PERSONNEL.ID_DATE, PERSONNEL.ID_PERSONNEL, '" + p_nom + "', '" + p_prenom + "' FROM DATE, PERSONNEL, ADRESSE WHERE ADRESSE = '" + p_adresse + "' AND DATE = '" + p_date + "' AND ID_PERSONNEL = '" + p_superieur + "' AND NOT EXISTS (SELECT * FROM PERSONNEL, ADRESSE, DATE WHERE ADRESSE = '" + p_adresse+ "' AND ADRESSE.ID_ADRESSE = PERSONNEL.ID_ADRESSE AND DATE = '" + p_date + "' AND DATE.ID_DATE = PERSONNEL.ID_DATE AND ID_SUPERIEUR = '" + p_superieur + "')";
 			cmd = gcnew MySqlCommand(requete, con);
 			con->Open();
 			dr = cmd->ExecuteReader();
@@ -89,19 +95,19 @@ namespace ClassCat {
 
 		try
 		{
-			requete = "INSERT INTO DATE(ID_DATE, DATE) SELECT '', '" + p_date + "' WHERE NOT EXISTS(SELECT * FROM DATE WHERE DATE = '" + p_date + "')";
+			requete = "INSERT INTO DATE SELECT '','" + p_date + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + p_date + "')";
 			cmd = gcnew MySqlCommand(requete, con);
 			con->Open();
 			dr = cmd->ExecuteReader();
 			con->Close();
 
-			requete = "INSERT INTO DATE(ID_ADRESSE, ADRESSE) SELECT '', '" + p_adresse + "' WHERE NOT EXISTS(SELECT * FROM ADRESSE WHERE ADRESSE = '" + p_adresse + "')";
+			requete = "INSERT INTO ADRESSE SELECT '','" + p_adresse + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + p_adresse + "')";
 			cmd = gcnew MySqlCommand(requete, con);
 			con->Open();
 			dr = cmd->ExecuteReader();
 			con->Close();
 
-			requete = "UPDATE PERSONNEL SET ID_ADRESSE=ADRESSE.ID_ADRESSE, ID_DATE=DATE.ID_DATE, ID_SUPERIEUR=PERSONNEL.ID_PERSONNEL, PERNOM='" + p_nom + "', PERPRENOM='" + p_prenom + "' WHERE ADRESSE.ADRESSE='" + p_adresse + "' AND DATE.DATE='" + p_date + "' AND ID_PERSONNEL='" + p_ID + "'";
+			requete = "UPDATE PERSONNEL SET PERSONNEL.ID_ADRESSE=(SELECT ADRESSE.ID_ADRESSE FROM ADRESSE WHERE ADRESSE.ADRESSE='" + p_adresse + "'), PERSONNEL.ID_DATE=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + p_date + "'), PERSONNEL.ID_SUPERIEUR='" + p_superieur + "', PERNOM='" + p_nom + "', PERPRENOM='" + p_prenom + "' WHERE ID_PERSONNEL='" + p_ID + "'";
 			cmd = gcnew MySqlCommand(requete, con);
 			con->Open();
 			dr = cmd->ExecuteReader();
@@ -118,7 +124,18 @@ namespace ClassCat {
 
 	void Personnel::Supprimer() {
 
-		//TODO
+		try
+		{
+			requete = "DELETE FROM PERSONNEL WHERE ID_PERSONNEL='" + p_ID + "'";
+			cmd = gcnew MySqlCommand(requete, con);
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
 	}
 
 
@@ -131,21 +148,31 @@ namespace ClassCat {
 
 	// -------------------------------------------------------    Constructeurs    --------------------------------------------------------
 
-	Client::Client(int num) {
+	Client::Client(String^ num) {
 
 		Categorie();
 		c_num = num;
 	}
 
-	Client::Client(int num, String^ nom, String^ prenom) {
+	Client::Client(String^ nom, String^ prenom) {
 
 		Categorie();
-		c_num = num;
 		c_nom = nom;
 		c_prenom = prenom;
 	}
 
-	Client::Client(int num, String^ nom, String^ prenom, String^ adrFact, String^ adrLiv, String^ dateNaissance, String^ date1achat) {
+	Client::Client(String^ nom, String^ prenom, String^ adrFact, String^ adrLiv, String^ dateNaissance, String^ date1achat) {
+
+		Categorie();
+		c_nom = nom;
+		c_prenom = prenom;
+		c_adrFact = adrFact;
+		c_adrLiv = adrLiv;
+		c_dateNaissance = dateNaissance;
+		c_date1achat = date1achat;
+	}
+
+	Client::Client(String^ num, String^ nom, String^ prenom, String^ adrFact, String^ adrLiv, String^ dateNaissance, String^ date1achat) {
 
 		Categorie();
 		c_num = num;
@@ -162,7 +189,42 @@ namespace ClassCat {
 
 	void Client::Ajouter() {
 
-		// TODO
+		try
+		{
+			requete = "INSERT INTO DATE SELECT '','" + p_date + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + p_date + "')";
+			cmd = gcnew MySqlCommand(requete, con);
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
+
+			requete = "INSERT INTO DATE SELECT '','" + p_date + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + p_date + "')";
+			cmd = gcnew MySqlCommand(requete, con);
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
+
+			requete = "INSERT INTO ADRESSE SELECT '','" + p_adresse + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + p_adresse + "')";
+			cmd = gcnew MySqlCommand(requete, con);
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
+
+			requete = "INSERT INTO ADRESSE SELECT '','" + p_adresse + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + p_adresse + "')";
+			cmd = gcnew MySqlCommand(requete, con);
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
+
+			requete = "INSERT INTO PERSONNEL SELECT '', PERSONNEL.ID_ADRESSE, PERSONNEL.ID_DATE, PERSONNEL.ID_PERSONNEL, '" + p_nom + "', '" + p_prenom + "' FROM DATE, PERSONNEL, ADRESSE WHERE ADRESSE = '" + p_adresse + "' AND DATE = '" + p_date + "' AND ID_PERSONNEL = '" + p_superieur + "' AND NOT EXISTS (SELECT * FROM PERSONNEL, ADRESSE, DATE WHERE ADRESSE = '" + p_adresse + "' AND ADRESSE.ID_ADRESSE = PERSONNEL.ID_ADRESSE AND DATE = '" + p_date + "' AND DATE.ID_DATE = PERSONNEL.ID_DATE AND ID_SUPERIEUR = '" + p_superieur + "')";
+			cmd = gcnew MySqlCommand(requete, con);
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
 	}
 
 
@@ -197,7 +259,7 @@ namespace ClassCat {
 		co_ref = ref;
 	}
 
-	Commande::Commande(String^ ref, String^ dateLiv, String^ dateEmi, String^ datePaie, String^ moyPaie, String^ dateReg, int refArt, int quantiteArt, int totalArt, float totalHT, float totalTVA, float totalTTC) {
+	Commande::Commande(String^ ref, String^ dateLiv, String^ dateEmi, String^ datePaie, String^ moyPaie, String^ dateReg, String^ refArt, String^ quantiteArt, String^ totalArt, String^ totalHT, String^ totalTVA, String^ totalTTC) {
 
 		Categorie();
 		co_ref = ref;
@@ -254,13 +316,13 @@ namespace ClassCat {
 		s_ref = ref;
 	}
 
-	Stock::Stock(String^ desi, int tst) {
+	Stock::Stock(String^ desi, String^ tst) {
 
 		Categorie();
 		s_desi = desi;
 	}
 
-	Stock::Stock(String^ ref, String^ desi, float prixHT, float tauxTVA, int quantiteStock, int seuilReapro, String^ couleur) {
+	Stock::Stock(String^ ref, String^ desi, String^ prixHT, String^ tauxTVA, String^ quantiteStock, String^ seuilReapro, String^ couleur) {
 
 		Categorie();
 		s_ref = ref;

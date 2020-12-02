@@ -1,6 +1,8 @@
 #pragma once
 #include "PersonnelAjouterForm.h"
 #include "PersonnelModifierForm.h"
+#include "ClientsAjouterForm.h"
+#include "ClientsModifierForm.h"
 
 namespace POOProject {
 
@@ -496,6 +498,7 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 			this->buttonClientsRechercher->TabIndex = 17;
 			this->buttonClientsRechercher->Text = L"Rechercher";
 			this->buttonClientsRechercher->UseVisualStyleBackColor = true;
+			this->buttonClientsRechercher->Click += gcnew System::EventHandler(this, &MainForm::buttonClientsRechercher_Click);
 			// 
 			// buttonClientsSupprimer
 			// 
@@ -509,6 +512,7 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 			this->buttonClientsSupprimer->TabIndex = 12;
 			this->buttonClientsSupprimer->Text = L"Supprimer";
 			this->buttonClientsSupprimer->UseVisualStyleBackColor = true;
+			this->buttonClientsSupprimer->Click += gcnew System::EventHandler(this, &MainForm::buttonClientsSupprimer_Click);
 			// 
 			// buttonClientsModifier
 			// 
@@ -522,6 +526,7 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 			this->buttonClientsModifier->TabIndex = 11;
 			this->buttonClientsModifier->Text = L"Modifier";
 			this->buttonClientsModifier->UseVisualStyleBackColor = true;
+			this->buttonClientsModifier->Click += gcnew System::EventHandler(this, &MainForm::buttonClientsModifier_Click);
 			// 
 			// buttonClientsAjouter
 			// 
@@ -535,6 +540,7 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 			this->buttonClientsAjouter->TabIndex = 10;
 			this->buttonClientsAjouter->Text = L"Ajouter";
 			this->buttonClientsAjouter->UseVisualStyleBackColor = true;
+			this->buttonClientsAjouter->Click += gcnew System::EventHandler(this, &MainForm::buttonClientsAjouter_Click);
 			// 
 			// textboxClientsPrenom
 			// 
@@ -862,75 +868,79 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 
 	private: System::Void buttonPersonnelRechercher_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		try {
+		String^ PersonnelID = textboxPersonnelID->Text;
 
-			int PersonnelID = Int32::Parse(textboxPersonnelID->Text);
-			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
-			MySqlConnection^ con = gcnew MySqlConnection(constr);
-			MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.ID_PERSONNEL='" + PersonnelID + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
-			DataTable^ dt = gcnew DataTable();
-			sda->Fill(dt);
-			bindingSource1->DataSource = dt;
-			dataGridView1->DataSource = bindingSource1;
+		if (PersonnelID != "") {
+
+			try
+			{
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				MySqlConnection^ con = gcnew MySqlConnection(constr);
+				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.ID_PERSONNEL='" + PersonnelID + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+				DataTable^ dt = gcnew DataTable();
+				sda->Fill(dt);
+				bindingSource1->DataSource = dt;
+				dataGridView1->DataSource = bindingSource1;
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
 		}
+		else if (textboxPersonnelNom->Text == "" && textBoxPersonnelPrenom->Text == "") {
 
+			MessageBox::Show("Entrez un ID ou le Nom et/ou le Prénom");
+		}
+		else if (textboxPersonnelNom->Text == "") {
 
-		catch (Exception^ ex)
-		{
-			if (textboxPersonnelNom->Text == "" && textBoxPersonnelPrenom->Text == "") {
-
-				MessageBox::Show("Entrez un ID ou le Nom et/ou le Prénom");
+			try
+			{
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				MySqlConnection^ con = gcnew MySqlConnection(constr);
+				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERPRENOM='" + textBoxPersonnelPrenom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+				DataTable^ dt = gcnew DataTable();
+				sda->Fill(dt);
+				bindingSource1->DataSource = dt;
+				dataGridView1->DataSource = bindingSource1;
 			}
-			else if (textboxPersonnelNom->Text == ""){
-
-				try
-				{
-					String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
-					MySqlConnection^ con = gcnew MySqlConnection(constr);
-					MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERPRENOM='" + textBoxPersonnelPrenom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
-					DataTable^ dt = gcnew DataTable();
-					sda->Fill(dt);
-					bindingSource1->DataSource = dt;
-					dataGridView1->DataSource = bindingSource1;
-				}
-				catch (Exception^ ex)
-				{
-					MessageBox::Show(ex->Message);
-				}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
 			}
-			else if (textBoxPersonnelPrenom->Text == "") {
 
-				try
-				{
-					String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
-					MySqlConnection^ con = gcnew MySqlConnection(constr);
-					MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERNOM='" + textboxPersonnelNom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
-					DataTable^ dt = gcnew DataTable();
-					sda->Fill(dt);
-					bindingSource1->DataSource = dt;
-					dataGridView1->DataSource = bindingSource1;
-				}
-				catch (Exception^ ex)
-				{
-					MessageBox::Show(ex->Message);
-				}
+		}
+		else if (textBoxPersonnelPrenom->Text == "") {
+
+			try
+			{
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				MySqlConnection^ con = gcnew MySqlConnection(constr);
+				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERNOM='" + textboxPersonnelNom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+				DataTable^ dt = gcnew DataTable();
+				sda->Fill(dt);
+				bindingSource1->DataSource = dt;
+				dataGridView1->DataSource = bindingSource1;
 			}
-			else {
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
+		}
+		else {
 
-				try
-				{
-					String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
-					MySqlConnection^ con = gcnew MySqlConnection(constr);
-					MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERNOM='" + textboxPersonnelNom->Text + "' AND PERSONNEL.PERPRENOM='" + textBoxPersonnelPrenom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
-					DataTable^ dt = gcnew DataTable();
-					sda->Fill(dt);
-					bindingSource1->DataSource = dt;
-					dataGridView1->DataSource = bindingSource1;
-				}
-				catch (Exception^ ex)
-				{
-					MessageBox::Show(ex->Message);
-				}
+			try
+			{
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				MySqlConnection^ con = gcnew MySqlConnection(constr);
+				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERNOM='" + textboxPersonnelNom->Text + "' AND PERSONNEL.PERPRENOM='" + textBoxPersonnelPrenom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+				DataTable^ dt = gcnew DataTable();
+				sda->Fill(dt);
+				bindingSource1->DataSource = dt;
+				dataGridView1->DataSource = bindingSource1;
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
 			}
 		}
 	}
@@ -947,39 +957,45 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 
 	private: System::Void buttonPersonnelModifier_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		try
+		String^ PersonnelID = textboxPersonnelID->Text;
+
+		if (PersonnelID != "")
 		{
-			int PersonnelID = Int32::Parse(textboxPersonnelID->Text);
 			PersonnelModifierForm^ pm = gcnew PersonnelModifierForm(PersonnelID);
 			pm->ShowDialog();
 		}
-		catch (Exception^ ex)
+		else
 		{
 			MessageBox::Show("Entrez l'ID du personnel à modifier", "Erreur");
 		}
 	}
 
+
 // -------------------------------------------------   bouton Supprimer   -----------------------------------------------------------------
 
 	private: System::Void buttonPersonnelSupprimer_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		try
-		{
-			int PersonnelID = Int32::Parse(textboxPersonnelID->Text);
+		String^ PersonnelID = textboxPersonnelID->Text;
+
+		if (PersonnelID != "") {
+
 			MessageBoxButtons buttons = MessageBoxButtons::OKCancel;
 			String^ message = "Voulez vous vraiment supprimer ce personnel ?";
 			String^ title = "Confirmation";
 
 			if (MessageBox::Show(message, title, buttons) == System::Windows::Forms::DialogResult::OK) {
 
-				MessageBox::Show("Personnel supprimé");
+				Personnel monPersonnel(PersonnelID);
+				monPersonnel.Supprimer();
 			}
 		}
-		catch (Exception^ ex)
-		{
+		else {
+
 			MessageBox::Show("Entrez l'ID du personnel à supprimer", "Erreur");
 		}
+			
 	}
+	
 
 
 
@@ -998,6 +1014,157 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 		panelClients->Visible = true;
 		panelCommandes->Visible = false;
 		panelStock->Visible = false;
+
+		try
+		{
+			String^ requete = "SELECT ID_CLIENT as 'n° client', CLINOM as Nom, CLIPRENOM as 'Prénom', tmp.DATE as Date1erlivr, tmp2.DATE as 'Date naissance' FROM CLIENT, DATE as tmp, DATE as tmp2 WHERE tmp.ID_DATE=CLIENT.ID_DATE1ER AND tmp2.ID_DATE=CLIENT.ID_DATEN";
+			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+			MySqlConnection^ con = gcnew MySqlConnection(constr);
+			MySqlDataAdapter^ sda = gcnew MySqlDataAdapter(requete, con);
+			DataTable^ dt = gcnew DataTable();
+			sda->Fill(dt);
+			bindingSource1->DataSource = dt;
+			dataGridView1->DataSource = bindingSource1;
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
+	}
+
+
+// -------------------------------------------------   bouton Rechercher  -----------------------------------------------------------------
+
+	private: System::Void buttonClientsRechercher_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		String^ ClientsNumero = textboxClientsNumero->Text;
+
+		if (ClientsNumero != "") {
+
+			try
+			{
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				MySqlConnection^ con = gcnew MySqlConnection(constr);
+				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.ID_PERSONNEL='" + PersonnelID + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+				DataTable^ dt = gcnew DataTable();
+				sda->Fill(dt);
+				bindingSource1->DataSource = dt;
+				dataGridView1->DataSource = bindingSource1;
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
+		}
+		else if (textboxClientsNom->Text == "" && textboxClientsPrenom->Text == "") {
+
+			MessageBox::Show("Entrez un numéro ou le Nom et/ou le Prénom");
+		}
+		else if (textboxClientsNom->Text == "") {
+
+			try
+			{
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				MySqlConnection^ con = gcnew MySqlConnection(constr);
+				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERPRENOM='" + textBoxPersonnelPrenom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+				DataTable^ dt = gcnew DataTable();
+				sda->Fill(dt);
+				bindingSource1->DataSource = dt;
+				dataGridView1->DataSource = bindingSource1;
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
+
+		}
+		else if (textboxClientsPrenom->Text == "") {
+
+			try
+			{
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				MySqlConnection^ con = gcnew MySqlConnection(constr);
+				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERNOM='" + textboxPersonnelNom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+				DataTable^ dt = gcnew DataTable();
+				sda->Fill(dt);
+				bindingSource1->DataSource = dt;
+				dataGridView1->DataSource = bindingSource1;
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
+		}
+		else {
+
+			try
+			{
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				MySqlConnection^ con = gcnew MySqlConnection(constr);
+				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERNOM='" + textboxPersonnelNom->Text + "' AND PERSONNEL.PERPRENOM='" + textBoxPersonnelPrenom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+				DataTable^ dt = gcnew DataTable();
+				sda->Fill(dt);
+				bindingSource1->DataSource = dt;
+				dataGridView1->DataSource = bindingSource1;
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
+		}
+	}
+
+
+// -------------------------------------------------    bouton Ajouter    -----------------------------------------------------------------
+
+	private: System::Void buttonClientsAjouter_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		ClientsAjouterForm^ ca = gcnew ClientsAjouterForm();
+		ca->ShowDialog();
+	}
+
+
+// -------------------------------------------------   bouton Modifier    -----------------------------------------------------------------
+
+	private: System::Void buttonClientsModifier_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		String^ ClientsNum = textboxClientsNumero->Text;
+		
+		if (ClientsNum != "")
+		{
+			ClientsModifierForm^ pm = gcnew ClientsModifierForm(ClientsNum);
+			pm->ShowDialog();
+		}
+		else
+		{
+			MessageBox::Show("Entrez le numéro du client à modifier", "Erreur");
+		}
+	}
+
+
+// -------------------------------------------------   bouton Supprimer   -----------------------------------------------------------------
+
+	private: System::Void buttonClientsSupprimer_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		String^ ClientsNum = textboxClientsNumero->Text;
+
+		if (ClientsNum != "") {
+
+			MessageBoxButtons buttons = MessageBoxButtons::OKCancel;
+			String^ message = "Voulez vous vraiment supprimer ce client ?";
+			String^ title = "Confirmation";
+
+			if (MessageBox::Show(message, title, buttons) == System::Windows::Forms::DialogResult::OK) {
+
+				Client monClient(ClientsNum);
+				monClient.Supprimer();
+			}
+		}
+		else {
+
+			MessageBox::Show("Entrez le numéro du client à supprimer", "Erreur");
+		}
+
 	}
 
 

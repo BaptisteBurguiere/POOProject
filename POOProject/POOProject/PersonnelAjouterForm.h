@@ -259,5 +259,6 @@ private: System::Void buttonAjouter_Click(System::Object^ sender, System::EventA
 		this->Hide();
 	}
 }
+
 };
 }

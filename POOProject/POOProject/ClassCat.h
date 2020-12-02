@@ -37,10 +37,10 @@ namespace ClassCat {
 
 	public:
 
-		Personnel(int ID);
+		Personnel(String^ ID);
 		Personnel(String^ nom, String^ prenom);
 		Personnel(String^ nom, String^ prenom, String^ superieur, String^ adresse, String^ date);
-		Personnel(int id,  String^ nom, String^ prenom, String^ superieur, String^ adresse, String^ date);
+		Personnel(String^ id,  String^ nom, String^ prenom, String^ superieur, String^ adresse, String^ date);
 		void Ajouter();
 		void Modifier();
 		void Supprimer();
@@ -48,7 +48,7 @@ namespace ClassCat {
 
 	protected:
 
-		int p_ID;
+		String^ p_ID;
 		String^ p_nom;
 		String^ p_prenom;
 		String^ p_superieur;
@@ -68,16 +68,17 @@ namespace ClassCat {
 
 	public:
 
-		Client(int num);
-		Client(int num, String^ nom, String^ prenom);
-		Client(int num, String^ nom, String^ prenom, String^ adrFact, String^ adrLiv, String^ dateNaissance, String^ date1achat);
+		Client(String^ num);
+		Client(String^ nom, String^ prenom);
+		Client(String^ nom, String^ prenom, String^ adrFact, String^ adrLiv, String^ dateNaissance, String^ date1achat);
+		Client(String^ num, String^ nom, String^ prenom, String^ adrFact, String^ adrLiv, String^ dateNaissance, String^ date1achat);
 		void Ajouter();
 		void Modifier();
 		void Supprimer();
 
 	protected:
 
-		int c_num;
+		String^ c_num;
 		String^ c_nom;
 		String^ c_prenom;
 		String^ c_adrFact;
@@ -99,7 +100,7 @@ namespace ClassCat {
 	public:
 
 		Commande(String^ ref);
-		Commande(String^ ref, String^ dateLiv, String^ dateEmi, String^ datePaie, String^ moyPaie, String^ dateReg, int refArt, int quantiteArt, int totalArt, float totalHT, float totalTVA, float totalTTC);
+		Commande(String^ ref, String^ dateLiv, String^ dateEmi, String^ datePaie, String^ moyPaie, String^ dateReg, String^ refArt, String^ quantiteArt, String^ totalArt, String^ totalHT, String^ totalTVA, String^ totalTTC);
 		void Ajouter();
 		void Modifier();
 		void Supprimer();
@@ -112,12 +113,12 @@ namespace ClassCat {
 		String^ co_datePaie;
 		String^ co_moyPaie;
 		String^ co_dateReg;
-		int co_refArt;
-		int co_quantiteArt;
-		int co_totalArt;
-		float co_totalHT;
-		float co_totalTVA;
-		float co_totalTTC;
+		String^ co_refArt;
+		String^ co_quantiteArt;
+		String^ co_totalArt;
+		String^ co_totalHT;
+		String^ co_totalTVA;
+		String^ co_totalTTC;
 	};
 
 
@@ -133,8 +134,8 @@ namespace ClassCat {
 	public:
 
 		Stock(String^ ref);
-		Stock(String^ desi, int tst);
-		Stock(String^ ref, String^ desi, float prixHT, float tauxTVA, int quantiteStock, int seuilReapro, String^ couleur);
+		Stock(String^ desi, String^ tst);
+		Stock(String^ ref, String^ desi, String^ prixHT, String^ tauxTVA, String^ quantiteStock, String^ seuilReapro, String^ couleur);
 		void Ajouter();
 		void Modifier();
 		void Supprimer();
@@ -143,10 +144,10 @@ namespace ClassCat {
 
 		String^ s_ref;
 		String^ s_desi;
-		float s_prixHT;
-		float s_tauxTva;
-		int s_quantiteStock;
-		int s_seuilReapro;
+		String^ s_prixHT;
+		String^ s_tauxTva;
+		String^ s_quantiteStock;
+		String^ s_seuilReapro;
 		String^ s_couleur;
 	};
 }

@@ -124,6 +124,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClassCat.cpp" />
+    <ClCompile Include="ClientsAjouterForm.cpp" />
+    <ClCompile Include="ClientsModifierForm.cpp" />
     <ClCompile Include="ConnectionForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="PersonnelAjouterForm.cpp" />
@@ -131,6 +133,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClassCat.h" />
+    <ClInclude Include="ClientsAjouterForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="ClientsModifierForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="ConnectionForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -145,6 +153,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ClientsAjouterForm.resx">
+      <DependentUpon>ClientsAjouterForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClientsModifierForm.resx">
+      <DependentUpon>ClientsModifierForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConnectionForm.resx">
       <DependentUpon>ConnectionForm.h</DependentUpon>
     </EmbeddedResource>
