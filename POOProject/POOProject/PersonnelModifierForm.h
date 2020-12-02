@@ -20,6 +20,7 @@ namespace POOProject {
 		PersonnelModifierForm(int ID)
 		{
 			InitializeComponent();
+
 			try {
 
 				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
@@ -37,7 +38,6 @@ namespace POOProject {
 					textBoxAdresse->Text = dr->GetString(2);
 					textBoxDate->Text = dr->GetString(3);
 					textBoxSuperieur->Text = dr->GetString(4);
-					
 				}
 
 				con->Close();
@@ -111,17 +111,17 @@ namespace POOProject {
 			this->textBoxDate = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
-			// buttonAjouter
+			// buttonModifier
 			// 
 			this->buttonAjouter->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->buttonAjouter->Location = System::Drawing::Point(404, 262);
-			this->buttonAjouter->Name = L"buttonAjouter";
+			this->buttonAjouter->Name = L"buttonModifier";
 			this->buttonAjouter->Size = System::Drawing::Size(80, 27);
 			this->buttonAjouter->TabIndex = 0;
 			this->buttonAjouter->Text = L"Modifier";
 			this->buttonAjouter->UseVisualStyleBackColor = true;
-			this->buttonAjouter->Click += gcnew System::EventHandler(this, &PersonnelModifierForm::buttonAjouter_Click);
+			this->buttonAjouter->Click += gcnew System::EventHandler(this, &PersonnelModifierForm::buttonModifier_Click);
 			// 
 			// buttonAnnuler
 			// 
@@ -264,7 +264,7 @@ namespace POOProject {
 		this->Hide();
 	}
 
-	private: System::Void buttonAjouter_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void buttonModifier_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		String^ nom = textBoxNom->Text;
 		String^ prenom = textBoxPrenom->Text;
@@ -278,7 +278,7 @@ namespace POOProject {
 		}
 		else {
 
-			Personnel monPersonnel(nom, prenom, superieur, adresse, date);
+			Personnel monPersonnel(ID, nom, prenom, superieur, adresse, date);
 			monPersonnel.Modifier();
 
 			this->Hide();

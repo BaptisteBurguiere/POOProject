@@ -19,6 +19,10 @@ namespace ClassCat {
 	protected:
 
 		String^ adrBDD;
+		String^ requete;
+		MySqlConnection^ con;
+		MySqlCommand^ cmd;
+		MySqlDataReader^ dr;;
 	};
 
 
@@ -36,6 +40,7 @@ namespace ClassCat {
 		Personnel(int ID);
 		Personnel(String^ nom, String^ prenom);
 		Personnel(String^ nom, String^ prenom, String^ superieur, String^ adresse, String^ date);
+		Personnel(int id,  String^ nom, String^ prenom, String^ superieur, String^ adresse, String^ date);
 		void Ajouter();
 		void Modifier();
 		void Supprimer();

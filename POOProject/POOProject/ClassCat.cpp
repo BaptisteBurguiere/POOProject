@@ -13,6 +13,8 @@ namespace ClassCat {
 	Categorie::Categorie() {
 
 		adrBDD = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+		con = gcnew MySqlConnection(adrBDD);
+
 	}
 
 
@@ -45,6 +47,16 @@ namespace ClassCat {
 		p_date = date;
 	}
 
+	Personnel::Personnel(int id, String^ nom, String^ prenom, String^ superieur, String^ adresse, String^ date) {
+
+		p_ID = id;
+		p_nom = nom;
+		p_prenom = prenom;
+		p_superieur = superieur;
+		p_adresse = adresse;
+		p_date = date;
+	}
+
 
 	// -------------------------------------------------------       Ajouter       --------------------------------------------------------
 
@@ -52,38 +64,17 @@ namespace ClassCat {
 
 		try
 		{
-			MySqlConnection^ con = gcnew MySqlConnection(adrBDD);
-			MySqlCommand^ cmd = gcnew MySqlCommand("INSERT INTO DATE(ID_DATE, DATE) SELECT '','" + p_date + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + p_date + "')", con);
-			MySqlDataReader^ dr;
+			requete = "INSERT INTO DATE(ID_DATE, DATE) SELECT '','" + p_date + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + p_date + "')";
+			cmd = gcnew MySqlCommand(requete, con);
 			con->Open();
 			dr = cmd->ExecuteReader();
 			con->Close();
 
-			try
-			{
-				MySqlConnection^ con = gcnew MySqlConnection(adrBDD);
-				MySqlCommand^ cmd = gcnew MySqlCommand("INSERT INTO ADRESSE(ID_ADRESSE, DATE) SELECT '','" + p_adresse + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + p_adresse + "')", con);
-				MySqlDataReader^ dr;
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-
-				try
-				{
-
-
-
-					MessageBox::Show("Personnel ajouté.");
-				}
-				catch (Exception^ ex)
-				{
-					MessageBox::Show(ex->Message);
-				}
-			}
-			catch (Exception^ ex)
-			{
-				MessageBox::Show(ex->Message);
-			}
+			requete = "INSERT INTO ADRESSE(ID_ADRESSE, DATE) SELECT '','" + p_adresse + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + p_adresse + "')";
+			cmd = gcnew MySqlCommand(requete, con);
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
 		}
 		catch (Exception^ ex)
 		{
@@ -96,7 +87,30 @@ namespace ClassCat {
 
 	void Personnel::Modifier() {
 
-		//TODO
+		try
+		{
+			requete = "INSERT INTO DATE(ID_DATE, DATE) SELECT '', '" + p_date + "' WHERE NOT EXISTS(SELECT * FROM DATE WHERE DATE = '" + p_date + "')";
+			cmd = gcnew MySqlCommand(requete, con);
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
+
+			requete = "INSERT INTO DATE(ID_ADRESSE, ADRESSE) SELECT '', '" + p_adresse + "' WHERE NOT EXISTS(SELECT * FROM ADRESSE WHERE ADRESSE = '" + p_adresse + "')";
+			cmd = gcnew MySqlCommand(requete, con);
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
+
+			requete = "UPDATE PERSONNEL SET ID_ADRESSE=ADRESSE.ID_ADRESSE, ID_DATE=DATE.ID_DATE, ID_SUPERIEUR=PERSONNEL.ID_PERSONNEL, PERNOM='" + p_nom + "', PERPRENOM='" + p_prenom + "' WHERE ADRESSE.ADRESSE='" + p_adresse + "' AND DATE.DATE='" + p_date + "' AND ID_PERSONNEL='" + p_ID + "'";
+			cmd = gcnew MySqlCommand(requete, con);
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
 	}
 
 
