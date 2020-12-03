@@ -124,15 +124,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClassCat.cpp" />
+    <ClCompile Include="ClientAjouterAdresseForm.cpp" />
     <ClCompile Include="ClientsAjouterForm.cpp" />
     <ClCompile Include="ClientsModifierForm.cpp" />
     <ClCompile Include="ConnectionForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="PersonnelAjouterForm.cpp" />
     <ClCompile Include="PersonnelModifierForm.cpp" />
+    <ClCompile Include="StockAjouterForm.cpp" />
+    <ClCompile Include="StockModifierForm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClassCat.h" />
+    <ClInclude Include="ClientAjouterAdresseForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="ClientsAjouterForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -151,8 +157,17 @@
     <ClInclude Include="PersonnelModifierForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="StockAjouterForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="StockModifierForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ClientAjouterAdresseForm.resx">
+      <DependentUpon>ClientAjouterAdresseForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ClientsAjouterForm.resx">
       <DependentUpon>ClientsAjouterForm.h</DependentUpon>
     </EmbeddedResource>
@@ -170,6 +185,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PersonnelModifierForm.resx">
       <DependentUpon>PersonnelModifierForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockAjouterForm.resx">
+      <DependentUpon>StockAjouterForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockModifierForm.resx">
+      <DependentUpon>StockModifierForm.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

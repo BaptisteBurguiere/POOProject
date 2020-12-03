@@ -69,20 +69,24 @@ namespace ClassCat {
 	public:
 
 		Client(String^ num);
+		Client(String^ num, String^adr, int x);
 		Client(String^ nom, String^ prenom);
 		Client(String^ nom, String^ prenom, String^ adrFact, String^ adrLiv, String^ dateNaissance, String^ date1achat);
-		Client(String^ num, String^ nom, String^ prenom, String^ adrFact, String^ adrLiv, String^ dateNaissance, String^ date1achat);
+		Client(String^ num, String^ nom, String^ prenom, String^ adrFact, String^ adrFact2, String^ adrLiv, String^ adrLiv2, String^ dateNaissance, String^ date1achat);
 		void Ajouter();
 		void Modifier();
 		void Supprimer();
+		void AjouterAdresse(int state);
 
 	protected:
 
 		String^ c_num;
 		String^ c_nom;
 		String^ c_prenom;
-		String^ c_adrFact;
-		String^ c_adrLiv;
+		String^ c_adrFact1;
+		String^ c_adrFact2;
+		String^ c_adrLivr1;
+		String^ c_adrLivr2;
 		String^ c_dateNaissance;
 		String^ c_date1achat;
 	};
@@ -135,6 +139,7 @@ namespace ClassCat {
 
 		Stock(String^ ref);
 		Stock(String^ desi, String^ tst);
+		Stock(String^ desi, String^ prixHT, String^ tauxTVA, String^ quantiteStock, String^ seuilReapro, String^ couleur);
 		Stock(String^ ref, String^ desi, String^ prixHT, String^ tauxTVA, String^ quantiteStock, String^ seuilReapro, String^ couleur);
 		void Ajouter();
 		void Modifier();

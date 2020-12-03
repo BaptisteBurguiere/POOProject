@@ -1,5 +1,6 @@
 #pragma once
 #include "ClassCat.h"
+#include "ClientAjouterAdresseForm.h"
 
 namespace POOProject {
 
@@ -39,14 +40,61 @@ namespace POOProject {
 					
 					textBoxNom->Text = dr->GetString(0);
 					textBoxPrenom->Text = dr->GetString(1);
-					textBoxAdrFact->Text = dr->GetString(2);
-					textBoxAdrLivr->Text = dr->GetString(3);
-					textBoxDateNaiss->Text = dr->GetString(4);
-					textBoxDate1er->Text = dr->GetString(5);
+					textBoxAdrFact1->Text = dr->GetString(2);
+					textBoxAdrFact2->Text = dr->GetString(3);
+					textBoxAdrLivr1->Text = dr->GetString(4);
+					textBoxAdrLivr2->Text = dr->GetString(5);
+					textBoxDateNaiss->Text = dr->GetString(6);
+					textBoxDate1er->Text = dr->GetString(7);
 					
 				}
 
 				con->Close();
+
+				if (textBoxAdrFact2->Text == "" && textBoxAdrLivr2->Text == "") {
+
+					label6->Text = "Date Naissance";
+					label7->Text = "Date 1er Achat";
+					label8->Visible = false;
+					label9->Visible = false;
+					textBoxAdrFact2->Visible = false;
+					textBoxAdrLivr2->Visible = false;
+					textBoxDateNaiss->Location = System::Drawing::Point(168, 208);
+					textBoxDate1er->Location = System::Drawing::Point(168, 248);
+					ClientSize = System::Drawing::Size(512, 428);
+					buttonAjouterAdresse->Location = System::Drawing::Point(16, 389);
+					buttonModifier->Location = System::Drawing::Point(404, 389);
+					buttonAnnuler->Location = System::Drawing::Point(293, 389);
+
+				}
+				else if (textBoxAdrFact2->Text != "") {
+
+					label7->Text = "Date Naissance";
+					label8->Text = "Date 1er Achat";
+					label9->Visible = false;
+					textBoxAdrLivr2->Visible = false;
+					textBoxDateNaiss->Location = System::Drawing::Point(168, 248);
+					textBoxDate1er->Location = System::Drawing::Point(168, 288);
+					ClientSize = System::Drawing::Size(512, 468);
+					buttonAjouterAdresse->Location = System::Drawing::Point(16, 429);
+					buttonModifier->Location = System::Drawing::Point(404, 429);
+					buttonAnnuler->Location = System::Drawing::Point(293, 429);
+				}
+				else if (textBoxAdrLivr2->Text != "") {
+
+					label7->Text = "Date Naissance";
+					label8->Text = "Date 1er Achat";
+					label9->Visible = false;
+					textBoxAdrFact2->Visible = false;
+					textBoxAdrLivr1->Location = System::Drawing::Point(168, 168);
+					textBoxAdrLivr2->Location = System::Drawing::Point(168, 208);
+					textBoxDateNaiss->Location = System::Drawing::Point(168, 248);
+					textBoxDate1er->Location = System::Drawing::Point(168, 288);
+					ClientSize = System::Drawing::Size(512, 468);
+					buttonAjouterAdresse->Location = System::Drawing::Point(16, 429);
+					buttonModifier->Location = System::Drawing::Point(404, 429);
+					buttonAnnuler->Location = System::Drawing::Point(293, 429);
+				}
 			}
 
 			catch (Exception^ ex)
@@ -54,6 +102,18 @@ namespace POOProject {
 				MessageBox::Show(ex->Message);
 			}
 		}
+	private: System::Windows::Forms::TextBox^ textBoxDate1er;
+	public:
+
+	private: System::Windows::Forms::TextBox^ textBoxDateNaiss;
+	private: System::Windows::Forms::Label^ label9;
+
+	private: System::Windows::Forms::Label^ label8;
+	public:
+
+
+
+	private: System::Windows::Forms::Button^ buttonAjouterAdresse;
 
 	protected:
 
@@ -77,22 +137,35 @@ namespace POOProject {
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Label^ label5;
+
+
+
+
 	private: System::Windows::Forms::TextBox^ textBoxNum;
 	private: System::Windows::Forms::TextBox^ textBoxNom;
 	private: System::Windows::Forms::TextBox^ textBoxPrenom;
-	private: System::Windows::Forms::TextBox^ textBoxAdrFact;
-	private: System::Windows::Forms::TextBox^ textBoxAdrLivr;
-	private: System::Windows::Forms::TextBox^ textBoxDate1er;
+	private: System::Windows::Forms::TextBox^ textBoxAdrFact1;
+	private: System::Windows::Forms::TextBox^ textBoxAdrFact2;
+	private: System::Windows::Forms::TextBox^ textBoxAdrLivr2;
+
+
+
+	private: System::Windows::Forms::TextBox^ textBoxAdrLivr1;
+	private: System::Windows::Forms::Label^ label7;
 
 
 
 
 
 
-	private: System::Windows::Forms::TextBox^ textBoxDateNaiss;
+
+
 
 	private: System::Windows::Forms::Label^ label6;
-	private: System::Windows::Forms::Label^ label7;
+
+
+
+
 
 
 
@@ -124,21 +197,26 @@ namespace POOProject {
 			this->textBoxNum = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxNom = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxPrenom = (gcnew System::Windows::Forms::TextBox());
-			this->textBoxAdrFact = (gcnew System::Windows::Forms::TextBox());
-			this->textBoxAdrLivr = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxAdrFact1 = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxAdrFact2 = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxAdrLivr2 = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxAdrLivr1 = (gcnew System::Windows::Forms::TextBox());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->textBoxDate1er = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxDateNaiss = (gcnew System::Windows::Forms::TextBox());
-			this->label6 = (gcnew System::Windows::Forms::Label());
-			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->label9 = (gcnew System::Windows::Forms::Label());
+			this->label8 = (gcnew System::Windows::Forms::Label());
+			this->buttonAjouterAdresse = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// buttonModifier
 			// 
 			this->buttonModifier->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonModifier->Location = System::Drawing::Point(411, 350);
+			this->buttonModifier->Location = System::Drawing::Point(404, 412);
 			this->buttonModifier->Name = L"buttonModifier";
-			this->buttonModifier->Size = System::Drawing::Size(73, 27);
+			this->buttonModifier->Size = System::Drawing::Size(80, 27);
 			this->buttonModifier->TabIndex = 0;
 			this->buttonModifier->Text = L"Modifier";
 			this->buttonModifier->UseVisualStyleBackColor = true;
@@ -148,7 +226,7 @@ namespace POOProject {
 			// 
 			this->buttonAnnuler->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonAnnuler->Location = System::Drawing::Point(290, 350);
+			this->buttonAnnuler->Location = System::Drawing::Point(293, 412);
 			this->buttonAnnuler->Name = L"buttonAnnuler";
 			this->buttonAnnuler->Size = System::Drawing::Size(72, 27);
 			this->buttonAnnuler->TabIndex = 1;
@@ -207,9 +285,9 @@ namespace POOProject {
 				static_cast<System::Byte>(0)));
 			this->label5->Location = System::Drawing::Point(12, 169);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(108, 20);
+			this->label5->Size = System::Drawing::Size(131, 20);
 			this->label5->TabIndex = 6;
-			this->label5->Text = L"Adresse Livr";
+			this->label5->Text = L"Adresse Fact 2";
 			// 
 			// textBoxNum
 			// 
@@ -238,79 +316,138 @@ namespace POOProject {
 			this->textBoxPrenom->Size = System::Drawing::Size(316, 25);
 			this->textBoxPrenom->TabIndex = 9;
 			// 
-			// textBoxAdrFact
+			// textBoxAdrFact1
 			// 
-			this->textBoxAdrFact->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->textBoxAdrFact1->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBoxAdrFact->Location = System::Drawing::Point(168, 128);
-			this->textBoxAdrFact->Name = L"textBoxAdrFact";
-			this->textBoxAdrFact->Size = System::Drawing::Size(316, 25);
-			this->textBoxAdrFact->TabIndex = 10;
-			this->textBoxAdrFact->Text = L"numéroRue nomRue, ville, codePostal";
+			this->textBoxAdrFact1->Location = System::Drawing::Point(168, 128);
+			this->textBoxAdrFact1->Name = L"textBoxAdrFact1";
+			this->textBoxAdrFact1->Size = System::Drawing::Size(316, 25);
+			this->textBoxAdrFact1->TabIndex = 10;
+			this->textBoxAdrFact1->Text = L"numéroRue nomRue, ville, codePostal";
 			// 
-			// textBoxAdrLivr
+			// textBoxAdrFact2
 			// 
-			this->textBoxAdrLivr->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->textBoxAdrFact2->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBoxAdrLivr->Location = System::Drawing::Point(168, 168);
-			this->textBoxAdrLivr->Name = L"textBoxAdrLivr";
-			this->textBoxAdrLivr->Size = System::Drawing::Size(316, 25);
-			this->textBoxAdrLivr->TabIndex = 11;
-			this->textBoxAdrLivr->Text = L"numéroRue nomRue, ville, codePostal";
+			this->textBoxAdrFact2->Location = System::Drawing::Point(168, 168);
+			this->textBoxAdrFact2->Name = L"textBoxAdrFact2";
+			this->textBoxAdrFact2->Size = System::Drawing::Size(316, 25);
+			this->textBoxAdrFact2->TabIndex = 11;
+			this->textBoxAdrFact2->Text = L"numéroRue nomRue, ville, codePostal";
 			// 
-			// textBoxDate1er
+			// textBoxAdrLivr2
 			// 
-			this->textBoxDate1er->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->textBoxAdrLivr2->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBoxDate1er->Location = System::Drawing::Point(168, 248);
-			this->textBoxDate1er->Name = L"textBoxDate1er";
-			this->textBoxDate1er->Size = System::Drawing::Size(316, 25);
-			this->textBoxDate1er->TabIndex = 15;
-			this->textBoxDate1er->Text = L"AAAA-MM-JJ";
+			this->textBoxAdrLivr2->Location = System::Drawing::Point(168, 248);
+			this->textBoxAdrLivr2->Name = L"textBoxAdrLivr2";
+			this->textBoxAdrLivr2->Size = System::Drawing::Size(316, 25);
+			this->textBoxAdrLivr2->TabIndex = 15;
+			this->textBoxAdrLivr2->Text = L"numéroRue nomRue, ville, codePostal";
 			// 
-			// textBoxDateNaiss
+			// textBoxAdrLivr1
 			// 
-			this->textBoxDateNaiss->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->textBoxAdrLivr1->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBoxDateNaiss->Location = System::Drawing::Point(168, 208);
-			this->textBoxDateNaiss->Name = L"textBoxDateNaiss";
-			this->textBoxDateNaiss->Size = System::Drawing::Size(316, 25);
-			this->textBoxDateNaiss->TabIndex = 14;
-			this->textBoxDateNaiss->Text = L"AAAA-MM-JJ";
-			// 
-			// label6
-			// 
-			this->label6->AutoSize = true;
-			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label6->Location = System::Drawing::Point(12, 249);
-			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(131, 20);
-			this->label6->TabIndex = 13;
-			this->label6->Text = L"Date 1er Achat";
+			this->textBoxAdrLivr1->Location = System::Drawing::Point(168, 208);
+			this->textBoxAdrLivr1->Name = L"textBoxAdrLivr1";
+			this->textBoxAdrLivr1->Size = System::Drawing::Size(316, 25);
+			this->textBoxAdrLivr1->TabIndex = 14;
+			this->textBoxAdrLivr1->Text = L"numéroRue nomRue, ville, codePostal";
 			// 
 			// label7
 			// 
 			this->label7->AutoSize = true;
 			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label7->Location = System::Drawing::Point(12, 209);
+			this->label7->Location = System::Drawing::Point(12, 249);
 			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(136, 20);
-			this->label7->TabIndex = 12;
-			this->label7->Text = L"Date Naissance";
+			this->label7->Size = System::Drawing::Size(123, 20);
+			this->label7->TabIndex = 13;
+			this->label7->Text = L"Adresse Livr 2";
 			// 
-			// PersonnelModifierForm
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label6->Location = System::Drawing::Point(12, 209);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(108, 20);
+			this->label6->TabIndex = 12;
+			this->label6->Text = L"Adresse Livr";
+			// 
+			// textBoxDate1er
+			// 
+			this->textBoxDate1er->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->textBoxDate1er->Location = System::Drawing::Point(168, 328);
+			this->textBoxDate1er->Name = L"textBoxDate1er";
+			this->textBoxDate1er->Size = System::Drawing::Size(316, 25);
+			this->textBoxDate1er->TabIndex = 19;
+			this->textBoxDate1er->Text = L"AAAA-MM-JJ";
+			// 
+			// textBoxDateNaiss
+			// 
+			this->textBoxDateNaiss->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->textBoxDateNaiss->Location = System::Drawing::Point(168, 288);
+			this->textBoxDateNaiss->Name = L"textBoxDateNaiss";
+			this->textBoxDateNaiss->Size = System::Drawing::Size(316, 25);
+			this->textBoxDateNaiss->TabIndex = 18;
+			this->textBoxDateNaiss->Text = L"AAAA-MM-JJ";
+			// 
+			// label9
+			// 
+			this->label9->AutoSize = true;
+			this->label9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label9->Location = System::Drawing::Point(12, 329);
+			this->label9->Name = L"label9";
+			this->label9->Size = System::Drawing::Size(131, 20);
+			this->label9->TabIndex = 17;
+			this->label9->Text = L"Date 1er Achat";
+			// 
+			// label8
+			// 
+			this->label8->AutoSize = true;
+			this->label8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label8->Location = System::Drawing::Point(12, 289);
+			this->label8->Name = L"label8";
+			this->label8->Size = System::Drawing::Size(136, 20);
+			this->label8->TabIndex = 16;
+			this->label8->Text = L"Date Naissance";
+			// 
+			// buttonAjouterAdresse
+			// 
+			this->buttonAjouterAdresse->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->buttonAjouterAdresse->Location = System::Drawing::Point(16, 412);
+			this->buttonAjouterAdresse->Name = L"buttonAjouterAdresse";
+			this->buttonAjouterAdresse->Size = System::Drawing::Size(137, 27);
+			this->buttonAjouterAdresse->TabIndex = 20;
+			this->buttonAjouterAdresse->Text = L"Ajouter adresse";
+			this->buttonAjouterAdresse->UseVisualStyleBackColor = true;
+			this->buttonAjouterAdresse->Click += gcnew System::EventHandler(this, &ClientsModifierForm::buttonAjouterAdresse_Click);
+			// 
+			// ClientsModifierForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(496, 389);
+			this->ClientSize = System::Drawing::Size(496, 451);
+			this->Controls->Add(this->buttonAjouterAdresse);
 			this->Controls->Add(this->textBoxDate1er);
 			this->Controls->Add(this->textBoxDateNaiss);
-			this->Controls->Add(this->label6);
+			this->Controls->Add(this->label9);
+			this->Controls->Add(this->label8);
+			this->Controls->Add(this->textBoxAdrLivr2);
+			this->Controls->Add(this->textBoxAdrLivr1);
 			this->Controls->Add(this->label7);
-			this->Controls->Add(this->textBoxAdrLivr);
-			this->Controls->Add(this->textBoxAdrFact);
+			this->Controls->Add(this->label6);
+			this->Controls->Add(this->textBoxAdrFact2);
+			this->Controls->Add(this->textBoxAdrFact1);
 			this->Controls->Add(this->textBoxPrenom);
 			this->Controls->Add(this->textBoxNom);
 			this->Controls->Add(this->textBoxNum);
@@ -321,7 +458,7 @@ namespace POOProject {
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->buttonAnnuler);
 			this->Controls->Add(this->buttonModifier);
-			this->Name = L"PersonnelModifierForm";
+			this->Name = L"ClientsModifierForm";
 			this->Text = L"PersonnelModifierForm";
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -337,8 +474,10 @@ namespace POOProject {
 
 		String^ nom = textBoxNom->Text;
 		String^ prenom = textBoxPrenom->Text;
-		String^ adrFact = textBoxAdrFact->Text;
-		String^ adrLivr = textBoxAdrLivr->Text;
+		String^ adrFact = textBoxAdrFact1->Text;
+		String^ adrFact2 = textBoxAdrFact2->Text;
+		String^ adrLivr = textBoxAdrLivr1->Text;
+		String^ adrLivr2 = textBoxAdrLivr2->Text;
 		String^ dateNaiss = textBoxDateNaiss->Text;
 		String^ date1er = textBoxDate1er->Text;
 
@@ -348,10 +487,40 @@ namespace POOProject {
 		}
 		else {
 
-			Client monClient(this->NUM, nom, prenom, adrFact, adrLivr, dateNaiss, date1er);
+			Client monClient(this->NUM, nom, prenom, adrFact, adrFact2, adrLivr, adrLivr2, dateNaiss, date1er);
 			monClient.Modifier();
 
 			this->Hide();
+		}
+		
+	}
+
+	private: System::Void buttonAjouterAdresse_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		if (textBoxAdrFact2->Visible == false && textBoxAdrLivr2->Visible == false) {
+
+			ClientAjouterAdresseForm^ caf = gcnew ClientAjouterAdresseForm(0);
+			caf->ShowDialog();
+
+			this->Hide();
+		}
+		else if (textBoxAdrFact2->Visible == false) {
+
+			ClientAjouterAdresseForm^ caf = gcnew ClientAjouterAdresseForm(1);
+			caf->ShowDialog();
+
+			this->Hide();
+		}
+		else if (textBoxAdrLivr2->Visible == false) {
+
+			ClientAjouterAdresseForm^ caf = gcnew ClientAjouterAdresseForm(2);
+			caf->ShowDialog();
+
+			this->Hide();
+		}
+		else {
+
+			MessageBox::Show("Nombre maximum d'adresse atteint", "Erreur");
 		}
 	}
 	};
