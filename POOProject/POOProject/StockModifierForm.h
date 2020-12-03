@@ -23,27 +23,26 @@ namespace POOProject {
 
 			this->REF = REF;
 
-			/*
-
 			try {
 
-				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
 				MySqlConnection^ con = gcnew MySqlConnection(constr);
 
-				MySqlCommand^ cmd = gcnew MySqlCommand("SELECT PERNOM, PERPRENOM, ADRESSE, DATE, ID_SUPERIEUR FROM Stock, DATE, ADRESSE WHERE Stock.ID_Stock='" + ID + "' AND Stock.ID_ADRESSE = ADRESSE.ID_ADRESSE AND Stock.ID_DATE = DATE.ID_DATE", con);
+				MySqlCommand^ cmd = gcnew MySqlCommand("SELECT ARTNOM, NOMNAT, COULEUR, ARTSTOCKT, ARTSEUIL, ARTPRIXHT, ARTTVA FROM ARTICLE, NATURE, COULEUR WHERE ARTICLE.ID_ARTICLE='" + this->REF + "' AND NATURE.ID_NATURE=ARTICLE.ID_NATURE AND COULEUR.ID_COLOR=ARTICLE.ID_COLOR ", con);
 				MySqlDataReader^ dr;
 				con->Open();
 				dr = cmd->ExecuteReader();
 
 				while (dr->Read()) {
 
-					textBoxNom->Text = dr->GetString(0);
-					textBoxPrenom->Text = dr->GetString(1);
-					textBoxAdresse->Text = dr->GetString(2);
-					textBoxDate->Text = dr->GetString(3);
-					textBoxSuperieur->Text = dr->GetString(4);
+					textBoxDesi->Text = dr->GetString(0);
+					textBoxNature->Text = dr->GetString(1);
+					textBoxCouleur->Text = dr->GetString(2);
+					textBoxQuantiteStock->Text = dr->GetString(3);
+					textBoxSeuilReapro->Text = dr->GetString(4);
+					textBoxPrixHT->Text = dr->GetString(5);
+					textBoxTauxTVA->Text = dr->GetString(6);
 				}
-
 				con->Close();
 			}
 
@@ -51,9 +50,11 @@ namespace POOProject {
 			{
 				MessageBox::Show(ex->Message);
 			}
-
-			*/
 		}
+	private: System::Windows::Forms::Label^ label7;
+	private: System::Windows::Forms::TextBox^ textBoxNature;
+	public:
+
 
 	protected:
 
@@ -125,13 +126,15 @@ namespace POOProject {
 			this->textBoxSeuilReapro = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxCouleur = (gcnew System::Windows::Forms::TextBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->textBoxNature = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
 			// buttonModifier
 			// 
 			this->buttonModifier->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonModifier->Location = System::Drawing::Point(404, 281);
+			this->buttonModifier->Location = System::Drawing::Point(404, 310);
 			this->buttonModifier->Name = L"buttonModifier";
 			this->buttonModifier->Size = System::Drawing::Size(80, 27);
 			this->buttonModifier->TabIndex = 0;
@@ -143,7 +146,7 @@ namespace POOProject {
 			// 
 			this->buttonAnnuler->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonAnnuler->Location = System::Drawing::Point(296, 281);
+			this->buttonAnnuler->Location = System::Drawing::Point(289, 310);
 			this->buttonAnnuler->Name = L"buttonAnnuler";
 			this->buttonAnnuler->Size = System::Drawing::Size(72, 27);
 			this->buttonAnnuler->TabIndex = 1;
@@ -271,11 +274,33 @@ namespace POOProject {
 			this->label6->TabIndex = 13;
 			this->label6->Text = L"Couleur";
 			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label7->Location = System::Drawing::Point(12, 249);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(63, 20);
+			this->label7->TabIndex = 15;
+			this->label7->Text = L"Nature";
+			// 
+			// textBoxNature
+			// 
+			this->textBoxNature->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->textBoxNature->Location = System::Drawing::Point(168, 248);
+			this->textBoxNature->Name = L"textBoxNature";
+			this->textBoxNature->Size = System::Drawing::Size(316, 25);
+			this->textBoxNature->TabIndex = 14;
+			// 
 			// StockModifierForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(496, 320);
+			this->ClientSize = System::Drawing::Size(496, 351);
+			this->Controls->Add(this->label7);
+			this->Controls->Add(this->textBoxNature);
 			this->Controls->Add(this->label6);
 			this->Controls->Add(this->textBoxCouleur);
 			this->Controls->Add(this->textBoxSeuilReapro);
@@ -310,14 +335,15 @@ namespace POOProject {
 		String^ quantiteStock = textBoxQuantiteStock->Text;
 		String^ seuilReapro = textBoxSeuilReapro->Text;
 		String^ couleur = textBoxCouleur->Text;
+		String^ nature = textBoxNature->Text;
 
-		if (desi == "" || prixHT == "" || TauxTVA == "" || quantiteStock == "" || seuilReapro == "" || couleur == "") {
+		if (desi == "" || prixHT == "" || TauxTVA == "" || quantiteStock == "" || seuilReapro == "" || couleur == "" || nature == "") {
 
 			MessageBox::Show("Remplissez tous les champs !", "Erreur");
 		}
 		else {
 
-			Stock monStock(this->REF, desi, prixHT, TauxTVA, quantiteStock, seuilReapro, couleur);
+			Stock monStock(this->REF, desi, prixHT, TauxTVA, quantiteStock, seuilReapro, couleur, nature);
 			monStock.Modifier();
 
 			this->Hide();

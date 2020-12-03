@@ -144,7 +144,8 @@ namespace POOProject {
 	private: System::Windows::Forms::Button^ buttonCommandesRechercher;
 	private: System::Windows::Forms::BindingSource^ bindingSource1;
 	private: System::Windows::Forms::Label^ label4;
-	private: System::Windows::Forms::TextBox^ textBox1;
+private: System::Windows::Forms::TextBox^ textBoxStockNom;
+
 private: System::Windows::Forms::Label^ label5;
 private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 private: System::Windows::Forms::Label^ label6;
@@ -216,6 +217,8 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->label11 = (gcnew System::Windows::Forms::Label());
 			this->panelCommandes = (gcnew System::Windows::Forms::Panel());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->textBoxCommandesRef = (gcnew System::Windows::Forms::TextBox());
 			this->buttonCommandesRechercher = (gcnew System::Windows::Forms::Button());
 			this->buttonCommandesSupprimer = (gcnew System::Windows::Forms::Button());
 			this->buttonCommandesModifier = (gcnew System::Windows::Forms::Button());
@@ -224,15 +227,13 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			this->label20 = (gcnew System::Windows::Forms::Label());
 			this->panelStock = (gcnew System::Windows::Forms::Panel());
 			this->label4 = (gcnew System::Windows::Forms::Label());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxStockNom = (gcnew System::Windows::Forms::TextBox());
 			this->buttonStockRechercher = (gcnew System::Windows::Forms::Button());
 			this->buttonStockSupprimer = (gcnew System::Windows::Forms::Button());
 			this->buttonStockModifier = (gcnew System::Windows::Forms::Button());
 			this->buttonStockAjouter = (gcnew System::Windows::Forms::Button());
 			this->textBoxStockRef = (gcnew System::Windows::Forms::TextBox());
 			this->label37 = (gcnew System::Windows::Forms::Label());
-			this->textBoxCommandesRef = (gcnew System::Windows::Forms::TextBox());
-			this->label6 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bindingSource1))->BeginInit();
 			this->panelPersonnel->SuspendLayout();
@@ -628,6 +629,26 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			this->panelCommandes->TabIndex = 17;
 			this->panelCommandes->Visible = false;
 			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Font = (gcnew System::Drawing::Font(L"Consolas", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label6->Location = System::Drawing::Point(-1, 55);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(90, 19);
+			this->label6->TabIndex = 29;
+			this->label6->Text = L"Référence";
+			// 
+			// textBoxCommandesRef
+			// 
+			this->textBoxCommandesRef->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->textBoxCommandesRef->Location = System::Drawing::Point(95, 49);
+			this->textBoxCommandesRef->Name = L"textBoxCommandesRef";
+			this->textBoxCommandesRef->Size = System::Drawing::Size(165, 25);
+			this->textBoxCommandesRef->TabIndex = 28;
+			// 
 			// buttonCommandesRechercher
 			// 
 			this->buttonCommandesRechercher->FlatAppearance->BorderSize = 0;
@@ -654,6 +675,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			this->buttonCommandesSupprimer->TabIndex = 12;
 			this->buttonCommandesSupprimer->Text = L"Supprimer";
 			this->buttonCommandesSupprimer->UseVisualStyleBackColor = true;
+			this->buttonCommandesSupprimer->Click += gcnew System::EventHandler(this, &MainForm::buttonCommandesSupprimer_Click);
 			// 
 			// buttonCommandesModifier
 			// 
@@ -667,6 +689,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			this->buttonCommandesModifier->TabIndex = 11;
 			this->buttonCommandesModifier->Text = L"Modifier";
 			this->buttonCommandesModifier->UseVisualStyleBackColor = true;
+			this->buttonCommandesModifier->Click += gcnew System::EventHandler(this, &MainForm::buttonCommandesModifier_Click);
 			// 
 			// buttonCommandesAjouter
 			// 
@@ -680,6 +703,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			this->buttonCommandesAjouter->TabIndex = 10;
 			this->buttonCommandesAjouter->Text = L"Ajouter";
 			this->buttonCommandesAjouter->UseVisualStyleBackColor = true;
+			this->buttonCommandesAjouter->Click += gcnew System::EventHandler(this, &MainForm::buttonCommandesAjouter_Click);
 			// 
 			// textBoxCommandesID
 			// 
@@ -704,7 +728,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			// panelStock
 			// 
 			this->panelStock->Controls->Add(this->label4);
-			this->panelStock->Controls->Add(this->textBox1);
+			this->panelStock->Controls->Add(this->textBoxStockNom);
 			this->panelStock->Controls->Add(this->buttonStockRechercher);
 			this->panelStock->Controls->Add(this->buttonStockSupprimer);
 			this->panelStock->Controls->Add(this->buttonStockModifier);
@@ -728,14 +752,14 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			this->label4->TabIndex = 19;
 			this->label4->Text = L"Nom";
 			// 
-			// textBox1
+			// textBoxStockNom
 			// 
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->textBoxStockNom->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBox1->Location = System::Drawing::Point(95, 49);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(165, 25);
-			this->textBox1->TabIndex = 18;
+			this->textBoxStockNom->Location = System::Drawing::Point(95, 49);
+			this->textBoxStockNom->Name = L"textBoxStockNom";
+			this->textBoxStockNom->Size = System::Drawing::Size(165, 25);
+			this->textBoxStockNom->TabIndex = 18;
 			// 
 			// buttonStockRechercher
 			// 
@@ -749,6 +773,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			this->buttonStockRechercher->TabIndex = 17;
 			this->buttonStockRechercher->Text = L"Rechercher";
 			this->buttonStockRechercher->UseVisualStyleBackColor = true;
+			this->buttonStockRechercher->Click += gcnew System::EventHandler(this, &MainForm::buttonStockRechercher_Click);
 			// 
 			// buttonStockSupprimer
 			// 
@@ -762,6 +787,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			this->buttonStockSupprimer->TabIndex = 12;
 			this->buttonStockSupprimer->Text = L"Supprimer";
 			this->buttonStockSupprimer->UseVisualStyleBackColor = true;
+			this->buttonStockSupprimer->Click += gcnew System::EventHandler(this, &MainForm::buttonStockSupprimer_Click);
 			// 
 			// buttonStockModifier
 			// 
@@ -775,6 +801,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			this->buttonStockModifier->TabIndex = 11;
 			this->buttonStockModifier->Text = L"Modifier";
 			this->buttonStockModifier->UseVisualStyleBackColor = true;
+			this->buttonStockModifier->Click += gcnew System::EventHandler(this, &MainForm::buttonStockModifier_Click);
 			// 
 			// buttonStockAjouter
 			// 
@@ -788,6 +815,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			this->buttonStockAjouter->TabIndex = 10;
 			this->buttonStockAjouter->Text = L"Ajouter";
 			this->buttonStockAjouter->UseVisualStyleBackColor = true;
+			this->buttonStockAjouter->Click += gcnew System::EventHandler(this, &MainForm::buttonStockAjouter_Click);
 			// 
 			// textBoxStockRef
 			// 
@@ -808,26 +836,6 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			this->label37->Size = System::Drawing::Size(90, 19);
 			this->label37->TabIndex = 0;
 			this->label37->Text = L"Référence";
-			// 
-			// textBoxCommandesRef
-			// 
-			this->textBoxCommandesRef->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->textBoxCommandesRef->Location = System::Drawing::Point(95, 49);
-			this->textBoxCommandesRef->Name = L"textBoxCommandesRef";
-			this->textBoxCommandesRef->Size = System::Drawing::Size(165, 25);
-			this->textBoxCommandesRef->TabIndex = 28;
-			// 
-			// label6
-			// 
-			this->label6->AutoSize = true;
-			this->label6->Font = (gcnew System::Drawing::Font(L"Consolas", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label6->Location = System::Drawing::Point(-1, 55);
-			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(90, 19);
-			this->label6->TabIndex = 29;
-			this->label6->Text = L"Référence";
 			// 
 			// MainForm
 			// 
@@ -907,7 +915,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 
 			try
 			{
-				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
 				MySqlConnection^ con = gcnew MySqlConnection(constr);
 				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.ID_PERSONNEL='" + PersonnelID + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
 				DataTable^ dt = gcnew DataTable();
@@ -928,7 +936,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 
 			try
 			{
-				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
 				MySqlConnection^ con = gcnew MySqlConnection(constr);
 				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERPRENOM='" + textBoxPersonnelPrenom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
 				DataTable^ dt = gcnew DataTable();
@@ -946,7 +954,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 
 			try
 			{
-				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
 				MySqlConnection^ con = gcnew MySqlConnection(constr);
 				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERNOM='" + textboxPersonnelNom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
 				DataTable^ dt = gcnew DataTable();
@@ -963,7 +971,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 
 			try
 			{
-				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
 				MySqlConnection^ con = gcnew MySqlConnection(constr);
 				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERNOM='" + textboxPersonnelNom->Text + "' AND PERSONNEL.PERPRENOM='" + textBoxPersonnelPrenom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
 				DataTable^ dt = gcnew DataTable();
@@ -1051,7 +1059,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 		try
 		{
 			String^ requete = "SELECT ID_CLIENT as 'n° client', CLINOM as Nom, CLIPRENOM as 'Prénom', tmp.DATE as Date1erlivr, tmp2.DATE as 'Date naissance' FROM CLIENT, DATE as tmp, DATE as tmp2 WHERE tmp.ID_DATE=CLIENT.ID_DATE1ER AND tmp2.ID_DATE=CLIENT.ID_DATEN";
-			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
 			MySqlConnection^ con = gcnew MySqlConnection(constr);
 			MySqlDataAdapter^ sda = gcnew MySqlDataAdapter(requete, con);
 			DataTable^ dt = gcnew DataTable();
@@ -1070,16 +1078,16 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 
 	private: System::Void buttonClientsRechercher_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		/*
+		
 		String^ ClientsNumero = textboxClientsNumero->Text;
 
 		if (ClientsNumero != "") {
 
 			try
 			{
-				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
 				MySqlConnection^ con = gcnew MySqlConnection(constr);
-				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.ID_PERSONNEL='" + PersonnelID + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_CLIENT as 'n° client', CLINOM as Nom, CLIPRENOM as 'Prénom', tmp.DATE as Date1erlivr, tmp2.DATE as 'Date naissance' FROM CLIENT, DATE as tmp, DATE as tmp2 WHERE tmp.ID_DATE=CLIENT.ID_DATE1ER AND tmp2.ID_DATE=CLIENT.ID_DATEN AND CLIENT.ID_CLIENT='" + ClientsNumero + "'", con);
 				DataTable^ dt = gcnew DataTable();
 				sda->Fill(dt);
 				bindingSource1->DataSource = dt;
@@ -1098,9 +1106,9 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 
 			try
 			{
-				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
 				MySqlConnection^ con = gcnew MySqlConnection(constr);
-				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERPRENOM='" + textBoxPersonnelPrenom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_CLIENT as 'n° client', CLINOM as Nom, CLIPRENOM as 'Prénom', tmp.DATE as Date1erlivr, tmp2.DATE as 'Date naissance' FROM CLIENT, DATE as tmp, DATE as tmp2 WHERE tmp.ID_DATE=CLIENT.ID_DATE1ER AND tmp2.ID_DATE=CLIENT.ID_DATEN AND CLIENT.CLIPRENOM='" + textboxClientsPrenom->Text + "'", con);
 				DataTable^ dt = gcnew DataTable();
 				sda->Fill(dt);
 				bindingSource1->DataSource = dt;
@@ -1116,9 +1124,9 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 
 			try
 			{
-				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
 				MySqlConnection^ con = gcnew MySqlConnection(constr);
-				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERNOM='" + textboxPersonnelNom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_CLIENT as 'n° client', CLINOM as Nom, CLIPRENOM as 'Prénom', tmp.DATE as Date1erlivr, tmp2.DATE as 'Date naissance' FROM CLIENT, DATE as tmp, DATE as tmp2 WHERE tmp.ID_DATE=CLIENT.ID_DATE1ER AND tmp2.ID_DATE=CLIENT.ID_DATEN AND CLIENT.CLINOM='" + textboxClientsNom->Text + "'", con);
 				DataTable^ dt = gcnew DataTable();
 				sda->Fill(dt);
 				bindingSource1->DataSource = dt;
@@ -1133,9 +1141,9 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 
 			try
 			{
-				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
 				MySqlConnection^ con = gcnew MySqlConnection(constr);
-				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ID_SUPERIEUR as 'ID Supérieur', ADRESSE as Adresse, DATE as 'Date Embauche' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.PERNOM='" + textboxPersonnelNom->Text + "' AND PERSONNEL.PERPRENOM='" + textBoxPersonnelPrenom->Text + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_CLIENT as 'n° client', CLINOM as Nom, CLIPRENOM as 'Prénom', tmp.DATE as Date1erlivr, tmp2.DATE as 'Date naissance' FROM CLIENT, DATE as tmp, DATE as tmp2 WHERE tmp.ID_DATE=CLIENT.ID_DATE1ER AND tmp2.ID_DATE=CLIENT.ID_DATEN AND CLIENT.CLIPRENOM='" + textboxClientsPrenom->Text + "' AND CLIENT.CLINOM='" + textboxClientsNom->Text + "'", con);
 				DataTable^ dt = gcnew DataTable();
 				sda->Fill(dt);
 				bindingSource1->DataSource = dt;
@@ -1146,7 +1154,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 				MessageBox::Show(ex->Message);
 			}
 		}
-		*/
+		
 	}
 
 
@@ -1219,6 +1227,31 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 		panelClients->Visible = false;
 		panelCommandes->Visible = true;
 		panelStock->Visible = false;
+
+		try
+		{
+			String^ requete = "SELECT ID_COMMANDE as 'N° commande', COMREF as 'Référence', tmp.DATE as 'Date émission', tmp2.DATE as 'Date livraison', tmp3.DATE as 'Date règlement', COMMANDE.ID_CLIENT as 'n° client', ARTNOM as Article, QUANTART as 'Quantité', COMTOTALHT as 'Total HT', COMTOTALTVA as 'Total TVA', COMREMISE as 'Remise appliquée', COMTOTALTTC as 'Total TTC'FROM COMMANDE, CLIENT, DATE as tmp, DATE as tmp2, DATE as tmp3, ARTICLE WHERE COMMANDE.ID_DATEEMIS=tmp.ID_DATE AND COMMANDE.ID_DATELIVR=tmp2.ID_DATE AND COMMANDE.ID_DATEREG=tmp3.ID_DATE AND ARTICLE.ID_ARTICLE=COMMANDE.ID_ARTICLE GROUP BY ID_COMMANDE";
+			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
+			MySqlConnection^ con = gcnew MySqlConnection(constr);
+			MySqlDataAdapter^ sda = gcnew MySqlDataAdapter(requete, con);
+			DataTable^ dt = gcnew DataTable();
+			sda->Fill(dt);
+			bindingSource1->DataSource = dt;
+			dataGridView1->DataSource = bindingSource1;
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
+	}
+
+
+// -------------------------------------------------    bouton Ajouter    -----------------------------------------------------------------
+
+	private: System::Void buttonCommandesAjouter_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		CommandeAjouterForm^ coa = gcnew CommandeAjouterForm();
+		coa->ShowDialog();
 	}
 
 
@@ -1232,11 +1265,84 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 		}
 		else if (textBoxCommandesID->Text != "") {
 
-			
+			try
+			{
+				String^ requete = "SELECT ID_COMMANDE as 'N° commande', COMREF as 'Référence', tmp.DATE as 'Date émission', tmp2.DATE as 'Date livraison', tmp3.DATE as 'Date règlement', COMMANDE.ID_CLIENT as 'n° client', ARTNOM as Article, QUANTART as 'Quantité', COMTOTALHT as 'Total HT', COMTOTALTVA as 'Total TVA', COMREMISE as 'Remise appliquée', COMTOTALTTC as 'Total TTC'FROM COMMANDE, CLIENT, DATE as tmp, DATE as tmp2, DATE as tmp3, ARTICLE WHERE COMMANDE.ID_COMMANDE='" + textBoxCommandesID->Text + "' AND COMMANDE.ID_DATEEMIS=tmp.ID_DATE AND COMMANDE.ID_DATELIVR=tmp2.ID_DATE AND COMMANDE.ID_DATEREG=tmp3.ID_DATE AND ARTICLE.ID_ARTICLE=COMMANDE.ID_ARTICLE GROUP BY ID_COMMANDE";
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
+				MySqlConnection^ con = gcnew MySqlConnection(constr);
+				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter(requete, con);
+				DataTable^ dt = gcnew DataTable();
+				sda->Fill(dt);
+				bindingSource1->DataSource = dt;
+				dataGridView1->DataSource = bindingSource1;
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
 		}
 		else {
 
+			try
+			{
+				String^ requete = "SELECT ID_COMMANDE as 'N° commande', COMREF as 'Référence', tmp.DATE as 'Date émission', tmp2.DATE as 'Date livraison', tmp3.DATE as 'Date règlement', COMMANDE.ID_CLIENT as 'n° client', ARTNOM as Article, QUANTART as 'Quantité', COMTOTALHT as 'Total HT', COMTOTALTVA as 'Total TVA', COMREMISE as 'Remise appliquée', COMTOTALTTC as 'Total TTC'FROM COMMANDE, CLIENT, DATE as tmp, DATE as tmp2, DATE as tmp3, ARTICLE WHERE COMMANDE.COMREF='" + textBoxCommandesRef->Text + "' AND COMMANDE.ID_DATEEMIS=tmp.ID_DATE AND COMMANDE.ID_DATELIVR=tmp2.ID_DATE AND COMMANDE.ID_DATEREG=tmp3.ID_DATE AND ARTICLE.ID_ARTICLE=COMMANDE.ID_ARTICLE GROUP BY ID_COMMANDE";
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
+				MySqlConnection^ con = gcnew MySqlConnection(constr);
+				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter(requete, con);
+				DataTable^ dt = gcnew DataTable();
+				sda->Fill(dt);
+				bindingSource1->DataSource = dt;
+				dataGridView1->DataSource = bindingSource1;
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
+			
+		}
+	}
 
+
+// -------------------------------------------------   bouton Supprimer   -----------------------------------------------------------------
+
+	private: System::Void buttonCommandesSupprimer_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		String^ IDCommande = textBoxCommandesID->Text;
+
+		if (IDCommande != "") {
+
+			MessageBoxButtons buttons = MessageBoxButtons::OKCancel;
+			String^ message = "Voulez vous vraiment supprimer cette commande ?";
+			String^ title = "Confirmation";
+
+			if (MessageBox::Show(message, title, buttons) == System::Windows::Forms::DialogResult::OK) {
+
+				Commande maCommande(IDCommande);
+				maCommande.Supprimer();
+			}
+		}
+		else {
+
+			MessageBox::Show("Entrez l'ID de la commande à supprimer", "Erreur");
+		}
+
+	}
+
+
+// -------------------------------------------------   bouton Modifier    -----------------------------------------------------------------
+
+	private: System::Void buttonCommandesModifier_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+		String^ IDCommande = textBoxCommandesID->Text;
+
+		if (IDCommande == "") {
+
+			MessageBox::Show("Entrez l'ID d'une commande à modifier", "Erreur");
+		}
+		else {
+
+			CommandeModifierForm^ cm = gcnew CommandeModifierForm(IDCommande);
+			cm->ShowDialog();
 		}
 	}
 
@@ -1257,6 +1363,120 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 		panelClients->Visible = false;
 		panelCommandes->Visible = false;
 		panelStock->Visible = true;
+
+		try {
+
+			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
+			MySqlConnection^ con = gcnew MySqlConnection(constr);
+			MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_ARTICLE as 'Référence', ARTNOM 'Nom', NOMNAT as 'Nature', COULEUR as 'Couleur', ARTSTOCKT as Stock, ARTSEUIL as 'Seuil de réappro', ARTPRIXHT as 'Prix HT', ARTTVA as 'Taux TVA' FROM ARTICLE, NATURE, COULEUR WHERE NATURE.ID_NATURE=ARTICLE.ID_NATURE AND COULEUR.ID_COLOR=ARTICLE.ID_COLOR ", con);
+			DataTable^ dt = gcnew DataTable();
+			sda->Fill(dt);
+			bindingSource1->DataSource = dt;
+			dataGridView1->DataSource = bindingSource1;
+		}
+
+
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
+	}
+
+
+// -------------------------------------------------   bouton Supprimer   -----------------------------------------------------------------
+
+	private: System::Void buttonStockSupprimer_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+		String^ IDArticle = textBoxStockRef->Text;
+
+		if (IDArticle != "") {
+
+			MessageBoxButtons buttons = MessageBoxButtons::OKCancel;
+			String^ message = "Voulez vous vraiment supprimer cet article ?";
+			String^ title = "Confirmation";
+
+			if (MessageBox::Show(message, title, buttons) == System::Windows::Forms::DialogResult::OK) {
+
+				Stock monArticle(IDArticle);
+				monArticle.Supprimer();
+			}
+		}
+		else {
+
+			MessageBox::Show("Entrez la référence de l'article à supprimer", "Erreur");
+		}
+	}
+
+
+// -------------------------------------------------   bouton Modifier    -----------------------------------------------------------------
+
+	private: System::Void buttonStockModifier_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		String^ IDArticle = textBoxStockRef->Text;
+
+		if (IDArticle != "") {
+		
+			StockModifierForm^ sm = gcnew StockModifierForm(IDArticle);
+			sm->ShowDialog();
+		}
+	}
+
+
+// -------------------------------------------------    bouton Ajouter    -----------------------------------------------------------------
+
+	private: System::Void buttonStockAjouter_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		StockAjouterForm^ sa = gcnew StockAjouterForm();
+		sa->ShowDialog();
+	}
+
+
+// -------------------------------------------------   bouton Rechercher  -----------------------------------------------------------------
+
+	private: System::Void buttonStockRechercher_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+		if (textBoxStockRef->Text == "" && textBoxStockNom->Text == "") {
+
+			MessageBox::Show("Entrez un ID ou une référence");
+		}
+		else if (textBoxStockRef->Text != "") {
+
+			try {
+
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
+				MySqlConnection^ con = gcnew MySqlConnection(constr);
+				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_ARTICLE as 'Référence', ARTNOM 'Nom', NOMNAT as 'Nature', COULEUR as 'Couleur', ARTSTOCKT as Stock, ARTSEUIL as 'Seuil de réappro', ARTPRIXHT as 'Prix HT', ARTTVA as 'Taux TVA' FROM ARTICLE, NATURE, COULEUR WHERE ARTICLE.ID_ARTICLE='" + textBoxStockRef->Text + "' AND NATURE.ID_NATURE=ARTICLE.ID_NATURE AND COULEUR.ID_COLOR=ARTICLE.ID_COLOR ", con);
+				DataTable^ dt = gcnew DataTable();
+				sda->Fill(dt);
+				bindingSource1->DataSource = dt;
+				dataGridView1->DataSource = bindingSource1;
+			}
+
+
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
+		}
+		else {
+
+			try {
+
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
+				MySqlConnection^ con = gcnew MySqlConnection(constr);
+				MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_ARTICLE as 'Référence', ARTNOM 'Nom', NOMNAT as 'Nature', COULEUR as 'Couleur', ARTSTOCKT as Stock, ARTSEUIL as 'Seuil de réappro', ARTPRIXHT as 'Prix HT', ARTTVA as 'Taux TVA' FROM ARTICLE, NATURE, COULEUR WHERE ARTICLE.ARTNOM='" + textBoxStockNom->Text + "' AND NATURE.ID_NATURE=ARTICLE.ID_NATURE AND COULEUR.ID_COLOR=ARTICLE.ID_COLOR ", con);
+				DataTable^ dt = gcnew DataTable();
+				sda->Fill(dt);
+				bindingSource1->DataSource = dt;
+				dataGridView1->DataSource = bindingSource1;
+			}
+
+
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
+		}
 	}
 
 };

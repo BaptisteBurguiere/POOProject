@@ -38,7 +38,6 @@ namespace ClassCat {
 	public:
 
 		Personnel(String^ ID);
-		Personnel(String^ nom, String^ prenom);
 		Personnel(String^ nom, String^ prenom, String^ superieur, String^ adresse, String^ date);
 		Personnel(String^ id,  String^ nom, String^ prenom, String^ superieur, String^ adresse, String^ date);
 		void Ajouter();
@@ -69,8 +68,7 @@ namespace ClassCat {
 	public:
 
 		Client(String^ num);
-		Client(String^ num, String^adr, int x);
-		Client(String^ nom, String^ prenom);
+		Client(String^ num, String^adr);
 		Client(String^ nom, String^ prenom, String^ adrFact, String^ adrLiv, String^ dateNaissance, String^ date1achat);
 		Client(String^ num, String^ nom, String^ prenom, String^ adrFact, String^ adrFact2, String^ adrLiv, String^ adrLiv2, String^ dateNaissance, String^ date1achat);
 		void Ajouter();
@@ -105,6 +103,7 @@ namespace ClassCat {
 
 		Commande(String^ ref);
 		Commande(String^ ref, String^ numClient, String^ dateLivr, String^ dateEmi, String^ datePaie, String^ moyPaie, String^ refArt, String^ quantiteArt);
+		Commande(String^ id, String^ ref, String^ numClient, String^ dateLivr, String^ dateEmi, String^ datePaie, String^ moyPaie, String^ refArt, String^ quantiteArt);
 		void Ajouter();
 		void Modifier();
 		void Supprimer();
@@ -125,7 +124,7 @@ namespace ClassCat {
 		String^ co_totalHT;
 		String^ co_totalTVA;
 		String^ co_totalTTC;
-		String^ co_remise;
+		float co_remise;
 	};
 
 
@@ -141,9 +140,8 @@ namespace ClassCat {
 	public:
 
 		Stock(String^ ref);
-		Stock(String^ desi, String^ tst);
-		Stock(String^ desi, String^ prixHT, String^ tauxTVA, String^ quantiteStock, String^ seuilReapro, String^ couleur);
-		Stock(String^ ref, String^ desi, String^ prixHT, String^ tauxTVA, String^ quantiteStock, String^ seuilReapro, String^ couleur);
+		Stock(String^ desi, String^ prixHT, String^ tauxTVA, String^ quantiteStock, String^ seuilReapro, String^ couleur, String^ nature);
+		Stock(String^ ref, String^ desi, String^ prixHT, String^ tauxTVA, String^ quantiteStock, String^ seuilReapro, String^ couleur, String^ nature);
 		void Ajouter();
 		void Modifier();
 		void Supprimer();
@@ -157,5 +155,6 @@ namespace ClassCat {
 		String^ s_quantiteStock;
 		String^ s_seuilReapro;
 		String^ s_couleur;
+		String^ s_nature;
 	};
 }

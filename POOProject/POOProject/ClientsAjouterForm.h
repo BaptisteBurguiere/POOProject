@@ -39,12 +39,12 @@ namespace POOProject {
 		}
 	private: System::Windows::Forms::Button^ buttonAjouter;
 	private: System::Windows::Forms::Button^ buttonAnnuler;
-	private: System::Windows::Forms::Label^ label1;
+
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Label^ label5;
-	private: System::Windows::Forms::TextBox^ textBoxNum;
+
 	private: System::Windows::Forms::TextBox^ textBoxNom;
 	private: System::Windows::Forms::TextBox^ textBoxPrenom;
 	private: System::Windows::Forms::TextBox^ textBoxAdrFact;
@@ -83,12 +83,10 @@ namespace POOProject {
 		{
 			this->buttonAjouter = (gcnew System::Windows::Forms::Button());
 			this->buttonAnnuler = (gcnew System::Windows::Forms::Button());
-			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->label5 = (gcnew System::Windows::Forms::Label());
-			this->textBoxNum = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxNom = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxPrenom = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxAdrFact = (gcnew System::Windows::Forms::TextBox());
@@ -103,7 +101,7 @@ namespace POOProject {
 			// 
 			this->buttonAjouter->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonAjouter->Location = System::Drawing::Point(411, 350);
+			this->buttonAjouter->Location = System::Drawing::Point(411, 269);
 			this->buttonAjouter->Name = L"buttonAjouter";
 			this->buttonAjouter->Size = System::Drawing::Size(73, 27);
 			this->buttonAjouter->TabIndex = 0;
@@ -115,7 +113,7 @@ namespace POOProject {
 			// 
 			this->buttonAnnuler->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonAnnuler->Location = System::Drawing::Point(290, 350);
+			this->buttonAnnuler->Location = System::Drawing::Point(287, 269);
 			this->buttonAnnuler->Name = L"buttonAnnuler";
 			this->buttonAnnuler->Size = System::Drawing::Size(72, 27);
 			this->buttonAnnuler->TabIndex = 1;
@@ -123,23 +121,12 @@ namespace POOProject {
 			this->buttonAnnuler->UseVisualStyleBackColor = true;
 			this->buttonAnnuler->Click += gcnew System::EventHandler(this, &ClientsAjouterForm::buttonAnnuler_Click);
 			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(12, 9);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(71, 20);
-			this->label1->TabIndex = 2;
-			this->label1->Text = L"Numéro";
-			// 
 			// label2
 			// 
 			this->label2->AutoSize = true;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label2->Location = System::Drawing::Point(12, 49);
+			this->label2->Location = System::Drawing::Point(12, 13);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(45, 20);
 			this->label2->TabIndex = 3;
@@ -150,7 +137,7 @@ namespace POOProject {
 			this->label3->AutoSize = true;
 			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label3->Location = System::Drawing::Point(12, 89);
+			this->label3->Location = System::Drawing::Point(12, 53);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(70, 20);
 			this->label3->TabIndex = 4;
@@ -161,7 +148,7 @@ namespace POOProject {
 			this->label4->AutoSize = true;
 			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label4->Location = System::Drawing::Point(12, 129);
+			this->label4->Location = System::Drawing::Point(12, 93);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(116, 20);
 			this->label4->TabIndex = 5;
@@ -172,26 +159,17 @@ namespace POOProject {
 			this->label5->AutoSize = true;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label5->Location = System::Drawing::Point(12, 169);
+			this->label5->Location = System::Drawing::Point(12, 133);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(108, 20);
 			this->label5->TabIndex = 6;
 			this->label5->Text = L"Adresse Livr";
 			// 
-			// textBoxNum
-			// 
-			this->textBoxNum->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->textBoxNum->Location = System::Drawing::Point(168, 8);
-			this->textBoxNum->Name = L"textBoxNum";
-			this->textBoxNum->Size = System::Drawing::Size(316, 25);
-			this->textBoxNum->TabIndex = 7;
-			// 
 			// textBoxNom
 			// 
 			this->textBoxNom->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBoxNom->Location = System::Drawing::Point(168, 48);
+			this->textBoxNom->Location = System::Drawing::Point(168, 12);
 			this->textBoxNom->Name = L"textBoxNom";
 			this->textBoxNom->Size = System::Drawing::Size(316, 25);
 			this->textBoxNom->TabIndex = 8;
@@ -200,7 +178,7 @@ namespace POOProject {
 			// 
 			this->textBoxPrenom->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBoxPrenom->Location = System::Drawing::Point(168, 88);
+			this->textBoxPrenom->Location = System::Drawing::Point(168, 52);
 			this->textBoxPrenom->Name = L"textBoxPrenom";
 			this->textBoxPrenom->Size = System::Drawing::Size(316, 25);
 			this->textBoxPrenom->TabIndex = 9;
@@ -209,7 +187,7 @@ namespace POOProject {
 			// 
 			this->textBoxAdrFact->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBoxAdrFact->Location = System::Drawing::Point(168, 128);
+			this->textBoxAdrFact->Location = System::Drawing::Point(168, 92);
 			this->textBoxAdrFact->Name = L"textBoxAdrFact";
 			this->textBoxAdrFact->Size = System::Drawing::Size(316, 25);
 			this->textBoxAdrFact->TabIndex = 10;
@@ -219,7 +197,7 @@ namespace POOProject {
 			// 
 			this->textBoxAdrLivr->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBoxAdrLivr->Location = System::Drawing::Point(168, 168);
+			this->textBoxAdrLivr->Location = System::Drawing::Point(168, 132);
 			this->textBoxAdrLivr->Name = L"textBoxAdrLivr";
 			this->textBoxAdrLivr->Size = System::Drawing::Size(316, 25);
 			this->textBoxAdrLivr->TabIndex = 11;
@@ -229,7 +207,7 @@ namespace POOProject {
 			// 
 			this->textBoxDate1er->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBoxDate1er->Location = System::Drawing::Point(168, 248);
+			this->textBoxDate1er->Location = System::Drawing::Point(168, 212);
 			this->textBoxDate1er->Name = L"textBoxDate1er";
 			this->textBoxDate1er->Size = System::Drawing::Size(316, 25);
 			this->textBoxDate1er->TabIndex = 15;
@@ -239,7 +217,7 @@ namespace POOProject {
 			// 
 			this->textBoxDateNaiss->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBoxDateNaiss->Location = System::Drawing::Point(168, 208);
+			this->textBoxDateNaiss->Location = System::Drawing::Point(168, 172);
 			this->textBoxDateNaiss->Name = L"textBoxDateNaiss";
 			this->textBoxDateNaiss->Size = System::Drawing::Size(316, 25);
 			this->textBoxDateNaiss->TabIndex = 14;
@@ -250,7 +228,7 @@ namespace POOProject {
 			this->label6->AutoSize = true;
 			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label6->Location = System::Drawing::Point(12, 249);
+			this->label6->Location = System::Drawing::Point(12, 213);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(131, 20);
 			this->label6->TabIndex = 13;
@@ -261,17 +239,17 @@ namespace POOProject {
 			this->label7->AutoSize = true;
 			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label7->Location = System::Drawing::Point(12, 209);
+			this->label7->Location = System::Drawing::Point(12, 173);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(136, 20);
 			this->label7->TabIndex = 12;
 			this->label7->Text = L"Date Naissance";
 			// 
-			// PersonnelAjouterForm
+			// ClientsAjouterForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(496, 389);
+			this->ClientSize = System::Drawing::Size(496, 309);
 			this->Controls->Add(this->textBoxDate1er);
 			this->Controls->Add(this->textBoxDateNaiss);
 			this->Controls->Add(this->label6);
@@ -280,16 +258,15 @@ namespace POOProject {
 			this->Controls->Add(this->textBoxAdrFact);
 			this->Controls->Add(this->textBoxPrenom);
 			this->Controls->Add(this->textBoxNom);
-			this->Controls->Add(this->textBoxNum);
 			this->Controls->Add(this->label5);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
-			this->Controls->Add(this->label1);
 			this->Controls->Add(this->buttonAnnuler);
 			this->Controls->Add(this->buttonAjouter);
-			this->Name = L"PersonnelAjouterForm";
+			this->Name = L"ClientsAjouterForm";
 			this->Text = L"PersonnelAjouterForm";
+			this->Load += gcnew System::EventHandler(this, &ClientsAjouterForm::ClientsAjouterForm_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -321,5 +298,7 @@ namespace POOProject {
 			this->Hide();
 		}
 	}
+private: System::Void ClientsAjouterForm_Load(System::Object^ sender, System::EventArgs^ e) {
+}
 };
 }

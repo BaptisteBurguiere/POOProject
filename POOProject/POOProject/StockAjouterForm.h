@@ -57,6 +57,9 @@ namespace POOProject {
 
 
 	private: System::Windows::Forms::Label^ label6;
+	private: System::Windows::Forms::Label^ label7;
+	private: System::Windows::Forms::TextBox^ textBoxNature;
+
 
 
 
@@ -92,13 +95,15 @@ namespace POOProject {
 			this->textBoxSeuilReapro = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxCouleur = (gcnew System::Windows::Forms::TextBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->textBoxNature = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
 			// buttonAjouter
 			// 
 			this->buttonAjouter->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonAjouter->Location = System::Drawing::Point(411, 281);
+			this->buttonAjouter->Location = System::Drawing::Point(411, 318);
 			this->buttonAjouter->Name = L"buttonAjouter";
 			this->buttonAjouter->Size = System::Drawing::Size(73, 27);
 			this->buttonAjouter->TabIndex = 0;
@@ -110,7 +115,7 @@ namespace POOProject {
 			// 
 			this->buttonAnnuler->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonAnnuler->Location = System::Drawing::Point(296, 281);
+			this->buttonAnnuler->Location = System::Drawing::Point(294, 318);
 			this->buttonAnnuler->Name = L"buttonAnnuler";
 			this->buttonAnnuler->Size = System::Drawing::Size(72, 27);
 			this->buttonAnnuler->TabIndex = 1;
@@ -238,11 +243,33 @@ namespace POOProject {
 			this->label6->TabIndex = 13;
 			this->label6->Text = L"Couleur";
 			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label7->Location = System::Drawing::Point(12, 249);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(63, 20);
+			this->label7->TabIndex = 15;
+			this->label7->Text = L"Nature";
+			// 
+			// textBoxNature
+			// 
+			this->textBoxNature->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->textBoxNature->Location = System::Drawing::Point(168, 248);
+			this->textBoxNature->Name = L"textBoxNature";
+			this->textBoxNature->Size = System::Drawing::Size(316, 25);
+			this->textBoxNature->TabIndex = 14;
+			// 
 			// StockAjouterForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(496, 320);
+			this->ClientSize = System::Drawing::Size(496, 357);
+			this->Controls->Add(this->label7);
+			this->Controls->Add(this->textBoxNature);
 			this->Controls->Add(this->label6);
 			this->Controls->Add(this->textBoxCouleur);
 			this->Controls->Add(this->textBoxSeuilReapro);
@@ -277,19 +304,19 @@ namespace POOProject {
 		String^ quantiteStock = textBoxQuantiteStock->Text;
 		String^ seuilReapro = textBoxSeuilReapro->Text;
 		String^ couleur = textBoxCouleur->Text;
+		String^ nature = textBoxNature->Text;
 
-		if (desi == "" || prixHT == "" || TauxTVA == "" || quantiteStock == "" || seuilReapro == "" || couleur == "") {
+		if (desi == "" || prixHT == "" || TauxTVA == "" || quantiteStock == "" || seuilReapro == "" || couleur == "" || nature == "") {
 
 			MessageBox::Show("Remplissez tous les champs !", "Erreur");
 		}
 		else {
 
-			Stock monStock(desi, prixHT, TauxTVA, quantiteStock, seuilReapro, couleur);
+			Stock monStock(desi, prixHT, TauxTVA, quantiteStock, seuilReapro, couleur, nature);
 			monStock.Ajouter();
 
 			this->Hide();
 		}
 	}
-
 };
 }

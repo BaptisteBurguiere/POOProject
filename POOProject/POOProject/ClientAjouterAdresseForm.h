@@ -209,13 +209,13 @@ namespace POOProject {
 
 		if (adrFact != "") {
 
-			Client monClient(this->NUM, adrFact, 0);
+			Client monClient(this->NUM, adrFact);
 			monClient.AjouterAdresse(this->STATE);
 		}
 
 		if (adrLivr != "") {
 
-			Client monClient(this->NUM, adrLivr, 0);
+			Client monClient(this->NUM, adrLivr);
 			monClient.AjouterAdresse(this->STATE);
 		}
 
