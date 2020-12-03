@@ -27,7 +27,7 @@ namespace POOProject {
 
 			try {
 
-				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
 				MySqlConnection^ con = gcnew MySqlConnection(constr);
 
 				MySqlCommand^ cmd = gcnew MySqlCommand("SELECT ADRESSE.ADRESSE FROM FACTURER, ADRESSE WHERE FACTURER.ID_CLIENT='" + this->NUM + "' AND ADRESSE.ID_ADRESSE=FACTURER.ID_ADRESSE LIMIT 1", con);
@@ -74,41 +74,29 @@ namespace POOProject {
 				}
 				con->Close();
 
-				/*
+
+				cmd = gcnew MySqlCommand("SELECT CLINOM, CLIPRENOM, tmp.DATE, tmp2.DATE FROM CLIENT, DATE as tmp, DATE as tmp2 WHERE tmp.ID_DATE=CLIENT.ID_DATE1ER AND tmp2.ID_DATE=CLIENT.ID_DATEN AND CLIENT.ID_CLIENT='" + this->NUM + "'", con);
+				con->Open();
+				dr = cmd->ExecuteReader();
 
 				while (dr->Read()) {
 
 					
 					textBoxNom->Text = dr->GetString(0);
 					textBoxPrenom->Text = dr->GetString(1);
-					textBoxAdrFact1->Text = dr->GetString(2);
-					textBoxAdrFact2->Text = dr->GetString(3);
-					textBoxAdrLivr1->Text = dr->GetString(4);
-					textBoxAdrLivr2->Text = dr->GetString(5);
-					textBoxDateNaiss->Text = dr->GetString(6);
-					textBoxDate1er->Text = dr->GetString(7);
+					textBoxDate1er->Text = dr->GetString(2);
+					textBoxDateNaiss->Text = dr->GetString(3);
 					
 				}
-				
-
 				con->Close();
 
-				*/
 
 				if (textBoxAdrFact2->Text == "numéroRue nomRue, ville, codePostal" && textBoxAdrLivr2->Text == "numéroRue nomRue, ville, codePostal") {
 
-					this->label6->Text = "Date Naissance";
-					this->label7->Text = "Date 1er Achat";
-					this->label8->Visible = false;
-					this->label9->Visible = false;
+					this->label5->Visible = false;
+					this->label7->Visible = false;
 					this->textBoxAdrFact2->Visible = false;
 					this->textBoxAdrLivr2->Visible = false;
-					this->textBoxDateNaiss->Location = System::Drawing::Point(168, 208);
-					this->textBoxDate1er->Location = System::Drawing::Point(168, 248);
-					this->ClientSize = System::Drawing::Size(512, 428);
-					this->buttonAjouterAdresse->Location = System::Drawing::Point(16, 389);
-					this->buttonModifier->Location = System::Drawing::Point(404, 389);
-					this->buttonAnnuler->Location = System::Drawing::Point(293, 389);
 
 				}
 				else if (textBoxAdrFact2->Text != "numéroRue nomRue, ville, codePostal" && textBoxAdrLivr2->Text != "numéroRue nomRue, ville, codePostal") {
@@ -116,31 +104,13 @@ namespace POOProject {
 				}
 				else if (textBoxAdrFact2->Text != "numéroRue nomRue, ville, codePostal") {
 
-					this->label7->Text = "Date Naissance";
-					this->label8->Text = "Date 1er Achat";
-					this->label9->Visible = false;
+					this->label7->Visible = false;
 					this->textBoxAdrLivr2->Visible = false;
-					this->textBoxDateNaiss->Location = System::Drawing::Point(168, 248);
-					this->textBoxDate1er->Location = System::Drawing::Point(168, 288);
-					this->ClientSize = System::Drawing::Size(512, 468);
-					this->buttonAjouterAdresse->Location = System::Drawing::Point(16, 429);
-					this->buttonModifier->Location = System::Drawing::Point(404, 429);
-					this->buttonAnnuler->Location = System::Drawing::Point(293, 429);
 				}
 				else if (textBoxAdrLivr2->Text != "numéroRue nomRue, ville, codePostal") {
 
-					this->label7->Text = "Date Naissance";
-					this->label8->Text = "Date 1er Achat";
-					this->label9->Visible = false;
+					this->label5->Visible = false;
 					this->textBoxAdrFact2->Visible = false;
-					this->textBoxAdrLivr1->Location = System::Drawing::Point(168, 168);
-					this->textBoxAdrLivr2->Location = System::Drawing::Point(168, 208);
-					this->textBoxDateNaiss->Location = System::Drawing::Point(168, 248);
-					this->textBoxDate1er->Location = System::Drawing::Point(168, 288);
-					this->ClientSize = System::Drawing::Size(512, 468);
-					this->buttonAjouterAdresse->Location = System::Drawing::Point(16, 429);
-					this->buttonModifier->Location = System::Drawing::Point(404, 429);
-					this->buttonAnnuler->Location = System::Drawing::Point(293, 429);
 				}
 			}
 
@@ -482,7 +452,7 @@ namespace POOProject {
 			this->Controls->Add(this->buttonAnnuler);
 			this->Controls->Add(this->buttonModifier);
 			this->Name = L"ClientsModifierForm";
-			this->Text = L"PersonnelModifierForm";
+			this->Text = L"ClientsModifierForm";
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -520,21 +490,21 @@ namespace POOProject {
 
 	private: System::Void buttonAjouterAdresse_Click(System::Object^ sender, System::EventArgs^ e) {
 
-		if (textBoxAdrFact2->Visible == false && textBoxAdrLivr2->Visible == false) {
+		if (textBoxAdrFact2->Text == "numéroRue nomRue, ville, codePostal" && textBoxAdrLivr2->Text == "numéroRue nomRue, ville, codePostal") {
 
 			ClientAjouterAdresseForm^ caf = gcnew ClientAjouterAdresseForm(0, this->NUM);
 			caf->ShowDialog();
 
 			this->Hide();
 		}
-		else if (textBoxAdrFact2->Visible == false) {
+		else if (textBoxAdrFact2->Text == "numéroRue nomRue, ville, codePostal") {
 
 			ClientAjouterAdresseForm^ caf = gcnew ClientAjouterAdresseForm(1, this->NUM);
 			caf->ShowDialog();
 
 			this->Hide();
 		}
-		else if (textBoxAdrLivr2->Visible == false) {
+		else if (textBoxAdrLivr2->Text == "numéroRue nomRue, ville, codePostal") {
 
 			ClientAjouterAdresseForm^ caf = gcnew ClientAjouterAdresseForm(2, this->NUM);
 			caf->ShowDialog();

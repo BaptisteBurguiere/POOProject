@@ -30,11 +30,13 @@ namespace ClassCat {
 
 	Personnel::Personnel(String^ ID) {
 
+		Categorie();
 		p_ID = ID;
 	}
 
 	Personnel::Personnel(String^ nom, String^ prenom, String^ superieur, String^ adresse, String^ date) {
 
+		Categorie();
 		p_nom = nom;
 		p_prenom = prenom;
 		p_superieur = superieur;
@@ -44,6 +46,7 @@ namespace ClassCat {
 
 	Personnel::Personnel(String^ id, String^ nom, String^ prenom, String^ superieur, String^ adresse, String^ date) {
 
+		Categorie();
 		p_ID = id;
 		p_nom = nom;
 		p_prenom = prenom;
@@ -71,7 +74,7 @@ namespace ClassCat {
 			dr = cmd->ExecuteReader();
 			con->Close();
 
-			requete = "INSERT INTO PERSONNEL SELECT '', PERSONNEL.ID_ADRESSE, PERSONNEL.ID_DATE, PERSONNEL.ID_PERSONNEL, '" + p_nom + "', '" + p_prenom + "' FROM DATE, PERSONNEL, ADRESSE WHERE ADRESSE = '" + p_adresse + "' AND DATE = '" + p_date + "' AND ID_PERSONNEL = '" + p_superieur + "' AND NOT EXISTS (SELECT * FROM PERSONNEL, ADRESSE, DATE WHERE ADRESSE = '" + p_adresse+ "' AND ADRESSE.ID_ADRESSE = PERSONNEL.ID_ADRESSE AND DATE = '" + p_date + "' AND DATE.ID_DATE = PERSONNEL.ID_DATE AND ID_SUPERIEUR = '" + p_superieur + "')";
+			requete = "INSERT INTO PERSONNEL SELECT '', ADRESSE.ID_ADRESSE, DATE.ID_DATE, PERSONNEL.ID_PERSONNEL, '" + p_nom + "', '" + p_prenom + "' FROM DATE, PERSONNEL, ADRESSE WHERE ADRESSE = '" + p_adresse + "' AND DATE = '" + p_date + "' AND ID_PERSONNEL = '" + p_superieur + "' AND NOT EXISTS (SELECT * FROM PERSONNEL, ADRESSE, DATE WHERE ADRESSE = '" + p_adresse + "' AND ADRESSE.ID_ADRESSE = PERSONNEL.ID_ADRESSE AND DATE = '" + p_date + "' AND DATE.ID_DATE = PERSONNEL.ID_DATE AND ID_SUPERIEUR = '" + p_superieur + "')";
 			cmd = gcnew MySqlCommand(requete, con);
 			con->Open();
 			dr = cmd->ExecuteReader();
@@ -243,6 +246,37 @@ namespace ClassCat {
 
 	void Client::Modifier() {
 
+		if (c_adrFact2 == "") {
+
+			try
+			{
+				requete = "DELETE FROM FACTURER WHERE ID_ADRESSE='" + c_adrFact2 + "'";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
+		}
+		if (c_adrLivr2 == "") {
+
+			try
+			{
+				requete = "DELETE FROM LIVRER WHERE ID_ADRESSE='" + c_adrLivr2 + "'";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
+		}
+
 		if (c_adrFact2 == "numéroRue nomRue, ville, codePostal" && c_adrLivr2 == "numéroRue nomRue, ville, codePostal") {
 
 			try
@@ -271,7 +305,7 @@ namespace ClassCat {
 				dr = cmd->ExecuteReader();
 				con->Close();
 
-				requete = "INSERT INTO CLIENT VALUES ('', (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_dateNaissance + "'), (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_date1achat + "'), '" + c_nom + "', '" + c_prenom + "'); ";
+				requete = "UPDATE CLIENT SET ID_DATEEN=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_dateNaissance + "'), ID_DATE1ER=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_date1achat + "'), CLINOM='" + c_nom + "', CLIPRENOM='" + c_prenom + "' WHERE ID_CLIENT='" + c_num + "'";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
@@ -289,13 +323,15 @@ namespace ClassCat {
 				dr = cmd->ExecuteReader();
 				con->Close();
 
+				
+
 			}
 			catch (Exception^ ex)
 			{
 				MessageBox::Show(ex->Message);
 			}
 		}
-		else if (c_adrFact2 != "numéroRue nomRue, ville, codePostal" && c_adrLivr2 != "numéroRue nomRue, ville, codePostal") {
+		else if (c_adrFact2 != "numéroRue nomRue, ville, codePostal" && c_adrLivr2 != "numéroRue nomRue, ville, codePostal" && c_adrFact2 != "" && c_adrLivr2 != "") {
 
 			try
 			{
@@ -335,7 +371,7 @@ namespace ClassCat {
 				dr = cmd->ExecuteReader();
 				con->Close();
 
-				requete = "INSERT INTO CLIENT VALUES ('', (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_dateNaissance + "'), (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_date1achat + "'), '" + c_nom + "', '" + c_prenom + "'); ";
+				requete = "UPDATE CLIENT SET ID_DATEEN=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_dateNaissance + "'), ID_DATE1ER=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_date1achat + "'), CLINOM='" + c_nom + "', CLIPRENOM='" + c_prenom + "' WHERE ID_CLIENT='" + c_num + "'";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
@@ -370,7 +406,7 @@ namespace ClassCat {
 				MessageBox::Show(ex->Message);
 			}
 		}
-		else if (c_adrFact2 != "numéroRue nomRue, ville, codePostal") {
+		else if (c_adrFact2 != "numéroRue nomRue, ville, codePostal" && c_adrFact2 != "") {
 
 			try
 			{
@@ -404,7 +440,7 @@ namespace ClassCat {
 				dr = cmd->ExecuteReader();
 				con->Close();
 
-				requete = "INSERT INTO CLIENT VALUES ('', (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_dateNaissance + "'), (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_date1achat + "'), '" + c_nom + "', '" + c_prenom + "'); ";
+				requete = "UPDATE CLIENT SET ID_DATEEN=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_dateNaissance + "'), ID_DATE1ER=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_date1achat + "'), CLINOM='" + c_nom + "', CLIPRENOM='" + c_prenom + "' WHERE ID_CLIENT='" + c_num + "'";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
@@ -433,7 +469,7 @@ namespace ClassCat {
 				MessageBox::Show(ex->Message);
 			}
 		}
-		else if (c_adrLivr2 != "numéroRue nomRue, ville, codePostal") {
+		else if (c_adrLivr2 != "numéroRue nomRue, ville, codePostal" && c_adrLivr2 != "") {
 
 			try
 			{
@@ -467,7 +503,7 @@ namespace ClassCat {
 				dr = cmd->ExecuteReader();
 				con->Close();
 
-				requete = "INSERT INTO CLIENT VALUES ('', (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_dateNaissance + "'), (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_date1achat + "'), '" + c_nom + "', '" + c_prenom + "'); ";
+				requete = "UPDATE CLIENT SET ID_DATEEN=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_dateNaissance + "'), ID_DATE1ER=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_date1achat + "'), CLINOM='" + c_nom + "', CLIPRENOM='" + c_prenom + "' WHERE ID_CLIENT='" + c_num + "'";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
@@ -513,6 +549,12 @@ namespace ClassCat {
 			con->Close();
 
 			requete = "DELETE FROM LIVRER WHERE ID_CLIENT='" + c_num + "'";
+			cmd = gcnew MySqlCommand(requete, con);
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
+
+			requete = "DELETE FROM COMMANDE WHERE ID_CLIENT='" + c_num + "'";
 			cmd = gcnew MySqlCommand(requete, con);
 			con->Open();
 			dr = cmd->ExecuteReader();
@@ -619,6 +661,7 @@ namespace ClassCat {
 		co_moyPaie = moyPaie;
 		co_refArt = refArt;
 		co_quantiteArt = quantiteArt;
+		co_remise = 1.00;
 	}
 
 
@@ -686,19 +729,44 @@ namespace ClassCat {
 
 		try
 		{
-			requete = "INSERT INTO DATE SELECT '','" + co_dateLiv + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + co_dateLiv + "')";
+			requete = "SELECT DATE.DATE FROM DATE, CLIENT WHERE DATE.ID_DATE=CLIENT.ID_DATEN AND CLIENT.ID_CLIENT='" + co_numClient + "'";
 			cmd = gcnew MySqlCommand(requete, con);
 			con->Open();
 			dr = cmd->ExecuteReader();
+
+			String^ dateAnniv;
+			while (dr->Read()) {
+
+				dateAnniv = dr->GetString(0);
+			}
 			con->Close();
 
-			requete = "INSERT INTO DATE SELECT '','" + co_dateEmi + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + co_dateEmi + "')";
+			requete = "SELECT DATE.DATE FROM DATE, CLIENT WHERE DATE.ID_DATE=CLIENT.ID_DATE1ER AND CLIENT.ID_CLIENT='" + co_numClient + "'";
 			cmd = gcnew MySqlCommand(requete, con);
 			con->Open();
 			dr = cmd->ExecuteReader();
+
+			String^ date1er;
+			while (dr->Read()) {
+
+				date1er = dr->GetString(0);
+			}
 			con->Close();
 
-			requete = "INSERT INTO DATE SELECT '','" + co_datePaie + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + co_datePaie + "')";
+			String^ dateEmi1 = co_dateEmi;
+			String^ dateEmi2 = co_dateEmi;
+
+			if (dateAnniv->Remove(0, 4) == dateEmi1->Remove(0, 4)) {
+
+				co_remise -= 0.10;
+			}
+
+			if (date1er->Remove(0, 4) == dateEmi2->Remove(0, 4)) {
+
+				co_remise -= 0.05;
+			}
+
+			requete = "CALL UpdateCommande('" + co_quantiteArt + "','" + co_refArt + "','" + co_ref + "','" + co_numClient + "','" + co_remise + "','" + co_dateEmi + "','" + co_dateLiv + "','" + co_datePaie + "','" + co_moyPaie + "','" + co_IDCommande + "')";
 			cmd = gcnew MySqlCommand(requete, con);
 			con->Open();
 			dr = cmd->ExecuteReader();
@@ -777,7 +845,7 @@ namespace ClassCat {
 
 		try
 		{
-			requete = "INSERT INTO ARTICLE values ('',(SELECT ID_NATURE FROM NATURE WHERE NATURE.NATURE='" + s_nature + "'), (SELECT ID_COLOR FROM COULEUR WHERE COULOUR.COULEUR='" + s_couleur + "'), '" + s_desi + "','" + s_quantiteStock + "','" + s_seuilReapro + "','" + s_prixHT + "','" + s_tauxTva + "')";
+			requete = "INSERT INTO ARTICLE values ('',(SELECT ID_NATURE FROM NATURE WHERE NATURE.NOMNAT='" + s_nature + "'), (SELECT ID_COLOR FROM COULEUR WHERE COULEUR.COULEUR='" + s_couleur + "'), '" + s_desi + "','" + s_quantiteStock + "','" + s_seuilReapro + "','" + s_prixHT + "','" + s_tauxTva + "')";
 			cmd = gcnew MySqlCommand(requete, con);
 			con->Open();
 			dr = cmd->ExecuteReader();
@@ -796,7 +864,7 @@ namespace ClassCat {
 
 		try
 		{
-			requete = "UPDATE ARTICLE SET ARTICLE.ID_NATURE=(SELECT NATURE.ID_NATURE FROM NATURE WHERE NATURE.NOMNAT='" + s_nature + "'), ARTICLE.ID_COLOR=(SELECT COULEUR.ID_COLOR FROM COULEUR WHERE COULEUR.COULEUR='" + s_couleur + "), ARTNOM='" + s_desi + "', ARTSTOCKT='" + s_quantiteStock + "' ARTSEUIL='" + s_seuilReapro + "', ARTPRIXHT='" + s_prixHT + "', ARTTVA='" + s_tauxTva + "' WHERE ID_ARTICLE='" + this->s_ref + "'";
+			requete = "UPDATE ARTICLE SET ARTICLE.ID_NATURE=(SELECT NATURE.ID_NATURE FROM NATURE WHERE NATURE.NOMNAT='" + s_nature + "'), ARTICLE.ID_COLOR=(SELECT COULEUR.ID_COLOR FROM COULEUR WHERE COULEUR.COULEUR='" + s_couleur + "'), ARTNOM='" + s_desi + "', ARTSTOCKT='" + s_quantiteStock + "', ARTSEUIL='" + s_seuilReapro + "', ARTPRIXHT='" + s_prixHT + "', ARTTVA='" + s_tauxTva + "' WHERE ID_ARTICLE='" + this->s_ref + "'";
 			cmd = gcnew MySqlCommand(requete, con);
 			con->Open();
 			dr = cmd->ExecuteReader();
@@ -813,6 +881,23 @@ namespace ClassCat {
 
 	void Stock::Supprimer() {
 
-		//TODO
+		try
+		{
+			requete = "DELETE FROM COMMANDE WHERE ID_ARTICLE='" + s_ref + "'";
+			cmd = gcnew MySqlCommand(requete, con);
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
+
+			requete = "DELETE FROM ARTICLE WHERE ID_ARTICLE='" + s_ref + "'";
+			cmd = gcnew MySqlCommand(requete, con);
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
 	}
 }

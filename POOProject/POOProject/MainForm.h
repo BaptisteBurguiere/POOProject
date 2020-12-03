@@ -889,7 +889,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 
 		try {
 
-			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
 			MySqlConnection^ con = gcnew MySqlConnection(constr);
 			MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ID_PERSONNEL as 'ID Personnel', PERNOM as Nom, PERPRENOM as 'Prénom', ADRESSE as Adresse, DATE as 'Date Embauche', ID_SUPERIEUR as 'ID Supérieur' FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
 			DataTable^ dt = gcnew DataTable();
@@ -1230,7 +1230,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 
 		try
 		{
-			String^ requete = "SELECT ID_COMMANDE as 'N° commande', COMREF as 'Référence', tmp.DATE as 'Date émission', tmp2.DATE as 'Date livraison', tmp3.DATE as 'Date règlement', COMMANDE.ID_CLIENT as 'n° client', ARTNOM as Article, QUANTART as 'Quantité', COMTOTALHT as 'Total HT', COMTOTALTVA as 'Total TVA', COMREMISE as 'Remise appliquée', COMTOTALTTC as 'Total TTC'FROM COMMANDE, CLIENT, DATE as tmp, DATE as tmp2, DATE as tmp3, ARTICLE WHERE COMMANDE.ID_DATEEMIS=tmp.ID_DATE AND COMMANDE.ID_DATELIVR=tmp2.ID_DATE AND COMMANDE.ID_DATEREG=tmp3.ID_DATE AND ARTICLE.ID_ARTICLE=COMMANDE.ID_ARTICLE GROUP BY ID_COMMANDE";
+			String^ requete = "SELECT ID_COMMANDE as 'N° commande', COMREF as 'Référence', tmp.DATE as 'Date émission', tmp2.DATE as 'Date livraison', tmp3.DATE as 'Date règlement', MOYPAI as 'Moyen de paiement', COMMANDE.ID_CLIENT as 'n° client', ARTNOM as Article, QUANTART as 'Quantité', COMTOTALHT as 'Total HT', COMTOTALTVA as 'Total TVA', COMREMISE as 'Remise appliquée', COMTOTALTTC as 'Total TTC'FROM MOYEN_DE_PAIEMENT, COMMANDE, CLIENT, DATE as tmp, DATE as tmp2, DATE as tmp3, ARTICLE WHERE COMMANDE.ID_DATEEMIS=tmp.ID_DATE AND COMMANDE.ID_DATELIVR=tmp2.ID_DATE AND COMMANDE.ID_DATEREG=tmp3.ID_DATE AND ARTICLE.ID_ARTICLE=COMMANDE.ID_ARTICLE AND COMMANDE.ID_MOYPAIE=MOYEN_DE_PAIEMENT.ID_MOYPAIE GROUP BY ID_COMMANDE";
 			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
 			MySqlConnection^ con = gcnew MySqlConnection(constr);
 			MySqlDataAdapter^ sda = gcnew MySqlDataAdapter(requete, con);
@@ -1418,6 +1418,10 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 		
 			StockModifierForm^ sm = gcnew StockModifierForm(IDArticle);
 			sm->ShowDialog();
+		}
+		else {
+
+			MessageBox::Show("Entrez la référence de l'article à modifier", "Erreur");
 		}
 	}
 

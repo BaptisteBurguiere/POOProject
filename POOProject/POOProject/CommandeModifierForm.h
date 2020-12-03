@@ -26,10 +26,10 @@ namespace POOProject {
 
 			try {
 
-				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
 				MySqlConnection^ con = gcnew MySqlConnection(constr);
 
-				MySqlCommand^ cmd = gcnew MySqlCommand("SELECT PERNOM, PERPRENOM, ADRESSE, DATE, ID_SUPERIEUR FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.ID_PERSONNEL='" + ID + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
+				MySqlCommand^ cmd = gcnew MySqlCommand("SELECT COMREF, COMMANDE.ID_CLIENT, tmp.DATE, tmp2.DATE, tmp3.DATE, MOYEN_DE_PAIEMENT.MOYPAI, ARTICLE.ID_ARTICLE, QUANTART FROM COMMANDE, CLIENT, DATE as tmp, DATE as tmp2, DATE as tmp3, ARTICLE, MOYEN_DE_PAIEMENT WHERE COMMANDE.ID_COMMANDE='" + this->ID + "' AND COMMANDE.ID_DATEEMIS=tmp.ID_DATE AND COMMANDE.ID_DATELIVR=tmp2.ID_DATE AND COMMANDE.ID_DATEREG=tmp3.ID_DATE AND ARTICLE.ID_ARTICLE=COMMANDE.ID_ARTICLE AND MOYEN_DE_PAIEMENT.ID_MOYPAIE=COMMANDE.ID_MOYPAIE GROUP BY ID_COMMANDE", con);
 				MySqlDataReader^ dr;
 				con->Open();
 				dr = cmd->ExecuteReader();
@@ -38,8 +38,8 @@ namespace POOProject {
 
 					textBoxRef->Text = dr->GetString(0);
 					textBoxNumClient->Text = dr->GetString(1);
-					textBoxDateLivr->Text = dr->GetString(2);
-					textBoxDateEmi->Text = dr->GetString(3);
+					textBoxDateEmi->Text = dr->GetString(2);
+					textBoxDateLivr->Text = dr->GetString(3);
 					textBoxDatePaie->Text = dr->GetString(4);
 					textBoxMoyPaie->Text = dr->GetString(5);
 					textBoxRefArt->Text = dr->GetString(6);

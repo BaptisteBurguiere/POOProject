@@ -21,27 +21,19 @@ namespace POOProject {
 		ClientAjouterAdresseForm(int state, String^ num)
 		{
 			this->STATE = state;
+			this->NUM = num;
 
 			InitializeComponent();
 			
 			if (this->STATE == 1) {
 
-				this->label1->Text = "Adresse Fact";
 				this->label2->Visible = false;
 				this->textBoxAdrLivr->Visible = false;
-				this->ClientSize = System::Drawing::Size(512, 156);
-				this->buttonAjouter->Location = System::Drawing::Point(411, 68);
-				this->buttonAnnuler->Location = System::Drawing::Point(299, 68);
 			}
 			else if (this->STATE == 2) {
 
-				this->label1->Text = "Adresse Livr";
-				this->label2->Visible = false;
+				this->label1->Visible = false;
 				this->textBoxAdrFact->Visible = false;
-				this->ClientSize = System::Drawing::Size(512, 156);
-				this->buttonAjouter->Location = System::Drawing::Point(411, 68);
-				this->buttonAnnuler->Location = System::Drawing::Point(299, 68);
-				this->textBoxAdrLivr->Location = System::Drawing::Point(168, 8);
 			}
 		}
 
@@ -191,7 +183,7 @@ namespace POOProject {
 			this->Controls->Add(this->buttonAnnuler);
 			this->Controls->Add(this->buttonAjouter);
 			this->Name = L"ClientAjouterAdresseForm";
-			this->Text = L"PersonnelAjouterForm";
+			this->Text = L"ClientAjouterAdresseForm";
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -210,13 +202,13 @@ namespace POOProject {
 		if (adrFact != "") {
 
 			Client monClient(this->NUM, adrFact);
-			monClient.AjouterAdresse(this->STATE);
+			monClient.AjouterAdresse(1);
 		}
 
 		if (adrLivr != "") {
 
 			Client monClient(this->NUM, adrLivr);
-			monClient.AjouterAdresse(this->STATE);
+			monClient.AjouterAdresse(2);
 		}
 
 		this->Hide();

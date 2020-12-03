@@ -25,7 +25,7 @@ namespace POOProject {
 
 			try {
 
-				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
+				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
 				MySqlConnection^ con = gcnew MySqlConnection(constr);
 
 				MySqlCommand^ cmd = gcnew MySqlCommand("SELECT PERNOM, PERPRENOM, ADRESSE, DATE, ID_SUPERIEUR FROM PERSONNEL, DATE, ADRESSE WHERE PERSONNEL.ID_PERSONNEL='" + ID + "' AND PERSONNEL.ID_ADRESSE = ADRESSE.ID_ADRESSE AND PERSONNEL.ID_DATE = DATE.ID_DATE", con);
