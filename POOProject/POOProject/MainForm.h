@@ -150,6 +150,17 @@ private: System::Windows::Forms::Label^ label5;
 private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 private: System::Windows::Forms::Label^ label6;
 private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
+private: System::Windows::Forms::Panel^ panelStatistiques;
+private: System::Windows::Forms::Button^ buttonStatPanierMoy;
+private: System::Windows::Forms::Button^ buttonStatProdReapro;
+private: System::Windows::Forms::Button^ buttonStatValeurAchatStock;
+
+
+
+
+
+private: System::Windows::Forms::Button^ buttonStatPlusVendus;
+
 
 
 
@@ -234,12 +245,18 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			this->buttonStockAjouter = (gcnew System::Windows::Forms::Button());
 			this->textBoxStockRef = (gcnew System::Windows::Forms::TextBox());
 			this->label37 = (gcnew System::Windows::Forms::Label());
+			this->panelStatistiques = (gcnew System::Windows::Forms::Panel());
+			this->buttonStatPanierMoy = (gcnew System::Windows::Forms::Button());
+			this->buttonStatProdReapro = (gcnew System::Windows::Forms::Button());
+			this->buttonStatValeurAchatStock = (gcnew System::Windows::Forms::Button());
+			this->buttonStatPlusVendus = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bindingSource1))->BeginInit();
 			this->panelPersonnel->SuspendLayout();
 			this->panelClients->SuspendLayout();
 			this->panelCommandes->SuspendLayout();
 			this->panelStock->SuspendLayout();
+			this->panelStatistiques->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// buttonPersonnel
@@ -310,6 +327,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			this->buttonStatistiques->TabIndex = 4;
 			this->buttonStatistiques->Text = L"Statistiques";
 			this->buttonStatistiques->UseVisualStyleBackColor = true;
+			this->buttonStatistiques->Click += gcnew System::EventHandler(this, &MainForm::buttonStatistiques_Click);
 			// 
 			// label1
 			// 
@@ -837,11 +855,83 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			this->label37->TabIndex = 0;
 			this->label37->Text = L"Référence";
 			// 
+			// panelStatistiques
+			// 
+			this->panelStatistiques->Controls->Add(this->buttonStatPanierMoy);
+			this->panelStatistiques->Controls->Add(this->buttonStatProdReapro);
+			this->panelStatistiques->Controls->Add(this->buttonStatValeurAchatStock);
+			this->panelStatistiques->Controls->Add(this->buttonStatPlusVendus);
+			this->panelStatistiques->Location = System::Drawing::Point(15, 110);
+			this->panelStatistiques->Name = L"panelStatistiques";
+			this->panelStatistiques->Size = System::Drawing::Size(263, 136);
+			this->panelStatistiques->TabIndex = 28;
+			this->panelStatistiques->Visible = false;
+			// 
+			// buttonStatPanierMoy
+			// 
+			this->buttonStatPanierMoy->FlatAppearance->BorderSize = 0;
+			this->buttonStatPanierMoy->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->buttonStatPanierMoy->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->buttonStatPanierMoy->Location = System::Drawing::Point(3, 3);
+			this->buttonStatPanierMoy->Name = L"buttonStatPanierMoy";
+			this->buttonStatPanierMoy->Size = System::Drawing::Size(112, 27);
+			this->buttonStatPanierMoy->TabIndex = 14;
+			this->buttonStatPanierMoy->Text = L"Panier moyen";
+			this->buttonStatPanierMoy->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->buttonStatPanierMoy->UseVisualStyleBackColor = true;
+			this->buttonStatPanierMoy->Click += gcnew System::EventHandler(this, &MainForm::buttonStatPanierMoy_Click);
+			// 
+			// buttonStatProdReapro
+			// 
+			this->buttonStatProdReapro->FlatAppearance->BorderSize = 0;
+			this->buttonStatProdReapro->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->buttonStatProdReapro->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->buttonStatProdReapro->Location = System::Drawing::Point(3, 36);
+			this->buttonStatProdReapro->Name = L"buttonStatProdReapro";
+			this->buttonStatProdReapro->Size = System::Drawing::Size(137, 27);
+			this->buttonStatProdReapro->TabIndex = 13;
+			this->buttonStatProdReapro->Text = L"Produits réapro";
+			this->buttonStatProdReapro->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->buttonStatProdReapro->UseVisualStyleBackColor = true;
+			this->buttonStatProdReapro->Click += gcnew System::EventHandler(this, &MainForm::buttonStatProdReapro_Click);
+			// 
+			// buttonStatValeurAchatStock
+			// 
+			this->buttonStatValeurAchatStock->FlatAppearance->BorderSize = 0;
+			this->buttonStatValeurAchatStock->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->buttonStatValeurAchatStock->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->buttonStatValeurAchatStock->Location = System::Drawing::Point(3, 102);
+			this->buttonStatValeurAchatStock->Name = L"buttonStatValeurAchatStock";
+			this->buttonStatValeurAchatStock->Size = System::Drawing::Size(208, 27);
+			this->buttonStatValeurAchatStock->TabIndex = 11;
+			this->buttonStatValeurAchatStock->Text = L"Valeur d\'achat du stock";
+			this->buttonStatValeurAchatStock->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->buttonStatValeurAchatStock->UseVisualStyleBackColor = true;
+			this->buttonStatValeurAchatStock->Click += gcnew System::EventHandler(this, &MainForm::buttonStatValeurAchatStock_Click);
+			// 
+			// buttonStatPlusVendus
+			// 
+			this->buttonStatPlusVendus->FlatAppearance->BorderSize = 0;
+			this->buttonStatPlusVendus->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->buttonStatPlusVendus->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->buttonStatPlusVendus->Location = System::Drawing::Point(3, 69);
+			this->buttonStatPlusVendus->Name = L"buttonStatPlusVendus";
+			this->buttonStatPlusVendus->Size = System::Drawing::Size(161, 27);
+			this->buttonStatPlusVendus->TabIndex = 10;
+			this->buttonStatPlusVendus->Text = L"Top 10 plus vendus";
+			this->buttonStatPlusVendus->UseVisualStyleBackColor = true;
+			this->buttonStatPlusVendus->Click += gcnew System::EventHandler(this, &MainForm::buttonStatPlusVendus_Click);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1109, 341);
+			this->Controls->Add(this->panelStatistiques);
 			this->Controls->Add(this->panelStock);
 			this->Controls->Add(this->panelCommandes);
 			this->Controls->Add(this->panelClients);
@@ -866,6 +956,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 			this->panelCommandes->PerformLayout();
 			this->panelStock->ResumeLayout(false);
 			this->panelStock->PerformLayout();
+			this->panelStatistiques->ResumeLayout(false);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -886,6 +977,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 		panelClients->Visible = false;
 		panelCommandes->Visible = false;
 		panelStock->Visible = false;
+		panelStatistiques->Visible = false;
 
 		try {
 
@@ -1055,6 +1147,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 		panelClients->Visible = true;
 		panelCommandes->Visible = false;
 		panelStock->Visible = false;
+		panelStatistiques->Visible = false;
 
 		try
 		{
@@ -1227,6 +1320,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 		panelClients->Visible = false;
 		panelCommandes->Visible = true;
 		panelStock->Visible = false;
+		panelStatistiques->Visible = false;
 
 		try
 		{
@@ -1363,6 +1457,7 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 		panelClients->Visible = false;
 		panelCommandes->Visible = false;
 		panelStock->Visible = true;
+		panelStatistiques->Visible = false;
 
 		try {
 
@@ -1474,13 +1569,89 @@ private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
 				bindingSource1->DataSource = dt;
 				dataGridView1->DataSource = bindingSource1;
 			}
-
-
 			catch (Exception^ ex)
 			{
 				MessageBox::Show(ex->Message);
 			}
 		}
+	}
+
+
+
+
+// ==========================================================================================================================================
+// ================================================       STATISTIQUES       ================================================================
+// ==========================================================================================================================================
+
+
+// -----------------------------------------------   bouton Principal   ---------------------------------------------------------------------
+
+	private: System::Void buttonStatistiques_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		labelCategories->Text = "Statistiques";
+		panelPersonnel->Visible = false;
+		panelClients->Visible = false;
+		panelCommandes->Visible = false;
+		panelStock->Visible = false;
+		panelStatistiques->Visible = true;
+
+		try
+		{
+			DataTable^ dt = gcnew DataTable();
+			bindingSource1->DataSource = dt;
+			dataGridView1->DataSource = bindingSource1;
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
+	}
+
+
+// -----------------------------------------------    Panier moyen    ----------------------------------------------------------------------
+
+	private: System::Void buttonStatPanierMoy_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+		try {
+
+			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
+			MySqlConnection^ con = gcnew MySqlConnection(constr);
+			MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT AVG(COMTOTALTTC) as 'Panier moyen' FROM COMMANDE", con);
+			DataTable^ dt = gcnew DataTable();
+			sda->Fill(dt);
+			bindingSource1->DataSource = dt;
+			dataGridView1->DataSource = bindingSource1;
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
+	}
+
+	
+// -------------------------------------------    Produits seuil réapro    -----------------------------------------------------------------
+
+	private: System::Void buttonStatProdReapro_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+	
+	}
+
+
+// ------------------------------------------    Valeur d'achat du stock    ----------------------------------------------------------------
+
+	private: System::Void buttonStatValeurAchatStock_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+	
+	
+	}
+
+
+// -------------------------------------    top 10 des Produits les plus vendus    ---------------------------------------------------------
+
+	private: System::Void buttonStatPlusVendus_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+	
+	
 	}
 
 };
