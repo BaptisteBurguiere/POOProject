@@ -3,6 +3,10 @@
 #include "PersonnelModifierForm.h"
 #include "ClientsAjouterForm.h"
 #include "ClientsModifierForm.h"
+#include "CommandeAjouterForm.h"
+#include "CommandeModifierForm.h"
+#include "StockAjouterForm.h"
+#include "StockModifierForm.h"
 
 namespace POOProject {
 
@@ -106,11 +110,12 @@ namespace POOProject {
 	private: System::Windows::Forms::Button^ buttonCommandesSupprimer;
 	private: System::Windows::Forms::Button^ buttonCommandesModifier;
 	private: System::Windows::Forms::Button^ buttonCommandesAjouter;
+	private: System::Windows::Forms::TextBox^ textBoxCommandesID;
 
 
 
 
-	private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
+
 
 
 
@@ -142,6 +147,9 @@ namespace POOProject {
 	private: System::Windows::Forms::TextBox^ textBox1;
 private: System::Windows::Forms::Label^ label5;
 private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
+private: System::Windows::Forms::Label^ label6;
+private: System::Windows::Forms::TextBox^ textBoxCommandesRef;
+
 
 
 	private: System::ComponentModel::IContainer^ components;
@@ -212,7 +220,7 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 			this->buttonCommandesSupprimer = (gcnew System::Windows::Forms::Button());
 			this->buttonCommandesModifier = (gcnew System::Windows::Forms::Button());
 			this->buttonCommandesAjouter = (gcnew System::Windows::Forms::Button());
-			this->textBoxCommandesRef = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxCommandesID = (gcnew System::Windows::Forms::TextBox());
 			this->label20 = (gcnew System::Windows::Forms::Label());
 			this->panelStock = (gcnew System::Windows::Forms::Panel());
 			this->label4 = (gcnew System::Windows::Forms::Label());
@@ -223,6 +231,8 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 			this->buttonStockAjouter = (gcnew System::Windows::Forms::Button());
 			this->textBoxStockRef = (gcnew System::Windows::Forms::TextBox());
 			this->label37 = (gcnew System::Windows::Forms::Label());
+			this->textBoxCommandesRef = (gcnew System::Windows::Forms::TextBox());
+			this->label6 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bindingSource1))->BeginInit();
 			this->panelPersonnel->SuspendLayout();
@@ -604,15 +614,17 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 			// 
 			// panelCommandes
 			// 
+			this->panelCommandes->Controls->Add(this->label6);
+			this->panelCommandes->Controls->Add(this->textBoxCommandesRef);
 			this->panelCommandes->Controls->Add(this->buttonCommandesRechercher);
 			this->panelCommandes->Controls->Add(this->buttonCommandesSupprimer);
 			this->panelCommandes->Controls->Add(this->buttonCommandesModifier);
 			this->panelCommandes->Controls->Add(this->buttonCommandesAjouter);
-			this->panelCommandes->Controls->Add(this->textBoxCommandesRef);
+			this->panelCommandes->Controls->Add(this->textBoxCommandesID);
 			this->panelCommandes->Controls->Add(this->label20);
 			this->panelCommandes->Location = System::Drawing::Point(15, 110);
 			this->panelCommandes->Name = L"panelCommandes";
-			this->panelCommandes->Size = System::Drawing::Size(263, 152);
+			this->panelCommandes->Size = System::Drawing::Size(263, 185);
 			this->panelCommandes->TabIndex = 17;
 			this->panelCommandes->Visible = false;
 			// 
@@ -622,12 +634,13 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 			this->buttonCommandesRechercher->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonCommandesRechercher->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonCommandesRechercher->Location = System::Drawing::Point(164, 49);
+			this->buttonCommandesRechercher->Location = System::Drawing::Point(164, 102);
 			this->buttonCommandesRechercher->Name = L"buttonCommandesRechercher";
 			this->buttonCommandesRechercher->Size = System::Drawing::Size(96, 27);
 			this->buttonCommandesRechercher->TabIndex = 27;
 			this->buttonCommandesRechercher->Text = L"Rechercher";
 			this->buttonCommandesRechercher->UseVisualStyleBackColor = true;
+			this->buttonCommandesRechercher->Click += gcnew System::EventHandler(this, &MainForm::buttonCommandesRechercher_Click);
 			// 
 			// buttonCommandesSupprimer
 			// 
@@ -635,7 +648,7 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 			this->buttonCommandesSupprimer->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonCommandesSupprimer->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonCommandesSupprimer->Location = System::Drawing::Point(168, 114);
+			this->buttonCommandesSupprimer->Location = System::Drawing::Point(171, 151);
 			this->buttonCommandesSupprimer->Name = L"buttonCommandesSupprimer";
 			this->buttonCommandesSupprimer->Size = System::Drawing::Size(89, 27);
 			this->buttonCommandesSupprimer->TabIndex = 12;
@@ -648,7 +661,7 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 			this->buttonCommandesModifier->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonCommandesModifier->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonCommandesModifier->Location = System::Drawing::Point(81, 114);
+			this->buttonCommandesModifier->Location = System::Drawing::Point(84, 151);
 			this->buttonCommandesModifier->Name = L"buttonCommandesModifier";
 			this->buttonCommandesModifier->Size = System::Drawing::Size(81, 27);
 			this->buttonCommandesModifier->TabIndex = 11;
@@ -661,21 +674,21 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 			this->buttonCommandesAjouter->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonCommandesAjouter->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonCommandesAjouter->Location = System::Drawing::Point(3, 114);
+			this->buttonCommandesAjouter->Location = System::Drawing::Point(6, 151);
 			this->buttonCommandesAjouter->Name = L"buttonCommandesAjouter";
 			this->buttonCommandesAjouter->Size = System::Drawing::Size(72, 27);
 			this->buttonCommandesAjouter->TabIndex = 10;
 			this->buttonCommandesAjouter->Text = L"Ajouter";
 			this->buttonCommandesAjouter->UseVisualStyleBackColor = true;
 			// 
-			// textBoxCommandesRef
+			// textBoxCommandesID
 			// 
-			this->textBoxCommandesRef->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->textBoxCommandesID->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBoxCommandesRef->Location = System::Drawing::Point(95, 9);
-			this->textBoxCommandesRef->Name = L"textBoxCommandesRef";
-			this->textBoxCommandesRef->Size = System::Drawing::Size(165, 25);
-			this->textBoxCommandesRef->TabIndex = 5;
+			this->textBoxCommandesID->Location = System::Drawing::Point(95, 9);
+			this->textBoxCommandesID->Name = L"textBoxCommandesID";
+			this->textBoxCommandesID->Size = System::Drawing::Size(165, 25);
+			this->textBoxCommandesID->TabIndex = 5;
 			// 
 			// label20
 			// 
@@ -684,9 +697,9 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 				static_cast<System::Byte>(0)));
 			this->label20->Location = System::Drawing::Point(-1, 11);
 			this->label20->Name = L"label20";
-			this->label20->Size = System::Drawing::Size(90, 19);
+			this->label20->Size = System::Drawing::Size(27, 19);
 			this->label20->TabIndex = 0;
-			this->label20->Text = L"Référence";
+			this->label20->Text = L"ID";
 			// 
 			// panelStock
 			// 
@@ -795,6 +808,26 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 			this->label37->Size = System::Drawing::Size(90, 19);
 			this->label37->TabIndex = 0;
 			this->label37->Text = L"Référence";
+			// 
+			// textBoxCommandesRef
+			// 
+			this->textBoxCommandesRef->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->textBoxCommandesRef->Location = System::Drawing::Point(95, 49);
+			this->textBoxCommandesRef->Name = L"textBoxCommandesRef";
+			this->textBoxCommandesRef->Size = System::Drawing::Size(165, 25);
+			this->textBoxCommandesRef->TabIndex = 28;
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Font = (gcnew System::Drawing::Font(L"Consolas", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label6->Location = System::Drawing::Point(-1, 55);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(90, 19);
+			this->label6->TabIndex = 29;
+			this->label6->Text = L"Référence";
 			// 
 			// MainForm
 			// 
@@ -1037,6 +1070,7 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 
 	private: System::Void buttonClientsRechercher_Click(System::Object^ sender, System::EventArgs^ e) {
 
+		/*
 		String^ ClientsNumero = textboxClientsNumero->Text;
 
 		if (ClientsNumero != "") {
@@ -1112,6 +1146,7 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 				MessageBox::Show(ex->Message);
 			}
 		}
+		*/
 	}
 
 
@@ -1184,6 +1219,25 @@ private: System::Windows::Forms::TextBox^ textBoxPersonnelPrenom;
 		panelClients->Visible = false;
 		panelCommandes->Visible = true;
 		panelStock->Visible = false;
+	}
+
+
+// -------------------------------------------------   bouton Rechercher  -----------------------------------------------------------------
+
+	private: System::Void buttonCommandesRechercher_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+		if (textBoxCommandesID->Text == "" && textBoxCommandesRef->Text == "") {
+
+			MessageBox::Show("Entrez un ID ou une référence");
+		}
+		else if (textBoxCommandesID->Text != "") {
+
+			
+		}
+		else {
+
+
+		}
 	}
 
 

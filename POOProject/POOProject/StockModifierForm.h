@@ -23,6 +23,8 @@ namespace POOProject {
 
 			this->REF = REF;
 
+			/*
+
 			try {
 
 				String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST groupe 3";
@@ -49,6 +51,8 @@ namespace POOProject {
 			{
 				MessageBox::Show(ex->Message);
 			}
+
+			*/
 		}
 
 	protected:

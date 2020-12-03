@@ -225,11 +225,24 @@ namespace ClassCat {
 			dr = cmd->ExecuteReader();
 			con->Close();
 
-			requete = "INSERT INTO PERSONNEL SELECT '', PERSONNEL.ID_ADRESSE, PERSONNEL.ID_DATE, PERSONNEL.ID_PERSONNEL, '" + p_nom + "', '" + p_prenom + "' FROM DATE, PERSONNEL, ADRESSE WHERE ADRESSE = '" + p_adresse + "' AND DATE = '" + p_date + "' AND ID_PERSONNEL = '" + p_superieur + "' AND NOT EXISTS (SELECT * FROM PERSONNEL, ADRESSE, DATE WHERE ADRESSE = '" + p_adresse + "' AND ADRESSE.ID_ADRESSE = PERSONNEL.ID_ADRESSE AND DATE = '" + p_date + "' AND DATE.ID_DATE = PERSONNEL.ID_DATE AND ID_SUPERIEUR = '" + p_superieur + "')";
+			requete = "INSERT INTO FACTURER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM CLIENT, ADRESSE WHERE ADRESSE='" + c_adrFact1 + "' AND CLIENT.ID_CLIENT='" + c_num + "'";
 			cmd = gcnew MySqlCommand(requete, con);
 			con->Open();
 			dr = cmd->ExecuteReader();
 			con->Close();
+
+			requete = "INSERT INTO LIVRER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM CLIENT, ADRESSE WHERE ADRESSE='" + c_adrLivr1 + "' AND CLIENT.ID_CLIENT='" + c_num + "'";
+			cmd = gcnew MySqlCommand(requete, con);
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
+
+			requete = "INSERT INTO CLIENT VALUES ('', (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_dateNaissance + "'), (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_date1achat + "'), '" + c_nom + "', '" + c_prenom + "'); ";
+			cmd = gcnew MySqlCommand(requete, con);
+			con->Open();
+			dr = cmd->ExecuteReader();
+			con->Close();
+			
 		}
 		catch (Exception^ ex)
 		{
@@ -242,7 +255,7 @@ namespace ClassCat {
 
 	void Client::Modifier() {
 
-		if (c_adrFact2 == "" && c_adrLivr2 == "") {
+		if ((c_adrFact2 == "" && c_adrLivr2 == "") || (c_adrFact2 == "numéroRue nomRue, ville, codePostal" && c_adrLivr2 == "numéroRue nomRue, ville, codePostal")) {
 
 			try
 			{
@@ -270,13 +283,19 @@ namespace ClassCat {
 				dr = cmd->ExecuteReader();
 				con->Close();
 
-				requete = "INSERT INTO FACTURER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM DATE, CLIENT, ADRESSE WHERE ADRESSE='" + c_adrFact1 + "' AND ID_CLIENT='" + c_num + "'";
+				requete = "INSERT INTO FACTURER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM CLIENT, ADRESSE WHERE ADRESSE='" + c_adrFact1 + "' AND CLIENT.ID_CLIENT='" + c_num + "'";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
 				con->Close();
 
-				requete = "INSERT INTO LIVRER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM DATE, CLIENT, ADRESSE WHERE ADRESSE='" + c_adrLivr1 + "' AND ID_CLIENT='" + c_num + "'";
+				requete = "INSERT INTO LIVRER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM CLIENT, ADRESSE WHERE ADRESSE='" + c_adrLivr1 + "' AND CLIENT.ID_CLIENT='" + c_num + "'";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO CLIENT VALUES ('', (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_dateNaissance + "'), (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_date1achat + "'), '" + c_nom + "', '" + c_prenom + "'); ";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
@@ -287,121 +306,7 @@ namespace ClassCat {
 				MessageBox::Show(ex->Message);
 			}
 		}
-		else if (c_adrFact2 != "") {
-
-			try
-			{
-				requete = "INSERT INTO DATE SELECT '','" + c_dateNaissance + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + c_dateNaissance + "')";
-				cmd = gcnew MySqlCommand(requete, con);
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-
-				requete = "INSERT INTO DATE SELECT '','" + c_date1achat + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + c_date1achat + "')";
-				cmd = gcnew MySqlCommand(requete, con);
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-
-				requete = "INSERT INTO ADRESSE SELECT '','" + c_adrFact1 + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + c_adrFact1 + "')";
-				cmd = gcnew MySqlCommand(requete, con);
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-
-				requete = "INSERT INTO ADRESSE SELECT '','" + c_adrFact2 + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + c_adrFact2 + "')";
-				cmd = gcnew MySqlCommand(requete, con);
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-
-				requete = "INSERT INTO ADRESSE SELECT '','" + c_adrLivr1 + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + c_adrLivr1 + "')";
-				cmd = gcnew MySqlCommand(requete, con);
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-
-				requete = "INSERT INTO FACTURER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM DATE, CLIENT, ADRESSE WHERE ADRESSE='" + c_adrFact1 + "' AND ID_CLIENT='" + c_num + "'";
-				cmd = gcnew MySqlCommand(requete, con);
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-
-				requete = "INSERT INTO FACTURER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM DATE, CLIENT, ADRESSE WHERE ADRESSE='" + c_adrFact2 + "' AND ID_CLIENT='" + c_num + "'";
-				cmd = gcnew MySqlCommand(requete, con);
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-
-				requete = "INSERT INTO LIVRER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM DATE, CLIENT, ADRESSE WHERE ADRESSE='" + c_adrLivr1 + "' AND ID_CLIENT='" + c_num + "'";
-				cmd = gcnew MySqlCommand(requete, con);
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-			}
-			catch (Exception^ ex)
-			{
-				MessageBox::Show(ex->Message);
-			}
-		}
-		else if (c_adrLivr2 != "") {
-
-			try
-			{
-				requete = "INSERT INTO DATE SELECT '','" + c_dateNaissance + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + c_dateNaissance + "')";
-				cmd = gcnew MySqlCommand(requete, con);
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-
-				requete = "INSERT INTO DATE SELECT '','" + c_date1achat + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + c_date1achat + "')";
-				cmd = gcnew MySqlCommand(requete, con);
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-
-				requete = "INSERT INTO ADRESSE SELECT '','" + c_adrFact1 + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + c_adrFact1 + "')";
-				cmd = gcnew MySqlCommand(requete, con);
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-
-				requete = "INSERT INTO ADRESSE SELECT '','" + c_adrLivr1 + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + c_adrLivr1 + "')";
-				cmd = gcnew MySqlCommand(requete, con);
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-
-				requete = "INSERT INTO ADRESSE SELECT '','" + c_adrLivr2 + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + c_adrLivr2 + "')";
-				cmd = gcnew MySqlCommand(requete, con);
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-
-				requete = "INSERT INTO FACTURER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM DATE, CLIENT, ADRESSE WHERE ADRESSE='" + c_adrFact1 + "' AND ID_CLIENT='" + c_num + "'";
-				cmd = gcnew MySqlCommand(requete, con);
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-
-				requete = "INSERT INTO LIVRER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM DATE, CLIENT, ADRESSE WHERE ADRESSE='" + c_adrLivr1 + "' AND ID_CLIENT='" + c_num + "'";
-				cmd = gcnew MySqlCommand(requete, con);
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-
-				requete = "INSERT INTO LIVRER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM DATE, CLIENT, ADRESSE WHERE ADRESSE='" + c_adrLivr2 + "' AND ID_CLIENT='" + c_num + "'";
-				cmd = gcnew MySqlCommand(requete, con);
-				con->Open();
-				dr = cmd->ExecuteReader();
-				con->Close();
-			}
-			catch (Exception^ ex)
-			{
-				MessageBox::Show(ex->Message);
-			}
-		}
-		else {
+		else if ((c_adrFact2 != "" && c_adrLivr2 != "") || (c_adrFact2 != "numéroRue nomRue, ville, codePostal" && c_adrLivr2 != "numéroRue nomRue, ville, codePostal")) {
 
 			try
 			{
@@ -441,25 +346,31 @@ namespace ClassCat {
 				dr = cmd->ExecuteReader();
 				con->Close();
 
-				requete = "INSERT INTO FACTURER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM DATE, CLIENT, ADRESSE WHERE ADRESSE='" + c_adrFact1 + "' AND ID_CLIENT='" + c_num + "'";
+				requete = "INSERT INTO FACTURER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM CLIENT, ADRESSE WHERE ADRESSE='" + c_adrFact1 + "' AND CLIENT.ID_CLIENT='" + c_num + "'";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
 				con->Close();
 
-				requete = "INSERT INTO FACTURER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM DATE, CLIENT, ADRESSE WHERE ADRESSE='" + c_adrFact2 + "' AND ID_CLIENT='" + c_num + "'";
+				requete = "INSERT INTO FACTURER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM CLIENT, ADRESSE WHERE ADRESSE='" + c_adrFact2 + "' AND CLIENT.ID_CLIENT='" + c_num + "'";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
 				con->Close();
 
-				requete = "INSERT INTO LIVRER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM DATE, CLIENT, ADRESSE WHERE ADRESSE='" + c_adrLivr1 + "' AND ID_CLIENT='" + c_num + "'";
+				requete = "INSERT INTO LIVRER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM CLIENT, ADRESSE WHERE ADRESSE='" + c_adrLivr1 + "' AND CLIENT.ID_CLIENT='" + c_num + "'";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
 				con->Close();
 
-				requete = "INSERT INTO LIVRER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM DATE, CLIENT, ADRESSE WHERE ADRESSE='" + c_adrLivr2 + "' AND ID_CLIENT='" + c_num + "'";
+				requete = "INSERT INTO LIVRER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM CLIENT, ADRESSE WHERE ADRESSE='" + c_adrLivr2 + "' AND CLIENT.ID_CLIENT='" + c_num + "'";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO CLIENT VALUES ('', (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_dateNaissance + "'), (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_date1achat + "'), '" + c_nom + "', '" + c_prenom + "'); ";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
@@ -470,6 +381,133 @@ namespace ClassCat {
 				MessageBox::Show(ex->Message);
 			}
 		}
+		else if (c_adrFact2 != "" || c_adrFact2 != "numéroRue nomRue, ville, codePostal") {
+
+			try
+			{
+				requete = "INSERT INTO DATE SELECT '','" + c_dateNaissance + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + c_dateNaissance + "')";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO DATE SELECT '','" + c_date1achat + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + c_date1achat + "')";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO ADRESSE SELECT '','" + c_adrFact1 + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + c_adrFact1 + "')";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO ADRESSE SELECT '','" + c_adrFact2 + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + c_adrFact2 + "')";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO ADRESSE SELECT '','" + c_adrLivr1 + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + c_adrLivr1 + "')";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO FACTURER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM CLIENT, ADRESSE WHERE ADRESSE='" + c_adrFact1 + "' AND CLIENT.ID_CLIENT='" + c_num + "'";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO FACTURER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM CLIENT, ADRESSE WHERE ADRESSE='" + c_adrFact2 + "' AND CLIENT.ID_CLIENT='" + c_num + "'";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO LIVRER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM CLIENT, ADRESSE WHERE ADRESSE='" + c_adrLivr1 + "' AND CLIENT.ID_CLIENT='" + c_num + "'";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO CLIENT VALUES ('', (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_dateNaissance + "'), (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_date1achat + "'), '" + c_nom + "', '" + c_prenom + "'); ";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
+		}
+		else if (c_adrLivr2 != "" || c_adrLivr2 != "numéroRue nomRue, ville, codePostal") {
+
+			try
+			{
+				requete = "INSERT INTO DATE SELECT '','" + c_dateNaissance + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + c_dateNaissance + "')";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO DATE SELECT '','" + c_date1achat + "' WHERE NOT EXISTS (SELECT * FROM DATE WHERE DATE='" + c_date1achat + "')";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO ADRESSE SELECT '','" + c_adrFact1 + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + c_adrFact1 + "')";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO ADRESSE SELECT '','" + c_adrLivr1 + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + c_adrLivr1 + "')";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO ADRESSE SELECT '','" + c_adrLivr2 + "' WHERE NOT EXISTS (SELECT * FROM ADRESSE WHERE ADRESSE='" + c_adrLivr2 + "')";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO FACTURER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM CLIENT, ADRESSE WHERE ADRESSE='" + c_adrFact1 + "' AND CLIENT.ID_CLIENT='" + c_num + "'";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO LIVRER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM CLIENT, ADRESSE WHERE ADRESSE='" + c_adrLivr1 + "' AND CLIENT.ID_CLIENT='" + c_num + "'";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO LIVRER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM CLIENT, ADRESSE WHERE ADRESSE='" + c_adrLivr2 + "' AND CLIENT.ID_CLIENT='" + c_num + "'";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+
+				requete = "INSERT INTO CLIENT VALUES ('', (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_dateNaissance + "'), (SELECT ID_DATE FROM DATE WHERE DATE = '" + c_date1achat + "'), '" + c_nom + "', '" + c_prenom + "'); ";
+				cmd = gcnew MySqlCommand(requete, con);
+				con->Open();
+				dr = cmd->ExecuteReader();
+				con->Close();
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show(ex->Message);
+			}
+		}
+		
 	}
 
 
@@ -518,7 +556,7 @@ namespace ClassCat {
 				dr = cmd->ExecuteReader();
 				con->Close();
 
-				requete = "INSERT INTO FACTURER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM DATE, CLIENT, ADRESSE WHERE ADRESSE='" + c_adrFact2 + "' AND ID_CLIENT='" + c_num + "'";
+				requete = "INSERT INTO FACTURER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM CLIENT, ADRESSE WHERE ADRESSE='" + c_adrFact2 + "' AND CLIENT.ID_CLIENT='" + c_num + "'";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
@@ -539,7 +577,7 @@ namespace ClassCat {
 				dr = cmd->ExecuteReader();
 				con->Close();
 
-				requete = "INSERT INTO LIVRER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM DATE, CLIENT, ADRESSE WHERE ADRESSE='" + c_adrLivr2 + "' AND ID_CLIENT='" + c_num + "'";
+				requete = "INSERT INTO LIVRER SELECT CLIENT.ID_CLIENT, ADRESSE.ID_ADRESSE FROM CLIENT, ADRESSE WHERE ADRESSE='" + c_adrLivr2 + "' AND CLIENT.ID_CLIENT='" + c_num + "'";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
@@ -566,21 +604,18 @@ namespace ClassCat {
 		co_ref = ref;
 	}
 
-	Commande::Commande(String^ ref, String^ dateLiv, String^ dateEmi, String^ datePaie, String^ moyPaie, String^ dateReg, String^ refArt, String^ quantiteArt, String^ totalArt, String^ totalHT, String^ totalTVA, String^ totalTTC) {
+	Commande::Commande(String^ ref, String^ numClient, String^ dateLivr, String^ dateEmi, String^ datePaie, String^ moyPaie, String^ refArt, String^ quantiteArt) {
 
 		Categorie();
 		co_ref = ref;
-		co_dateLiv = dateLiv;
+		co_numClient = numClient;
+		co_dateLiv = dateLivr;
 		co_dateEmi = dateEmi;
 		co_datePaie = datePaie;
 		co_moyPaie = moyPaie;
-		co_dateReg = dateReg;
 		co_refArt = refArt;
 		co_quantiteArt = quantiteArt;
-		co_totalArt = totalArt;
-		co_totalHT = totalHT;
-		co_totalTVA = totalTVA;
-		co_totalTTC = totalTTC;
+
 	}
 
 

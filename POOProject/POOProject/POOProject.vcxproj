@@ -127,6 +127,8 @@
     <ClCompile Include="ClientAjouterAdresseForm.cpp" />
     <ClCompile Include="ClientsAjouterForm.cpp" />
     <ClCompile Include="ClientsModifierForm.cpp" />
+    <ClCompile Include="CommandeAjouterForm.cpp" />
+    <ClCompile Include="CommandeModifierForm.cpp" />
     <ClCompile Include="ConnectionForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="PersonnelAjouterForm.cpp" />
@@ -143,6 +145,12 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="ClientsModifierForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="CommandeAjouterForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="CommandeModifierForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="ConnectionForm.h">
@@ -173,6 +181,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ClientsModifierForm.resx">
       <DependentUpon>ClientsModifierForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandeAjouterForm.resx">
+      <DependentUpon>CommandeAjouterForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandeModifierForm.resx">
+      <DependentUpon>CommandeModifierForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConnectionForm.resx">
       <DependentUpon>ConnectionForm.h</DependentUpon>

@@ -26,22 +26,22 @@ namespace POOProject {
 			
 			if (this->STATE == 1) {
 
-				label1->Text = "Adresse Fact";
-				label2->Visible = false;
-				textBoxAdrLivr->Visible = false;
-				ClientSize = System::Drawing::Size(512, 156);
-				buttonAjouter->Location = System::Drawing::Point(411, 68);
-				buttonAnnuler->Location = System::Drawing::Point(299, 68);
+				this->label1->Text = "Adresse Fact";
+				this->label2->Visible = false;
+				this->textBoxAdrLivr->Visible = false;
+				this->ClientSize = System::Drawing::Size(512, 156);
+				this->buttonAjouter->Location = System::Drawing::Point(411, 68);
+				this->buttonAnnuler->Location = System::Drawing::Point(299, 68);
 			}
 			else if (this->STATE == 2) {
 
-				label1->Text = "Adresse Livr";
-				label2->Visible = false;
-				textBoxAdrFact->Visible = false;
-				ClientSize = System::Drawing::Size(512, 156);
-				buttonAjouter->Location = System::Drawing::Point(411, 68);
-				buttonAnnuler->Location = System::Drawing::Point(299, 68);
-				textBoxAdrLivr->Location = System::Drawing::Point(168, 8);
+				this->label1->Text = "Adresse Livr";
+				this->label2->Visible = false;
+				this->textBoxAdrFact->Visible = false;
+				this->ClientSize = System::Drawing::Size(512, 156);
+				this->buttonAjouter->Location = System::Drawing::Point(411, 68);
+				this->buttonAnnuler->Location = System::Drawing::Point(299, 68);
+				this->textBoxAdrLivr->Location = System::Drawing::Point(168, 8);
 			}
 		}
 
@@ -218,6 +218,8 @@ namespace POOProject {
 			Client monClient(this->NUM, adrLivr, 0);
 			monClient.AjouterAdresse(this->STATE);
 		}
+
+		this->Hide();
 		
 
 	}

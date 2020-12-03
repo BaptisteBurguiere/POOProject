@@ -104,14 +104,16 @@ namespace ClassCat {
 	public:
 
 		Commande(String^ ref);
-		Commande(String^ ref, String^ dateLiv, String^ dateEmi, String^ datePaie, String^ moyPaie, String^ dateReg, String^ refArt, String^ quantiteArt, String^ totalArt, String^ totalHT, String^ totalTVA, String^ totalTTC);
+		Commande(String^ ref, String^ numClient, String^ dateLivr, String^ dateEmi, String^ datePaie, String^ moyPaie, String^ refArt, String^ quantiteArt);
 		void Ajouter();
 		void Modifier();
 		void Supprimer();
 
 	protected:
 
+		String^ co_IDCommande;
 		String^ co_ref;
+		String^ co_numClient;
 		String^ co_dateLiv;
 		String^ co_dateEmi;
 		String^ co_datePaie;
@@ -123,6 +125,7 @@ namespace ClassCat {
 		String^ co_totalHT;
 		String^ co_totalTVA;
 		String^ co_totalTTC;
+		String^ co_remise;
 	};
 
 
