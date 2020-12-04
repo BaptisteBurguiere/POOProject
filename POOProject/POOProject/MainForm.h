@@ -160,6 +160,7 @@ private: System::Windows::Forms::Button^ buttonStatValeurAchatStock;
 
 
 private: System::Windows::Forms::Button^ buttonStatPlusVendus;
+private: System::Windows::Forms::Button^ buttonStatMoinsVendus;
 
 
 
@@ -250,6 +251,7 @@ private: System::Windows::Forms::Button^ buttonStatPlusVendus;
 			this->buttonStatProdReapro = (gcnew System::Windows::Forms::Button());
 			this->buttonStatValeurAchatStock = (gcnew System::Windows::Forms::Button());
 			this->buttonStatPlusVendus = (gcnew System::Windows::Forms::Button());
+			this->buttonStatMoinsVendus = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bindingSource1))->BeginInit();
 			this->panelPersonnel->SuspendLayout();
@@ -857,13 +859,14 @@ private: System::Windows::Forms::Button^ buttonStatPlusVendus;
 			// 
 			// panelStatistiques
 			// 
+			this->panelStatistiques->Controls->Add(this->buttonStatMoinsVendus);
 			this->panelStatistiques->Controls->Add(this->buttonStatPanierMoy);
 			this->panelStatistiques->Controls->Add(this->buttonStatProdReapro);
 			this->panelStatistiques->Controls->Add(this->buttonStatValeurAchatStock);
 			this->panelStatistiques->Controls->Add(this->buttonStatPlusVendus);
 			this->panelStatistiques->Location = System::Drawing::Point(15, 110);
 			this->panelStatistiques->Name = L"panelStatistiques";
-			this->panelStatistiques->Size = System::Drawing::Size(263, 136);
+			this->panelStatistiques->Size = System::Drawing::Size(263, 178);
 			this->panelStatistiques->TabIndex = 28;
 			this->panelStatistiques->Visible = false;
 			// 
@@ -903,7 +906,7 @@ private: System::Windows::Forms::Button^ buttonStatPlusVendus;
 			this->buttonStatValeurAchatStock->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonStatValeurAchatStock->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonStatValeurAchatStock->Location = System::Drawing::Point(3, 102);
+			this->buttonStatValeurAchatStock->Location = System::Drawing::Point(3, 69);
 			this->buttonStatValeurAchatStock->Name = L"buttonStatValeurAchatStock";
 			this->buttonStatValeurAchatStock->Size = System::Drawing::Size(208, 27);
 			this->buttonStatValeurAchatStock->TabIndex = 11;
@@ -918,13 +921,28 @@ private: System::Windows::Forms::Button^ buttonStatPlusVendus;
 			this->buttonStatPlusVendus->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->buttonStatPlusVendus->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonStatPlusVendus->Location = System::Drawing::Point(3, 69);
+			this->buttonStatPlusVendus->Location = System::Drawing::Point(6, 102);
 			this->buttonStatPlusVendus->Name = L"buttonStatPlusVendus";
 			this->buttonStatPlusVendus->Size = System::Drawing::Size(161, 27);
 			this->buttonStatPlusVendus->TabIndex = 10;
 			this->buttonStatPlusVendus->Text = L"Top 10 plus vendus";
 			this->buttonStatPlusVendus->UseVisualStyleBackColor = true;
 			this->buttonStatPlusVendus->Click += gcnew System::EventHandler(this, &MainForm::buttonStatPlusVendus_Click);
+			// 
+			// buttonStatMoinsVendus
+			// 
+			this->buttonStatMoinsVendus->FlatAppearance->BorderSize = 0;
+			this->buttonStatMoinsVendus->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->buttonStatMoinsVendus->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->buttonStatMoinsVendus->Location = System::Drawing::Point(3, 135);
+			this->buttonStatMoinsVendus->Name = L"buttonStatMoinsVendus";
+			this->buttonStatMoinsVendus->Size = System::Drawing::Size(208, 27);
+			this->buttonStatMoinsVendus->TabIndex = 15;
+			this->buttonStatMoinsVendus->Text = L"Top 10 moins vendus";
+			this->buttonStatMoinsVendus->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->buttonStatMoinsVendus->UseVisualStyleBackColor = true;
+			this->buttonStatMoinsVendus->Click += gcnew System::EventHandler(this, &MainForm::buttonStatMoinsVendus_Click);
 			// 
 			// MainForm
 			// 
@@ -1632,8 +1650,21 @@ private: System::Windows::Forms::Button^ buttonStatPlusVendus;
 // -------------------------------------------    Produits seuil réapro    -----------------------------------------------------------------
 
 	private: System::Void buttonStatProdReapro_Click(System::Object^ sender, System::EventArgs^ e) {
-	
-	
+		
+		try {
+
+			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
+			MySqlConnection^ con = gcnew MySqlConnection(constr);
+			MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ARTNOM as Article, ARTSTOCKT as Stock FROM ARTICLE WHERE ARTSTOCKT<ARTSEUIL", con);
+			DataTable^ dt = gcnew DataTable();
+			sda->Fill(dt);
+			bindingSource1->DataSource = dt;
+			dataGridView1->DataSource = bindingSource1;
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
 	}
 
 
@@ -1641,8 +1672,20 @@ private: System::Windows::Forms::Button^ buttonStatPlusVendus;
 
 	private: System::Void buttonStatValeurAchatStock_Click(System::Object^ sender, System::EventArgs^ e) {
 	
-	
-	
+		try {
+
+			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
+			MySqlConnection^ con = gcnew MySqlConnection(constr);
+			MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT SUM((ARTPRIXHT+ARTPRIXHT*ARTTVA)*ARTSTOCKT) AS 'Valeur achat' FROM ARTICLE", con);
+			DataTable^ dt = gcnew DataTable();
+			sda->Fill(dt);
+			bindingSource1->DataSource = dt;
+			dataGridView1->DataSource = bindingSource1;
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
 	}
 
 
@@ -1650,8 +1693,43 @@ private: System::Windows::Forms::Button^ buttonStatPlusVendus;
 
 	private: System::Void buttonStatPlusVendus_Click(System::Object^ sender, System::EventArgs^ e) {
 	
+		try {
+
+			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
+			MySqlConnection^ con = gcnew MySqlConnection(constr);
+			MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ARTNOM as Article, SUM(QUANTART) as 'Nombres de ventes' FROM COMMANDE, ARTICLE WHERE ARTICLE.ID_ARTICLE=COMMANDE.ID_ARTICLE GROUP BY ARTICLE ORDER BY SUM(QUANTART) DESC LIMIT 10", con);
+			DataTable^ dt = gcnew DataTable();
+			sda->Fill(dt);
+			bindingSource1->DataSource = dt;
+			dataGridView1->DataSource = bindingSource1;
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
+	}
+
+
+
+// -------------------------------------    top 10 des Produits les moins vendus    ---------------------------------------------------------
+
+	private: System::Void buttonStatMoinsVendus_Click(System::Object^ sender, System::EventArgs^ e) {
 	
 	
+		try {
+
+			String^ constr = "Server=51.75.246.94;Uid=project_team;Pwd=UeKXm3VYEQTe;Database=TEST3 groupe 3";
+			MySqlConnection^ con = gcnew MySqlConnection(constr);
+			MySqlDataAdapter^ sda = gcnew MySqlDataAdapter("SELECT ARTNOM as Article, SUM(QUANTART) as 'Nombres de ventes' FROM COMMANDE, ARTICLE WHERE ARTICLE.ID_ARTICLE=COMMANDE.ID_ARTICLE GROUP BY ARTICLE ORDER BY SUM(QUANTART) LIMIT 10", con);
+			DataTable^ dt = gcnew DataTable();
+			sda->Fill(dt);
+			bindingSource1->DataSource = dt;
+			dataGridView1->DataSource = bindingSource1;
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
 	}
 
 };

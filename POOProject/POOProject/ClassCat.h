@@ -22,7 +22,7 @@ namespace ClassCat {
 		String^ requete;
 		MySqlConnection^ con;
 		MySqlCommand^ cmd;
-		MySqlDataReader^ dr;;
+		MySqlDataReader^ dr;
 	};
 
 
