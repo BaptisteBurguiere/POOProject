@@ -11,6 +11,7 @@
 namespace POOProject {
 
 	using namespace System;
+	using namespace System::Globalization;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
 	using namespace System::Windows::Forms;
@@ -247,11 +248,11 @@ private: System::Windows::Forms::Button^ buttonStatMoinsVendus;
 			this->textBoxStockRef = (gcnew System::Windows::Forms::TextBox());
 			this->label37 = (gcnew System::Windows::Forms::Label());
 			this->panelStatistiques = (gcnew System::Windows::Forms::Panel());
+			this->buttonStatMoinsVendus = (gcnew System::Windows::Forms::Button());
 			this->buttonStatPanierMoy = (gcnew System::Windows::Forms::Button());
 			this->buttonStatProdReapro = (gcnew System::Windows::Forms::Button());
 			this->buttonStatValeurAchatStock = (gcnew System::Windows::Forms::Button());
 			this->buttonStatPlusVendus = (gcnew System::Windows::Forms::Button());
-			this->buttonStatMoinsVendus = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->bindingSource1))->BeginInit();
 			this->panelPersonnel->SuspendLayout();
@@ -870,6 +871,21 @@ private: System::Windows::Forms::Button^ buttonStatMoinsVendus;
 			this->panelStatistiques->TabIndex = 28;
 			this->panelStatistiques->Visible = false;
 			// 
+			// buttonStatMoinsVendus
+			// 
+			this->buttonStatMoinsVendus->FlatAppearance->BorderSize = 0;
+			this->buttonStatMoinsVendus->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->buttonStatMoinsVendus->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->buttonStatMoinsVendus->Location = System::Drawing::Point(3, 135);
+			this->buttonStatMoinsVendus->Name = L"buttonStatMoinsVendus";
+			this->buttonStatMoinsVendus->Size = System::Drawing::Size(208, 27);
+			this->buttonStatMoinsVendus->TabIndex = 15;
+			this->buttonStatMoinsVendus->Text = L"Top 10 moins vendus";
+			this->buttonStatMoinsVendus->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->buttonStatMoinsVendus->UseVisualStyleBackColor = true;
+			this->buttonStatMoinsVendus->Click += gcnew System::EventHandler(this, &MainForm::buttonStatMoinsVendus_Click);
+			// 
 			// buttonStatPanierMoy
 			// 
 			this->buttonStatPanierMoy->FlatAppearance->BorderSize = 0;
@@ -928,21 +944,6 @@ private: System::Windows::Forms::Button^ buttonStatMoinsVendus;
 			this->buttonStatPlusVendus->Text = L"Top 10 plus vendus";
 			this->buttonStatPlusVendus->UseVisualStyleBackColor = true;
 			this->buttonStatPlusVendus->Click += gcnew System::EventHandler(this, &MainForm::buttonStatPlusVendus_Click);
-			// 
-			// buttonStatMoinsVendus
-			// 
-			this->buttonStatMoinsVendus->FlatAppearance->BorderSize = 0;
-			this->buttonStatMoinsVendus->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->buttonStatMoinsVendus->Font = (gcnew System::Drawing::Font(L"Consolas", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->buttonStatMoinsVendus->Location = System::Drawing::Point(3, 135);
-			this->buttonStatMoinsVendus->Name = L"buttonStatMoinsVendus";
-			this->buttonStatMoinsVendus->Size = System::Drawing::Size(208, 27);
-			this->buttonStatMoinsVendus->TabIndex = 15;
-			this->buttonStatMoinsVendus->Text = L"Top 10 moins vendus";
-			this->buttonStatMoinsVendus->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
-			this->buttonStatMoinsVendus->UseVisualStyleBackColor = true;
-			this->buttonStatMoinsVendus->Click += gcnew System::EventHandler(this, &MainForm::buttonStatMoinsVendus_Click);
 			// 
 			// MainForm
 			// 
@@ -1731,6 +1732,5 @@ private: System::Windows::Forms::Button^ buttonStatMoinsVendus;
 			MessageBox::Show(ex->Message);
 		}
 	}
-
 };
 }

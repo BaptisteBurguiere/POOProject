@@ -72,7 +72,7 @@ namespace ClassCat {
 		Client(String^ nom, String^ prenom, String^ adrFact, String^ adrLiv, String^ dateNaissance, String^ date1achat);
 		Client(String^ num, String^ nom, String^ prenom, String^ adrFact, String^ adrFact2, String^ adrLiv, String^ adrLiv2, String^ dateNaissance, String^ date1achat);
 		void Ajouter();
-		void Modifier(String^ ancAdrFact2, String^ ancAdrLivr2);
+		void Modifier(String^ ancAdrFact1, String^ ancAdrFact2, String^ ancAdrLivr1, String^ ancAdrLivr2);
 		void Supprimer();
 		void AjouterAdresse(int state);
 
@@ -117,7 +117,6 @@ namespace ClassCat {
 		String^ co_dateEmi;
 		String^ co_datePaie;
 		String^ co_moyPaie;
-		String^ co_dateReg;
 		String^ co_refArt;
 		String^ co_quantiteArt;
 		String^ co_totalArt;

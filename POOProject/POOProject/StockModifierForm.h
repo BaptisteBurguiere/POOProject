@@ -5,6 +5,7 @@ namespace POOProject {
 
 	using namespace ClassCat;
 	using namespace System;
+	using namespace System::Globalization;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
 	using namespace System::Windows::Forms;
@@ -40,8 +41,8 @@ namespace POOProject {
 					textBoxCouleur->Text = dr->GetString(2);
 					textBoxQuantiteStock->Text = dr->GetString(3);
 					textBoxSeuilReapro->Text = dr->GetString(4);
-					textBoxPrixHT->Text = dr->GetString(5);
-					textBoxTauxTVA->Text = dr->GetString(6);
+					textBoxPrixHT->Text = (dr->GetFloat(5)).ToString(CultureInfo::InvariantCulture);
+					textBoxTauxTVA->Text = (dr->GetFloat(6)).ToString(CultureInfo::InvariantCulture);
 				}
 				con->Close();
 			}

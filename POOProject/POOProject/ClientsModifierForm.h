@@ -39,6 +39,7 @@ namespace POOProject {
 				while (dr->Read()) {
 
 					textBoxAdrFact1->Text = dr->GetString(0);
+					this->ANCADRFACT1 = textBoxAdrFact1->Text;
 				}
 				con->Close();
 
@@ -61,6 +62,7 @@ namespace POOProject {
 				while (dr->Read()) {
 
 					textBoxAdrLivr1->Text = dr->GetString(0);
+					this->ANCADRLIVR1 = textBoxAdrLivr1->Text;
 				}
 				con->Close();
 
@@ -137,6 +139,8 @@ namespace POOProject {
 	protected:
 
 		String^ NUM;
+		String^ ANCADRFACT1;
+		String^ ANCADRLIVR1;
 		String^ ANCADRFACT2;
 		String^ ANCADRLIVR2;
 
@@ -485,7 +489,7 @@ namespace POOProject {
 		else {
 
 			Client monClient(this->NUM, nom, prenom, adrFact, adrFact2, adrLivr, adrLivr2, dateNaiss, date1er);
-			monClient.Modifier(this->ANCADRFACT2, this->ANCADRLIVR2);
+			monClient.Modifier(this->ANCADRFACT1, this->ANCADRFACT2, this->ANCADRLIVR1, this->ANCADRLIVR2);
 
 			this->Hide();
 		}
