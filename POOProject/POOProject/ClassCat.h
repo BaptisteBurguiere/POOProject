@@ -72,7 +72,7 @@ namespace ClassCat {
 		Client(String^ nom, String^ prenom, String^ adrFact, String^ adrLiv, String^ dateNaissance, String^ date1achat);
 		Client(String^ num, String^ nom, String^ prenom, String^ adrFact, String^ adrFact2, String^ adrLiv, String^ adrLiv2, String^ dateNaissance, String^ date1achat);
 		void Ajouter();
-		void Modifier();
+		void Modifier(String^ ancAdrFact2, String^ ancAdrLivr2);
 		void Supprimer();
 		void AjouterAdresse(int state);
 

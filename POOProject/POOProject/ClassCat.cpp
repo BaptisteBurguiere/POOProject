@@ -244,13 +244,13 @@ namespace ClassCat {
 
 	// -------------------------------------------------------       Modifier       -------------------------------------------------------
 
-	void Client::Modifier() {
+	void Client::Modifier(String^ ancAdrFact2, String^ ancAdrLivr2) {
 
 		if (c_adrFact2 == "") {
 
 			try
 			{
-				requete = "DELETE FROM FACTURER WHERE ID_ADRESSE='" + c_adrFact2 + "'";
+				requete = "DELETE FROM FACTURER WHERE FACTURER.ID_ADRESSE=(SELECT ID_ADRESSE FROM ADRESSE WHERE ADRESSE.ADRESSE='" + ancAdrFact2 + "') AND ID_CLIENT = '" + c_num + "'";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
@@ -265,7 +265,7 @@ namespace ClassCat {
 
 			try
 			{
-				requete = "DELETE FROM LIVRER WHERE ID_ADRESSE='" + c_adrLivr2 + "'";
+				requete = "DELETE FROM LIVRER WHERE LIVRER.ID_ADRESSE=(SELECT ID_ADRESSE FROM ADRESSE WHERE ADRESSE.ADRESSE='" + ancAdrLivr2 + "') AND ID_CLIENT = '" + c_num + "'";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
@@ -305,7 +305,7 @@ namespace ClassCat {
 				dr = cmd->ExecuteReader();
 				con->Close();
 
-				requete = "UPDATE CLIENT SET ID_DATEEN=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_dateNaissance + "'), ID_DATE1ER=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_date1achat + "'), CLINOM='" + c_nom + "', CLIPRENOM='" + c_prenom + "' WHERE ID_CLIENT='" + c_num + "'";
+				requete = "UPDATE CLIENT SET ID_DATEN=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_dateNaissance + "'), ID_DATE1ER=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_date1achat + "'), CLINOM='" + c_nom + "', CLIPRENOM='" + c_prenom + "' WHERE ID_CLIENT='" + c_num + "'";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
@@ -371,7 +371,7 @@ namespace ClassCat {
 				dr = cmd->ExecuteReader();
 				con->Close();
 
-				requete = "UPDATE CLIENT SET ID_DATEEN=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_dateNaissance + "'), ID_DATE1ER=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_date1achat + "'), CLINOM='" + c_nom + "', CLIPRENOM='" + c_prenom + "' WHERE ID_CLIENT='" + c_num + "'";
+				requete = "UPDATE CLIENT SET ID_DATEN=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_dateNaissance + "'), ID_DATE1ER=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_date1achat + "'), CLINOM='" + c_nom + "', CLIPRENOM='" + c_prenom + "' WHERE ID_CLIENT='" + c_num + "'";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
@@ -440,7 +440,7 @@ namespace ClassCat {
 				dr = cmd->ExecuteReader();
 				con->Close();
 
-				requete = "UPDATE CLIENT SET ID_DATEEN=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_dateNaissance + "'), ID_DATE1ER=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_date1achat + "'), CLINOM='" + c_nom + "', CLIPRENOM='" + c_prenom + "' WHERE ID_CLIENT='" + c_num + "'";
+				requete = "UPDATE CLIENT SET ID_DATEN=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_dateNaissance + "'), ID_DATE1ER=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_date1achat + "'), CLINOM='" + c_nom + "', CLIPRENOM='" + c_prenom + "' WHERE ID_CLIENT='" + c_num + "'";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
@@ -503,7 +503,7 @@ namespace ClassCat {
 				dr = cmd->ExecuteReader();
 				con->Close();
 
-				requete = "UPDATE CLIENT SET ID_DATEEN=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_dateNaissance + "'), ID_DATE1ER=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_date1achat + "'), CLINOM='" + c_nom + "', CLIPRENOM='" + c_prenom + "' WHERE ID_CLIENT='" + c_num + "'";
+				requete = "UPDATE CLIENT SET ID_DATEN=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_dateNaissance + "'), ID_DATE1ER=(SELECT DATE.ID_DATE FROM DATE WHERE DATE.DATE='" + c_date1achat + "'), CLINOM='" + c_nom + "', CLIPRENOM='" + c_prenom + "' WHERE ID_CLIENT='" + c_num + "'";
 				cmd = gcnew MySqlCommand(requete, con);
 				con->Open();
 				dr = cmd->ExecuteReader();
